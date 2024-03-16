@@ -100,7 +100,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           home: ref.watch(userStateStreamProvider).when(
               data: (user) {
                 if (user != null) {
-                  return const MainMenuScreen();
+                  return const DoctorMainMenuScreen();
                 } else {
                   return const SplashScreen();
                 }

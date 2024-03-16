@@ -34,6 +34,7 @@ class MyColors {
   static const Color lightTitleColor = Color(0xFF000000);
   static const Color lightTextColor = Color(0xFF000000);
   static const Color lightLightTextColor = Color(0xFF666666);
+  static const Color lightGreyColor = Color(0xFFAAAAAA);
   static const Color lightContainerColor = Color(0xFFD9D9D9);
   static const Color lightButtonTextColor = Color(0xFFFFFFFF);
 

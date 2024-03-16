@@ -65,7 +65,6 @@ class LogoutDialog extends ConsumerWidget {
                       buttonWidth: 130.w,
                       onPressed: () {
                         Navigator.pop(context);
-                        ref.read(profileNotifierCtr).setIsDeleteAccount(false);
                       },
                       textColor: MyColors.appColor1,
                       buttonText: 'Cancel'),
@@ -75,7 +74,7 @@ class LogoutDialog extends ConsumerWidget {
                       buttonHeight: 38.h,
                       buttonWidth: 130.w,
                       onPressed: () async {
-                        await ref
+                        ref
                             .watch(authControllerProvider.notifier)
                             .logout(context: context);
                       },

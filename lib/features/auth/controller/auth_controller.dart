@@ -24,6 +24,11 @@ final authControllerProvider =
   );
 });
 
+final userDataAuthProvider = FutureProvider<UserModel?>((ref) {
+  final authCtr = ref.watch(authControllerProvider.notifier);
+  return authCtr.getUserData();
+});
+
 final userStateStreamProvider = StreamProvider((ref) {
   final authProvider = ref.watch(authControllerProvider.notifier);
   return authProvider.getSigninStatusOfUser();
@@ -228,9 +233,19 @@ class AuthController extends StateNotifier<bool> {
       if (mounted) {
         accountType == 'Doctor'
             ? Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutes.availabiltyScreen, (route) => false)
-            : Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutes.mainMenuScreen, (route) => false);
+                // ignore: use_build_context_synchronously
+                context,
+                AppRoutes.availabiltyScreen,
+                (route) => false)
+            : accountType == 'Patient'
+                ? Navigator.pushNamedAndRemoveUntil(
+                    // ignore: use_build_context_synchronously
+                    context,
+                    AppRoutes.mainMenuScreen,
+                    (route) => false)
+                // ignore: use_build_context_synchronously
+                : Navigator.pushNamedAndRemoveUntil(context,
+                    AppRoutes.pharmacyMainMenuScreen, (route) => false);
       }
     });
   }
@@ -302,7 +317,7 @@ class AuthController extends StateNotifier<bool> {
     }, (r) {
       state = false;
       Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.signInScreen, (route) => false);
+          context, AppRoutes.splashScreen, (route) => false);
     });
   }
 
@@ -386,5 +401,15 @@ class AuthController extends StateNotifier<bool> {
       state = false;
       showToast(msg: 'Password reset link sent to your email!');
     });
+  }
+
+  Future<UserModel?> getUserData() async {
+    UserModel? user = await _databaseApis.getCurrentUserData();
+    return user;
+  }
+
+  
+    Stream<UserModel> userDataById(String userId){
+    return _databaseApis.userData(userId);
   }
 }

@@ -5,9 +5,9 @@ import 'package:doctor_app/features/Doctor/profile/view/d_profile_screen.dart';
 
 import '../../../../commons/common_imports/apis_commons.dart';
 
-final dmainMenuProvider = ChangeNotifierProvider((ref) => MainMenuController());
+final dmainMenuProvider = ChangeNotifierProvider((ref) => DoctorMainMenuController());
 
-class MainMenuController extends ChangeNotifier {
+class DoctorMainMenuController extends ChangeNotifier {
   List<Widget> screens = [
     const ChatScreen(),
     const DocumentScreen(),

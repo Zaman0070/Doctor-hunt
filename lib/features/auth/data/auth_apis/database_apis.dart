@@ -61,6 +61,18 @@ class DatabaseApis extends IDatabaseApis {
         .snapshots();
   }
 
+  Future<UserModel?> getCurrentUserData() async {
+    var userData = await _firestore
+        .collection(FirebaseConstants.userCollection)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
+
   @override
   FutureEitherVoid updateFirestoreCurrentUserInfo(
       {required UserModel userModel}) async {
@@ -229,4 +241,15 @@ class DatabaseApis extends IDatabaseApis {
         .snapshots();
   }
 
+  userData(String userId) {
+    return _firestore
+        .collection(FirebaseConstants.userCollection)
+        .doc(userId)
+        .snapshots()
+        .map(
+          (event) => UserModel.fromMap(
+            event.data()!,
+          ),
+        );
+  }
 }

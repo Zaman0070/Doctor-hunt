@@ -154,6 +154,8 @@ class AuthApis implements IAuthApis {
     return _auth.currentUser;
   }
 
+  
+
   @override
   Stream<User?> getSigninStatusOfUser() {
     return _auth.authStateChanges();

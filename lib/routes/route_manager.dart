@@ -1,3 +1,5 @@
+import 'package:doctor_app/features/Doctor/chat/view/message_screen.dart';
+import 'package:doctor_app/features/Patient/main_menu/views/main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/profile/view/p_edit_profile_screen.dart';
@@ -29,6 +31,7 @@ class AppRoutes {
   static const String availabiltyScreen = '/availabiltyScreen';
   static const String specialityScreen = '/specialityScreen';
   static const String doctoMainMenuScreen = '/doctoMainMenuScreen';
+  static const String messageScreen = '/messageScreen';
 
   // User profile Section
   static const String editProfileScreen = '/editProfileScreen';
@@ -65,6 +68,8 @@ class AppRoutes {
         return _buildRoute(const ResetPasswordScreen());
       case availabiltyScreen:
         return _buildRoute(const AvailabiltyScreen());
+      case mainMenuScreen:
+        return _buildRoute(const MainMenuScreen());
       case doctoMainMenuScreen:
         return _buildRoute(const DoctorMainMenuScreen());
       case changePasswordProfileScreen:
@@ -97,6 +102,15 @@ class AppRoutes {
           model: arguments['model'],
           type: arguments['type'],
         ));
+      case messageScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(MobileChatScreen(
+          isGroupChat: arguments['isGroupChat'],
+          name: arguments['name'],
+          uid: arguments['uid'],
+        ));
+
       default:
         return unDefinedRoute();
     }

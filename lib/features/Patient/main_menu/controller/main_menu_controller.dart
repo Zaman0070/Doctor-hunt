@@ -1,7 +1,6 @@
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
-import 'package:doctor_app/features/Doctor/doc/view/doc_view.dart';
-import 'package:doctor_app/features/Doctor/profile/view/d_profile_screen.dart';
 import 'package:doctor_app/features/Patient/home/view/patient_home_screen.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../commons/common_imports/apis_commons.dart';
 
@@ -10,9 +9,9 @@ final mainMenuProvider = ChangeNotifierProvider((ref) => MainMenuController());
 class MainMenuController extends ChangeNotifier {
   List<Widget> screens = [
     const PatientHomeScreen(),
-    const DocumentScreen(),
-    const DProfileScreen(),
-    const DProfileScreen(),
+    Container(),
+    Container(),
+    Container(),
   ];
 
   int _index = 0;
