@@ -1,9 +1,9 @@
 import 'package:doctor_app/commons/common_widgets/loader.dart';
 import 'package:doctor_app/core/enums/message_enum.dart';
 import 'package:doctor_app/core/provider/message_replay_provider.dart';
-import 'package:doctor_app/features/Doctor/chat/controller/chat_Controller.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/my_message_card.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/sender_message_card.dart';
+import 'package:doctor_app/features/chat/controller/chat_Controller.dart';
+import 'package:doctor_app/features/chat/widgets/my_message_card.dart';
+import 'package:doctor_app/features/chat/widgets/sender_message_card.dart';
 import 'package:doctor_app/models/message/chat_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

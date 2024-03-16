@@ -3,26 +3,49 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/cached_retangular_network_image.dart';
 import 'package:doctor_app/commons/common_widgets/loader.dart';
-import 'package:doctor_app/features/Doctor/chat/controller/chat_Controller.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/chat_appbar.dart';
+import 'package:doctor_app/features/User/main_menu/controller/u_main_menu_controller.dart';
+import 'package:doctor_app/features/chat/controller/chat_Controller.dart';
+import 'package:doctor_app/features/chat/widgets/chat_appbar.dart';
 import 'package:doctor_app/models/message/chat_contact.dart';
 import 'package:doctor_app/routes/route_manager.dart';
-import 'package:flutter/material.dart';
+import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends ConsumerWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, required this.side});
+  final String side;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      // appBar: const ChatAppbar(),
       body: MasterScafold(
         child: Column(
           children: [
             padding12,
-            const ChatAppbar(),
+            side == "Patient"
+                ? AppBar(
+                    backgroundColor: Colors.transparent,
+                    leading: Consumer(builder: (context, ref, child) {
+                      return IconButton(
+                        onPressed: () {
+                          final mainMenuCtr = ref.read(usermainMenuProvider);
+                          mainMenuCtr.setIndex(0);
+                        },
+                        icon: Image.asset(
+                          AppAssets.backArrowIcon,
+                          width: 30.w,
+                          height: 30.h,
+                        ),
+                      );
+                    }),
+                    title: Text(
+                      'Chats',
+                      style: getBoldStyle(
+                          color: MyColors.black, fontSize: MyFonts.size18),
+                    ),
+                  )
+                : const ChatAppbar(),
             padding8,
             Expanded(
               child: StreamBuilder<List<ChatContact>>(

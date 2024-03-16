@@ -2,9 +2,9 @@ import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/cached_retangular_network_image.dart';
 import 'package:doctor_app/commons/common_widgets/loader.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/bottom_chat_field.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/chat_list.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
+import 'package:doctor_app/features/chat/widgets/bottom_chat_field.dart';
+import 'package:doctor_app/features/chat/widgets/chat_list.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,11 +54,6 @@ class MobileChatScreen extends ConsumerWidget {
                         name,
                         style: getMediumStyle(
                             color: MyColors.black, fontSize: MyFonts.size16),
-                      ),
-                      Text(
-                        snapshot.data!.isOnline ? 'online' : 'offline',
-                        style: const TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.normal),
                       ),
                     ],
                   ),

@@ -3,26 +3,30 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/u_custom_appbar.dart';
+import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PatientHomeScreen extends ConsumerStatefulWidget {
-  const PatientHomeScreen({super.key});
+class UserHomeScreen extends ConsumerStatefulWidget {
+  const UserHomeScreen({super.key});
 
   @override
-  ConsumerState<PatientHomeScreen> createState() => _PatientHomeScreenState();
+  ConsumerState<UserHomeScreen> createState() => _PatientHomeScreenState();
 }
 
-class _PatientHomeScreenState extends ConsumerState<PatientHomeScreen> {
+class _PatientHomeScreenState extends ConsumerState<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return  MasterScafold(
+    return MasterScafold(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UCustomAppBar(
               onPress: () {},
+              onMenuPress: () {
+                Navigator.pushNamed(context, AppRoutes.userProfileScreen);
+              },
             ),
             padding12,
             Padding(

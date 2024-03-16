@@ -2,11 +2,13 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/cached_circular_network_image.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UCustomAppBar extends ConsumerWidget {
   final VoidCallback? onPress;
-  const UCustomAppBar({super.key, this.onPress});
+  final VoidCallback onMenuPress;
+  const UCustomAppBar({super.key, this.onPress, required this.onMenuPress});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(userStateStreamProvider).when(
@@ -55,10 +57,13 @@ class UCustomAppBar extends ConsumerWidget {
                                   ),
                                 ],
                               ),
-                              CachedCircularNetworkImageWidget(
-                                image: userModel.profileImage,
-                                size: 50,
-                                name: userModel.name,
+                              InkWell(
+                                onTap: onMenuPress,
+                                child: CachedCircularNetworkImageWidget(
+                                  image: userModel.profileImage,
+                                  size: 50,
+                                  name: userModel.name,
+                                ),
                               ),
                             ],
                           ),

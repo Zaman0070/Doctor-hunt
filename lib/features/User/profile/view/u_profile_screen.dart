@@ -3,7 +3,6 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/cached_circular_network_image.dart';
-import 'package:doctor_app/features/Doctor/main_menu/controller/d_main_menu_controller.dart';
 import 'package:doctor_app/features/Doctor/profile/dialog/delete_account_dialog.dart';
 import 'package:doctor_app/features/Doctor/profile/dialog/logout_dialog.dart';
 import 'package:doctor_app/features/Doctor/profile/widgets/profile_card.dart';
@@ -13,8 +12,8 @@ import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 
-class DoctorProfileScreen extends ConsumerWidget {
-  const DoctorProfileScreen({Key? key}) : super(key: key);
+class UserProfileScreen extends ConsumerWidget {
+  const UserProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,19 +21,16 @@ class DoctorProfileScreen extends ConsumerWidget {
       backgroundColor: context.scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: MyColors.appColor1,
-        leading: Consumer(builder: (context, ref, child) {
-          return IconButton(
-            onPressed: () {
-              final mainMenuCtr = ref.read(dmainMenuProvider);
-              mainMenuCtr.setIndex(0);
-            },
-            icon: Image.asset(
-              AppAssets.backArrowIcon,
-              width: 30.w,
-              height: 30.h,
-            ),
-          );
-        }),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Image.asset(
+            AppAssets.backArrowIcon,
+            width: 30.w,
+            height: 30.h,
+          ),
+        ),
         title: Text(
           'My Profile',
           style: getBoldStyle(color: MyColors.white, fontSize: MyFonts.size18),
@@ -103,7 +99,7 @@ class DoctorProfileScreen extends ConsumerWidget {
                             title: 'Account details',
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, AppRoutes.doctorEditProfileScreen,
+                                  context, AppRoutes.userEditProfileScreen,
                                   arguments: {'userModel': userModel});
                             }),
                         padding20,

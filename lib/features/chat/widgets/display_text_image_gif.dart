@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/core/enums/message_enum.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/vider_player_item.dart';
+import 'package:doctor_app/features/chat/widgets/vider_player_item.dart';
 import 'package:flutter/material.dart';
 
 class DisplayTextImageGIF extends StatelessWidget {

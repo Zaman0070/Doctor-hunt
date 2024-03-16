@@ -1,8 +1,8 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/core/provider/message_replay_provider.dart';
-import 'package:doctor_app/features/Doctor/chat/controller/chat_Controller.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/message_replay_preview.dart';
+import 'package:doctor_app/features/chat/controller/chat_Controller.dart';
+import 'package:doctor_app/features/chat/widgets/message_replay_preview.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -84,7 +84,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     final messageReply = ref.watch(messageReplyProvider);
     final isShowMessageReply = messageReply != null;
     return Container(
-      height: 90.h,
       color: MyColors.white,
       child: Padding(
         padding: EdgeInsets.symmetric(

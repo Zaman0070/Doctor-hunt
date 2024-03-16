@@ -1,6 +1,6 @@
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/core/enums/message_enum.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/display_text_image_gif.dart';
+import 'package:doctor_app/features/chat/widgets/display_text_image_gif.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class MyMessageCard extends StatelessWidget {

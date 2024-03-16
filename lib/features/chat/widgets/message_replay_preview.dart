@@ -1,6 +1,6 @@
 import 'package:doctor_app/core/enums/message_enum.dart';
 import 'package:doctor_app/core/provider/message_replay_provider.dart';
-import 'package:doctor_app/features/Doctor/chat/widgets/display_text_image_gif.dart';
+import 'package:doctor_app/features/chat/widgets/display_text_image_gif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

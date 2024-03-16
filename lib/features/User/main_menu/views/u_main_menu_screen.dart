@@ -1,5 +1,5 @@
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
-import 'package:doctor_app/features/Patient/main_menu/controller/main_menu_controller.dart';
+import 'package:doctor_app/features/User/main_menu/controller/u_main_menu_controller.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
 import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
@@ -7,16 +7,16 @@ import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MainMenuScreen extends ConsumerStatefulWidget {
-  const MainMenuScreen({
+class UserMainMenuScreen extends ConsumerStatefulWidget {
+  const UserMainMenuScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<MainMenuScreen> createState() => _MainMenuScreenState();
+  ConsumerState<UserMainMenuScreen> createState() => _MainMenuScreenState();
 }
 
-class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
+class _MainMenuScreenState extends ConsumerState<UserMainMenuScreen> {
   /// Here in this method, we are initializing necessary methods
   initialization() async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -36,13 +36,13 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
   }
 
   setToHome() {
-    final mainMenuCtr = ref.read(mainMenuProvider);
+    final mainMenuCtr = ref.read(usermainMenuProvider);
     mainMenuCtr.setIndex(0);
   }
 
   @override
   Widget build(BuildContext context) {
-    final mainMenuCtr = ref.watch(mainMenuProvider);
+    final mainMenuCtr = ref.watch(usermainMenuProvider);
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: SizedBox(

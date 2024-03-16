@@ -120,7 +120,7 @@ class PProfileScreen extends ConsumerWidget {
                           backColor: MyColors.appColor1,
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, AppRoutes.peditProfileScreen,
+                                context, AppRoutes.userProfileScreen,
                                 arguments: {
                                   'userModel': userModel,
                                   'pharmacyInfoModel': pharmacyInfo

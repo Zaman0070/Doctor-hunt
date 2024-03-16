@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:doctor_app/core/enums/message_enum.dart';
 import 'package:doctor_app/core/provider/message_replay_provider.dart';
-import 'package:doctor_app/features/Doctor/chat/repository/chat_repository.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
+import 'package:doctor_app/features/chat/repository/chat_repository.dart';
 import 'package:doctor_app/models/message/chat_contact.dart';
 import 'package:doctor_app/models/message/chat_model.dart';
 import 'package:flutter/material.dart';

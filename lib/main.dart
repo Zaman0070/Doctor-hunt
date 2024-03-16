@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_shimmers/loading_screen_shimmer.dart';
-import 'package:doctor_app/features/Patient/main_menu/views/main_menu_screen.dart';
+import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
 import 'package:doctor_app/features/Doctor/main_menu/views/doctor_main_menu_screen.dart';

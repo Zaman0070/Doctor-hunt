@@ -1,17 +1,19 @@
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
-import 'package:doctor_app/features/Patient/home/view/patient_home_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_home_screen.dart';
+import 'package:doctor_app/features/chat/view/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../commons/common_imports/apis_commons.dart';
 
-final mainMenuProvider = ChangeNotifierProvider((ref) => MainMenuController());
+final usermainMenuProvider =
+    ChangeNotifierProvider((ref) => UserMainMenuController());
 
-class MainMenuController extends ChangeNotifier {
+class UserMainMenuController extends ChangeNotifier {
   List<Widget> screens = [
-    const PatientHomeScreen(),
+    const UserHomeScreen(),
     Container(),
     Container(),
-    Container(),
+    const ChatScreen(side: "Patient"),
   ];
 
   int _index = 0;

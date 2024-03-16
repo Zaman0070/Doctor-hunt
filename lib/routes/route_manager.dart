@@ -1,8 +1,8 @@
-import 'package:doctor_app/features/Doctor/chat/view/message_screen.dart';
-import 'package:doctor_app/features/Patient/main_menu/views/main_menu_screen.dart';
+import 'package:doctor_app/commons/common_widgets/message_screen.dart';
+import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
-import 'package:doctor_app/features/Pharmacist/profile/view/p_edit_profile_screen.dart';
+import 'package:doctor_app/features/User/profile/view/u_profile_screen.dart';
 import 'package:doctor_app/features/account_type/view/account_type_screen.dart';
 import 'package:doctor_app/features/auth/view/availabilty_screen.dart';
 import 'package:doctor_app/features/auth/view/forget_screen.dart';
@@ -11,8 +11,8 @@ import 'package:doctor_app/features/auth/view/signin_screen.dart';
 import 'package:doctor_app/features/auth/view/signup_screen.dart';
 import 'package:doctor_app/features/auth/view/speciality.dart';
 import 'package:doctor_app/features/Doctor/main_menu/views/doctor_main_menu_screen.dart';
-import 'package:doctor_app/features/Doctor/profile/view/change_password_profile_screen.dart';
-import 'package:doctor_app/features/Doctor/profile/view/edit_profile_screen.dart';
+import 'package:doctor_app/features/Doctor/profile/view/d_change_password_profile_screen.dart';
+import 'package:doctor_app/features/Doctor/profile/view/d_edit_profile_screen.dart';
 import 'package:doctor_app/features/splash/views/introduction_screen.dart';
 import 'package:doctor_app/features/splash/views/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +32,16 @@ class AppRoutes {
   static const String specialityScreen = '/specialityScreen';
   static const String doctoMainMenuScreen = '/doctoMainMenuScreen';
   static const String messageScreen = '/messageScreen';
+  static const String doctorEditProfileScreen = '/doctorEditProfileScreen';
+  static const String doctorProfileScreen = '/doctorProfileScreen';
+  static const String doctorChangePasswordProfileScreen =
+      '/doctorchangePasswordProfileScreen';
 
   // User profile Section
-  static const String editProfileScreen = '/editProfileScreen';
-  static const String peditProfileScreen = '/peditProfileScreen';
-  static const String changePasswordProfileScreen =
-      '/changePasswordProfileScreen';
+  static const String userEditProfileScreen = '/userEditProfileScreen';
+  static const String userProfileScreen = '/userProfileScreen';
+  static const String userChangePasswordProfileScreen =
+      '/userchangePasswordProfileScreen';
 
   // User Notification Section
   static const String userNotificationScreen = '/userNotificationScreen';
@@ -69,30 +73,25 @@ class AppRoutes {
       case availabiltyScreen:
         return _buildRoute(const AvailabiltyScreen());
       case mainMenuScreen:
-        return _buildRoute(const MainMenuScreen());
+        return _buildRoute(const UserMainMenuScreen());
       case doctoMainMenuScreen:
         return _buildRoute(const DoctorMainMenuScreen());
-      case changePasswordProfileScreen:
-        return _buildRoute(const ChangePasswordProfileScreen());
+      case userChangePasswordProfileScreen:
+        return _buildRoute(const DoctorChangePasswordProfileScreen());
       case specialityScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(SpecialityScreen(
           availableDays: arguments['availableDays'],
         ));
-      case editProfileScreen:
+      case userEditProfileScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
-        return _buildRoute(EditProfileScreen(
+        return _buildRoute(DoctorEditProfileScreen(
           userModel: arguments['userModel'],
         ));
-      case peditProfileScreen:
-        Map<String, dynamic> arguments =
-            settings.arguments as Map<String, dynamic>;
-        return _buildRoute(PEditProfileScreen(
-          userModel: arguments['userModel'],
-          pharmacyInfoModel: arguments['pharmacyInfoModel'],
-        ));
+      case userProfileScreen:
+        return _buildRoute(const UserProfileScreen());
       case pharmacyMainMenuScreen:
         return _buildRoute(const PharmacistMainMenuScreen());
       case pharmacyAddProductScreen:
@@ -109,6 +108,14 @@ class AppRoutes {
           isGroupChat: arguments['isGroupChat'],
           name: arguments['name'],
           uid: arguments['uid'],
+        ));
+
+      /// doctor
+      case doctorEditProfileScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(DoctorEditProfileScreen(
+          userModel: arguments['userModel'],
         ));
 
       default:
