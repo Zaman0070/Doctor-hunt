@@ -24,6 +24,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool showLabel;
   final bool showReq;
+  final bool filled;
 
   const CustomTextField({
     Key? key,
@@ -48,6 +49,7 @@ class CustomTextField extends StatelessWidget {
     this.verticalMargin,
     this.showReq = true,
     this.leadigingIconPath,
+    this.filled = false,
   }) : super(key: key);
 
   @override
@@ -93,6 +95,8 @@ class CustomTextField extends StatelessWidget {
                     ? context.bodyTextColor
                     : context.whiteColor),
             decoration: InputDecoration(
+              filled: filled,
+              fillColor: MyColors.white,
               contentPadding: EdgeInsets.symmetric(
                   horizontal: 20.w, vertical: verticalPadding ?? 0.0),
               errorStyle: getRegularStyle(

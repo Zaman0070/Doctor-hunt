@@ -14,6 +14,7 @@ abstract class IUserHomeApis {
   FutureEitherVoid likeDislikeDoctor(
       {required String docId, required String userId});
   Stream<List<DoctorModel>> faveDoctors({required String userId});
+  Stream<List<DoctorModel>> findAllDoctorStream({String? searchQuery});
 }
 
 class UserHomeApis implements IUserHomeApis {
@@ -62,8 +63,22 @@ class UserHomeApis implements IUserHomeApis {
         .where('favorite', arrayContains: userId)
         .orderBy('createdAt', descending: true);
     return collection.snapshots().map((querySnapshot) => querySnapshot.docs
-        .map((doc) =>
-            DoctorModel.fromMap(doc.data() as Map<String, dynamic>))
+        .map((doc) => DoctorModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList());
+  }
+
+  @override
+  Stream<List<DoctorModel>> findAllDoctorStream({String? searchQuery}) {
+    Query collection =
+        _firestore.collection(FirebaseConstants.doctorCollection);
+
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      collection = collection
+          .where('name', isGreaterThanOrEqualTo: searchQuery)
+          .where('name', isLessThanOrEqualTo: '$searchQuery\uf7ff');
+    }
+    return collection.snapshots().map((querySnapshot) => querySnapshot.docs
+        .map((doc) => DoctorModel.fromMap(doc.data() as Map<String, dynamic>))
         .toList());
   }
 }

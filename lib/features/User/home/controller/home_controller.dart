@@ -23,6 +23,13 @@ final watchAllFavDoctorStreamProvider =
   return communityWallController.faveDoctors(userId: userId);
 });
 
+final findAllDoctorStreamProvider =
+    StreamProvider.family<List<DoctorModel>, String?>(
+        (ref, String? searchQuery) {
+  final addPostController = ref.watch(homeControllerProvider.notifier);
+  return addPostController.findAllDoctorStream(searchQuery: searchQuery);
+});
+
 class HomeController extends StateNotifier<bool> {
   final UserHomeApis _homeApis;
 
@@ -41,5 +48,9 @@ class HomeController extends StateNotifier<bool> {
 
   Stream<List<DoctorModel>> faveDoctors({required String userId}) {
     return _homeApis.faveDoctors(userId: userId);
+  }
+
+  Stream<List<DoctorModel>> findAllDoctorStream({String? searchQuery}) {
+    return _homeApis.findAllDoctorStream(searchQuery: searchQuery);
   }
 }

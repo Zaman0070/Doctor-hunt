@@ -3,9 +3,15 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CommonRatingBar extends StatelessWidget {
-  const CommonRatingBar({super.key, required this.rating, this.size = 14,required this.ignoreGestures});
+  const CommonRatingBar(
+      {super.key,
+      required this.rating,
+      this.size = 14,
+      this.padding = 4,
+      required this.ignoreGestures});
   final double rating;
   final double size;
+  final double padding;
   final bool ignoreGestures;
 
   @override
@@ -19,7 +25,7 @@ class CommonRatingBar extends StatelessWidget {
       direction: Axis.horizontal,
       allowHalfRating: true,
       itemCount: 5,
-      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+      itemPadding:  EdgeInsets.symmetric(horizontal: padding),
       itemBuilder: (context, _) => const Icon(
         Icons.star,
         color: Colors.amber,

@@ -1,4 +1,5 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
 import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
@@ -46,6 +47,7 @@ class AppRoutes {
 
   // User Notification Section
   static const String userNotificationScreen = '/userNotificationScreen';
+  static const String userFindDoctorScreen = '/userFindDoctorScreen';
 
   // pharmacy Section
   static const String pharmacyMainMenuScreen = '/pharmacyMainMenuScreen';
@@ -115,6 +117,8 @@ class AppRoutes {
           name: arguments['name'],
           uid: arguments['uid'],
         ));
+      case userFindDoctorScreen:
+        return _buildRoute(const UserFindDoctorScreen());
 
       /// doctor
 

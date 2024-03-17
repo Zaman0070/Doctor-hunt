@@ -24,7 +24,10 @@ class _PatientHomeScreenState extends ConsumerState<UserHomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             UCustomAppBar(
-              onPress: () {},
+              title: 'Find Your Doctor',
+              onPress: () {
+                Navigator.pushNamed(context, AppRoutes.userFindDoctorScreen);
+              },
               onMenuPress: () {
                 Navigator.pushNamed(context, AppRoutes.userProfileScreen);
               },
