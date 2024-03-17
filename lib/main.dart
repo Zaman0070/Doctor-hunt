@@ -9,25 +9,25 @@ import 'package:doctor_app/features/splash/views/splash_screen.dart';
 import 'package:doctor_app/firebase_messaging/firebase_messaging_class.dart';
 import 'package:doctor_app/firebase_messaging/service/notification_service.dart';
 import 'package:doctor_app/routes/route_manager.dart';
+import 'package:doctor_app/services/shar_pref_servies.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
-import 'package:doctor_app/utils/themes/theme.dart';
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
 // ignore: depend_on_referenced_packages
-import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  SharePref sharePref = SharePref();
+  String? type = await sharePref.getType('login');
   //await Fcm.fireBaseNotifications();
 
   FirebaseFirestore.instance.settings =
@@ -38,11 +38,12 @@ void main() async {
   // tz.initializeTimeZones();
   // await LocalNotificationService().scheduleNotificationDailyCheckList();
   // await LocalNotificationService().scheduleNotificationJernal();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: MyApp(type: type!)));
 }
 
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.type});
+  final String type;
 
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
@@ -100,7 +101,11 @@ class _MyAppState extends ConsumerState<MyApp> {
           home: ref.watch(userStateStreamProvider).when(
               data: (user) {
                 if (user != null) {
-                  return const DoctorMainMenuScreen();
+                  return widget.type == "user"
+                      ? const UserMainMenuScreen()
+                      : widget.type == 'doctor'
+                          ? const DoctorMainMenuScreen()
+                          : const PharmacistMainMenuScreen();
                 } else {
                   return const SplashScreen();
                 }

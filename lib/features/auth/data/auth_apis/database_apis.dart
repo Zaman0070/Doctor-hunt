@@ -3,6 +3,7 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_providers/global_providers.dart';
 import 'package:doctor_app/core/constants/firebase_constants.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
+import 'package:doctor_app/models/doctor/doctor_model.dart';
 import 'package:doctor_app/models/pharmacy_info/pharmacy_info_model.dart';
 
 final databaseApisProvider = Provider<DatabaseApis>((ref) {
@@ -18,10 +19,7 @@ abstract class IDatabaseApis {
   Future<DocumentSnapshot> getCurrentUserInfo({required String uid});
   FutureEitherVoid updateFirestoreCurrentUserInfo(
       {required UserModel userModel});
-  FutureEitherVoid updateDoctor({
-    required List<String> availabiltyDays,
-    required String speciality,
-  });
+  FutureEitherVoid updateDoctor({required DoctorModel doctorModel});
   FutureEitherVoid updateCurrentUserInfo({
     required UserModel userModel,
   });
@@ -108,17 +106,14 @@ class DatabaseApis extends IDatabaseApis {
   }
 
   @override
-  FutureEitherVoid updateDoctor(
-      {required List<String> availabiltyDays,
-      required String speciality}) async {
+  FutureEitherVoid updateDoctor({
+    required DoctorModel doctorModel,
+  }) async {
     try {
       await _firestore
-          .collection(FirebaseConstants.userCollection)
+          .collection(FirebaseConstants.doctorCollection)
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({
-        'availableDays': availabiltyDays,
-        'speciality': speciality,
-      });
+          .set(doctorModel.toMap());
       return const Right(null);
     } on FirebaseException catch (e, stackTrace) {
       return Left(Failure(e.message ?? 'Firebase Error Occurred', stackTrace));
@@ -161,6 +156,14 @@ class DatabaseApis extends IDatabaseApis {
         .doc(uid)
         .get();
     return document;
+  }
+
+   Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentDoctorInfoStream(
+      {required String uid}) {
+    return _firestore
+        .collection(FirebaseConstants.doctorCollection)
+        .doc(uid)
+        .snapshots();
   }
 
   getUserInfoByUid(String userId) {

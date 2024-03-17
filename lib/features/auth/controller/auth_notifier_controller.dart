@@ -20,6 +20,8 @@ class AuthNotifierController extends ChangeNotifier {
   }
 
   List<String> availableDays = [];
+  TimeOfDay from = TimeOfDay.now();
+  TimeOfDay to = TimeOfDay.now();
 
   // add days
   void addDays(String day) {
@@ -29,5 +31,27 @@ class AuthNotifierController extends ChangeNotifier {
       availableDays.add(day);
     }
     notifyListeners();
+  }
+
+  Future<void> selectTimeFrom(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null && picked != TimeOfDay.now()) {
+      from = picked;
+      notifyListeners();
+    }
+  }
+
+  Future<void> selectTimeTo(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null && picked != TimeOfDay.now()) {
+      to = picked;
+      notifyListeners();
+    }
   }
 }

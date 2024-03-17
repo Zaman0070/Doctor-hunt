@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_widgets/message_screen.dart';
 import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
+import 'package:doctor_app/features/User/profile/view/u_change_password_profile_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_profile_screen.dart';
 import 'package:doctor_app/features/account_type/view/account_type_screen.dart';
 import 'package:doctor_app/features/auth/view/availabilty_screen.dart';
@@ -77,19 +78,24 @@ class AppRoutes {
       case doctoMainMenuScreen:
         return _buildRoute(const DoctorMainMenuScreen());
       case userChangePasswordProfileScreen:
-        return _buildRoute(const DoctorChangePasswordProfileScreen());
+        return _buildRoute(const UserChangePasswordProfileScreen());
       case specialityScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(SpecialityScreen(
+          from: arguments['from'],
+          to: arguments['to'],
           availableDays: arguments['availableDays'],
         ));
-      case userEditProfileScreen:
+      case doctorEditProfileScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(DoctorEditProfileScreen(
           userModel: arguments['userModel'],
+          doctorModel: arguments['doctorModel'],
         ));
+      case doctorChangePasswordProfileScreen:
+        return _buildRoute(const DoctorChangePasswordProfileScreen());
       case userProfileScreen:
         return _buildRoute(const UserProfileScreen());
       case pharmacyMainMenuScreen:
@@ -111,12 +117,6 @@ class AppRoutes {
         ));
 
       /// doctor
-      case doctorEditProfileScreen:
-        Map<String, dynamic> arguments =
-            settings.arguments as Map<String, dynamic>;
-        return _buildRoute(DoctorEditProfileScreen(
-          userModel: arguments['userModel'],
-        ));
 
       default:
         return unDefinedRoute();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final profileNotifierCtr =
-    ChangeNotifierProvider((ref) => ProdileNotiController());
+final uprofileNotifierCtr =
+    ChangeNotifierProvider((ref) => UserProdileNotiController());
 
 
 
-class ProdileNotiController extends ChangeNotifier {
+class UserProdileNotiController extends ChangeNotifier {
  bool isDeleteAccount = false;
   bool get getIsDeleteAccount => isDeleteAccount;
   setIsDeleteAccount(bool value) {

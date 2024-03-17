@@ -3,8 +3,8 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/cached_circular_network_image.dart';
-import 'package:doctor_app/features/Doctor/profile/dialog/delete_account_dialog.dart';
-import 'package:doctor_app/features/Doctor/profile/dialog/logout_dialog.dart';
+import 'package:doctor_app/features/Doctor/profile/dialog/d_delete_account_dialog.dart';
+import 'package:doctor_app/features/Doctor/profile/dialog/d_logout_dialog.dart';
 import 'package:doctor_app/features/Doctor/profile/widgets/profile_card.dart';
 import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
@@ -137,7 +137,7 @@ class UserProfileScreen extends ConsumerWidget {
                                     builder: (context, ref, child) {
                                       return const Align(
                                           alignment: Alignment.center,
-                                          child: LogoutDialog());
+                                          child: DLogoutDialog());
                                     },
                                   );
                                 },
@@ -171,7 +171,7 @@ class UserProfileScreen extends ConsumerWidget {
                                     builder: (context, ref, child) {
                                       return const Align(
                                           alignment: Alignment.center,
-                                          child: DeleteAccountDialog());
+                                          child: DDeleteAccountDialog());
                                     },
                                   );
                                 },

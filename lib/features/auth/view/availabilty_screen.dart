@@ -6,24 +6,34 @@ import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
+import 'package:flutter/material.dart';
 
-class AvailabiltyScreen extends ConsumerWidget {
+class AvailabiltyScreen extends ConsumerStatefulWidget {
   const AvailabiltyScreen({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
+  ConsumerState<AvailabiltyScreen> createState() => _AvailabiltyScreenState();
+}
+
+class _AvailabiltyScreenState extends ConsumerState<AvailabiltyScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final ctr = ref.watch(authNotifierCtr);
     return Scaffold(
       body: SafeArea(
         child: MasterScafold(
             child: Padding(
           padding: EdgeInsets.all(AppConstants.padding),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               padding40,
-              Text(
-                'Availability',
-                style: getMediumStyle(
-                    color: MyColors.black, fontSize: MyFonts.size24),
+              Center(
+                child: Text(
+                  'Availability',
+                  style: getMediumStyle(
+                      color: MyColors.black, fontSize: MyFonts.size24),
+                ),
               ),
               padding40,
               AvailableCard(
@@ -74,21 +84,75 @@ class AvailabiltyScreen extends ConsumerWidget {
                   ref.read(authNotifierCtr).addDays('Sunday');
                 },
               ),
+              padding40,
+              Text(
+                'Choose Time',
+                style: getSemiBoldStyle(
+                    color: MyColors.black, fontSize: MyFonts.size16),
+              ),
+              padding16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      ctr.selectTimeFrom(context);
+                    },
+                    child: Container(
+                      height: 45.h,
+                      width: 150.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(color: MyColors.lightGreyColor)),
+                      child: Center(
+                          child: Text(
+                        'From: ${ctr.from.format(context)}',
+                        style: getMediumStyle(
+                            color: MyColors.bodyTextColor,
+                            fontSize: MyFonts.size15),
+                      )),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      ctr.selectTimeTo(context);
+                    },
+                    child: Container(
+                      height: 45.h,
+                      width: 150.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(color: MyColors.lightGreyColor)),
+                      child: Center(
+                          child: Text(
+                        'To: ${ctr.to.format(context)}',
+                        style: getMediumStyle(
+                            color: MyColors.bodyTextColor,
+                            fontSize: MyFonts.size15),
+                      )),
+                    ),
+                  ),
+                ],
+              ),
               const Spacer(),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 40.h),
-                child: CustomButton(
-                  buttonWidth: 295.w,
-                  onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.specialityScreen,
-                        arguments: {
-                          'availableDays':
-                              ref.watch(authNotifierCtr).availableDays,
-                        });
-                  },
-                  buttonText: 'Done',
-                  borderRadius: 12.h,
-                  backColor: MyColors.appColor1,
+                child: Center(
+                  child: CustomButton(
+                    buttonWidth: 295.w,
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.specialityScreen,
+                          arguments: {
+                            'availableDays':
+                                ref.watch(authNotifierCtr).availableDays,
+                            'from': ctr.from,
+                            'to': ctr.to,
+                          });
+                    },
+                    buttonText: 'Done',
+                    borderRadius: 12.h,
+                    backColor: MyColors.appColor1,
+                  ),
                 ),
               )
             ],

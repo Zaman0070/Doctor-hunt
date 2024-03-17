@@ -9,14 +9,14 @@ import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DeleteAccountDialog extends ConsumerStatefulWidget {
-  const DeleteAccountDialog({super.key});
+class DDeleteAccountDialog extends ConsumerStatefulWidget {
+  const DDeleteAccountDialog({super.key});
 
   @override
-  ConsumerState<DeleteAccountDialog> createState() => _SignUpScreenState();
+  ConsumerState<DDeleteAccountDialog> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends ConsumerState<DeleteAccountDialog> {
+class _SignUpScreenState extends ConsumerState<DDeleteAccountDialog> {
   final TextEditingController passwordController = TextEditingController();
   bool passObscure = true;
 
@@ -25,7 +25,7 @@ class _SignUpScreenState extends ConsumerState<DeleteAccountDialog> {
     final controller = ref.watch(authControllerProvider.notifier);
 
     return Container(
-      height: ref.read(profileNotifierCtr).isDeleteAccount ? 385.h : 300.h,
+      height: ref.read(dprofileNotifierCtr).isDeleteAccount ? 385.h : 300.h,
       width: 300.w,
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -45,7 +45,7 @@ class _SignUpScreenState extends ConsumerState<DeleteAccountDialog> {
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);
-                      ref.read(profileNotifierCtr).setIsDeleteAccount(false);
+                      ref.read(dprofileNotifierCtr).setIsDeleteAccount(false);
                     },
                     child: Image.asset(
                       AppAssets.dialogCloseIcon,
@@ -75,7 +75,7 @@ class _SignUpScreenState extends ConsumerState<DeleteAccountDialog> {
                 style: getMediumStyle(
                     color: context.errorColor, fontSize: MyFonts.size14),
               ),
-              ref.watch(profileNotifierCtr).isDeleteAccount
+              ref.watch(dprofileNotifierCtr).isDeleteAccount
                   ? CustomTextField(
                       controller: passwordController,
                       hintText: 'Enter Password',
@@ -118,7 +118,7 @@ class _SignUpScreenState extends ConsumerState<DeleteAccountDialog> {
                       buttonWidth: 130.w,
                       onPressed: () {
                         Navigator.pop(context);
-                        ref.read(profileNotifierCtr).setIsDeleteAccount(false);
+                        ref.read(dprofileNotifierCtr).setIsDeleteAccount(false);
                       },
                       textColor: MyColors.appColor1,
                       buttonText: 'Cancel'),
@@ -128,12 +128,12 @@ class _SignUpScreenState extends ConsumerState<DeleteAccountDialog> {
                       buttonHeight: 38.h,
                       buttonWidth: 130.w,
                       onPressed: () async {
-                        ref.read(profileNotifierCtr).isDeleteAccount
+                        ref.read(dprofileNotifierCtr).isDeleteAccount
                             ? await controller.deleteAccount(
                                 context: context,
                                 password: passwordController.text)
                             : ref
-                                .read(profileNotifierCtr)
+                                .read(dprofileNotifierCtr)
                                 .setIsDeleteAccount(true);
                       },
                       textColor: MyColors.white,

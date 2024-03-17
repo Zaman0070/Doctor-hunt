@@ -3,15 +3,16 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
 import 'package:doctor_app/features/Doctor/profile/controller/profile_controller.dart';
+import 'package:doctor_app/services/shar_pref_servies.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LogoutDialog extends ConsumerWidget {
-  const LogoutDialog({super.key});
+class DLogoutDialog extends ConsumerWidget {
+  const DLogoutDialog({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      height: ref.read(profileNotifierCtr).isDeleteAccount ? 385.h : 300.h,
+      height: ref.read(dprofileNotifierCtr).isDeleteAccount ? 385.h : 300.h,
       width: 300.w,
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -31,7 +32,7 @@ class LogoutDialog extends ConsumerWidget {
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);
-                      ref.read(profileNotifierCtr).setIsDeleteAccount(false);
+                      ref.read(dprofileNotifierCtr).setIsDeleteAccount(false);
                     },
                     child: Image.asset(
                       AppAssets.dialogClose,
@@ -77,6 +78,7 @@ class LogoutDialog extends ConsumerWidget {
                         ref
                             .watch(authControllerProvider.notifier)
                             .logout(context: context);
+                        SharePref().removeType('login');
                       },
                       textColor: MyColors.white,
                       buttonText: 'Logout'),

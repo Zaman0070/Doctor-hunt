@@ -12,16 +12,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../commons/common_widgets/show_toast.dart';
 import '../../../auth/controller/auth_controller.dart';
 
-class ChangePasswordProfileScreen extends StatefulWidget {
-  const ChangePasswordProfileScreen({Key? key}) : super(key: key);
+class UserChangePasswordProfileScreen extends StatefulWidget {
+  const UserChangePasswordProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChangePasswordProfileScreen> createState() =>
-      _ChangePasswordProfileScreenState();
+  State<UserChangePasswordProfileScreen> createState() =>
+      _UserChangePasswordProfileScreenState();
 }
 
-class _ChangePasswordProfileScreenState
-    extends State<ChangePasswordProfileScreen> {
+class _UserChangePasswordProfileScreenState
+    extends State<UserChangePasswordProfileScreen> {
   final passwordController = TextEditingController();
   final newPasswordController = TextEditingController();
   final confirmNewPasswordController = TextEditingController();

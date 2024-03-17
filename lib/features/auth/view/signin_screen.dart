@@ -5,6 +5,7 @@ import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/commons/common_widgets/custom_text_fields.dart';
 import 'package:doctor_app/routes/route_manager.dart';
+import 'package:doctor_app/services/shar_pref_servies.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -25,6 +26,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   final idController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  SharePref sharePref = SharePref();
   var passObscure = true;
   @override
   void dispose() {
@@ -44,6 +46,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
             context: context,
             accountType: widget.accountType,
           );
+      widget.accountType == "Patient"
+          ? await sharePref.saveType('user', 'login')
+          : widget.accountType == "Doctor"
+              ? await sharePref.saveType('doctor', 'login')
+              : await sharePref.saveType('pharmacist', 'login');
     }
   }
 

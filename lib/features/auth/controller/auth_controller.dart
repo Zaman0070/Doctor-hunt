@@ -6,6 +6,7 @@ import 'package:doctor_app/features/auth/data/auth_apis/auth_apis.dart';
 import 'package:doctor_app/features/auth/data/auth_apis/database_apis.dart';
 import 'package:doctor_app/firebase_messaging/firebase_messaging_class.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
+import 'package:doctor_app/models/doctor/doctor_model.dart';
 import 'package:doctor_app/models/pharmacy_info/pharmacy_info_model.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -64,6 +65,11 @@ final currentPharmacyInfoStreamProvider = StreamProvider((ref) {
   return profileController.getCurrentPharmacyInfo();
 });
 
+final currentDoctorInfoStreamProvider = StreamProvider((ref) {
+  final profileController = ref.watch(authControllerProvider.notifier);
+  return profileController.getCurrentDoctorInfo();
+});
+
 class AuthController extends StateNotifier<bool> {
   final AuthApis _authApis;
   final DatabaseApis _databaseApis;
@@ -102,8 +108,6 @@ class AuthController extends StateNotifier<bool> {
         fcmToken: '',
         isOnline: false,
         isType: 'patient',
-        availableDays: [],
-        speciality: '',
         id: Random().nextInt(100000).toString(),
       );
       final result2 = await _databaseApis.saveUserInfo(userModel: userModel);
@@ -156,31 +160,23 @@ class AuthController extends StateNotifier<bool> {
       }, (r) {
         state = false;
         showSnackBar(context, 'Profile Updated Successfully');
-        // Navigator.pushNamedAndRemoveUntil(context, AppRoutes.userMainMenuScreen, (route) => false);
       });
     });
   }
 
   Future<void> updateDoctorInfo({
     required BuildContext context,
-    required List<String> availabiltyDays,
-    required String speciality,
+    required DoctorModel model,
   }) async {
     state = true;
-    UserModel userModel = await getCurrentUserInfo();
-    UserModel model = userModel.copyWith(
-      availableDays: availabiltyDays,
-      speciality: speciality,
-    );
-    final result = await _databaseApis.updateFirestoreCurrentUserInfo(
-      userModel: model,
-    );
+    final result = await _databaseApis.updateDoctor(doctorModel: model);
+
     result.fold((l) {
       state = false;
       showSnackBar(context, l.message);
     }, (r) {
       state = false;
-      showSnackBar(context, 'Profile Updated Successfully');
+      showSnackBar(context, 'Doctor Info Updated Successfully');
       Navigator.pushNamedAndRemoveUntil(
           context, AppRoutes.doctoMainMenuScreen, (route) => false);
     });
@@ -210,6 +206,16 @@ class AuthController extends StateNotifier<bool> {
       PharmacyInfoModel pharmacyInfoModel =
           PharmacyInfoModel.fromMap(items.data()!);
       return pharmacyInfoModel;
+    });
+  }
+
+  Stream<DoctorModel> getCurrentDoctorInfo() {
+    final userId = _authApis.getCurrentUser();
+    return _databaseApis
+        .getCurrentDoctorInfoStream(uid: userId!.uid)
+        .map((items) {
+      DoctorModel doctorModel = DoctorModel.fromMap(items.data()!);
+      return doctorModel;
     });
   }
 
@@ -408,8 +414,7 @@ class AuthController extends StateNotifier<bool> {
     return user;
   }
 
-  
-    Stream<UserModel> userDataById(String userId){
+  Stream<UserModel> userDataById(String userId) {
     return _databaseApis.userData(userId);
   }
 }

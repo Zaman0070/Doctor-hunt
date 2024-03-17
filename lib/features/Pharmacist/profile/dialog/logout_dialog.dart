@@ -1,8 +1,8 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
+import 'package:doctor_app/features/Pharmacist/profile/controller/profile_controller.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
-import 'package:doctor_app/features/Doctor/profile/controller/profile_controller.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,7 @@ class LogoutDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      height: ref.read(profileNotifierCtr).isDeleteAccount ? 385.h : 300.h,
+      height: ref.read(pprofileNotifierCtr).isDeleteAccount ? 385.h : 300.h,
       width: 300.w,
       decoration: BoxDecoration(
         color: MyColors.white,
@@ -31,7 +31,7 @@ class LogoutDialog extends ConsumerWidget {
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);
-                      ref.read(profileNotifierCtr).setIsDeleteAccount(false);
+                      ref.read(pprofileNotifierCtr).setIsDeleteAccount(false);
                     },
                     child: Image.asset(
                       AppAssets.dialogClose,
@@ -65,7 +65,7 @@ class LogoutDialog extends ConsumerWidget {
                       buttonWidth: 130.w,
                       onPressed: () {
                         Navigator.pop(context);
-                        ref.read(profileNotifierCtr).setIsDeleteAccount(false);
+                        ref.read(pprofileNotifierCtr).setIsDeleteAccount(false);
                       },
                       textColor: MyColors.appColor1,
                       buttonText: 'Cancel'),
