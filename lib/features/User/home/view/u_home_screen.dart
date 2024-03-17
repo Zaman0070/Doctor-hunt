@@ -3,8 +3,9 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/u_custom_appbar.dart';
+import 'package:doctor_app/features/User/home/widgets/offering_widget.dart';
+import 'package:doctor_app/features/User/home/widgets/popular_doctor.dart';
 import 'package:doctor_app/routes/route_manager.dart';
-import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserHomeScreen extends ConsumerStatefulWidget {
@@ -29,19 +30,8 @@ class _PatientHomeScreenState extends ConsumerState<UserHomeScreen> {
               },
             ),
             padding12,
-            Padding(
-              padding: EdgeInsets.all(AppConstants.padding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'We are offering multiple consultation modes',
-                    style: getMediumStyle(
-                        color: MyColors.black, fontSize: MyFonts.size13),
-                  ),
-                ],
-              ),
-            ),
+            const OfferingWidget(),
+            const PopularDoctorWidget(),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
+import 'package:doctor_app/features/User/faviourt/view/u_faviourt_view.dart';
 import 'package:doctor_app/features/User/home/view/u_home_screen.dart';
 import 'package:doctor_app/features/chat/view/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ final usermainMenuProvider =
 class UserMainMenuController extends ChangeNotifier {
   List<Widget> screens = [
     const UserHomeScreen(),
-    Container(),
+    const UserFaviourtScreen(),
     Container(),
     const ChatScreen(side: "Patient"),
   ];

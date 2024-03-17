@@ -12,8 +12,10 @@ class DoctorModel {
   final DateTime from;
   final DateTime to;
   final String id;
+  final String doctorId;
   final DateTime createdAt;
-  final List<dynamic> rating;
+  final double rating;
+  final List<dynamic> favorite;
   DoctorModel({
     required this.name,
     required this.email,
@@ -23,8 +25,10 @@ class DoctorModel {
     required this.from,
     required this.to,
     required this.id,
+    required this.doctorId,
     required this.createdAt,
     required this.rating,
+    required this.favorite,
   });
 
   DoctorModel copyWith({
@@ -36,8 +40,10 @@ class DoctorModel {
     DateTime? from,
     DateTime? to,
     String? id,
+    String? doctorId,
     DateTime? createdAt,
-    List<dynamic>? rating,
+    double? rating,
+    List<dynamic>? favorite,
   }) {
     return DoctorModel(
       name: name ?? this.name,
@@ -48,8 +54,10 @@ class DoctorModel {
       from: from ?? this.from,
       to: to ?? this.to,
       id: id ?? this.id,
+      doctorId: doctorId ?? this.doctorId,
       createdAt: createdAt ?? this.createdAt,
       rating: rating ?? this.rating,
+      favorite: favorite ?? this.favorite,
     );
   }
 
@@ -63,8 +71,10 @@ class DoctorModel {
       'from': from.millisecondsSinceEpoch,
       'to': to.millisecondsSinceEpoch,
       'id': id,
+      'doctorId': doctorId,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'rating': rating,
+      'favorite': favorite,
     };
   }
 
@@ -78,8 +88,10 @@ class DoctorModel {
       from: DateTime.fromMillisecondsSinceEpoch(map['from'] as int),
       to: DateTime.fromMillisecondsSinceEpoch(map['to'] as int),
       id: map['id'] as String,
+      doctorId: map['doctorId'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      rating: List<dynamic>.from((map['rating'] as List<dynamic>)),
+      rating: map['rating'] as double,
+      favorite: List<dynamic>.from((map['favorite'] as List<dynamic>)),
     );
   }
 
@@ -89,7 +101,7 @@ class DoctorModel {
 
   @override
   String toString() {
-    return 'DoctorModel(name: $name, email: $email, imageUrl: $imageUrl, speciality: $speciality, avaialbleDays: $avaialbleDays, from: $from, to: $to, id: $id, createdAt: $createdAt, rating: $rating)';
+    return 'DoctorModel(name: $name, email: $email, imageUrl: $imageUrl, speciality: $speciality, avaialbleDays: $avaialbleDays, from: $from, to: $to, id: $id, doctorId: $doctorId, createdAt: $createdAt, rating: $rating, favorite: $favorite)';
   }
 
   @override
@@ -105,8 +117,10 @@ class DoctorModel {
       other.from == from &&
       other.to == to &&
       other.id == id &&
+      other.doctorId == doctorId &&
       other.createdAt == createdAt &&
-      listEquals(other.rating, rating);
+      other.rating == rating &&
+      listEquals(other.favorite, favorite);
   }
 
   @override
@@ -119,7 +133,9 @@ class DoctorModel {
       from.hashCode ^
       to.hashCode ^
       id.hashCode ^
+      doctorId.hashCode ^
       createdAt.hashCode ^
-      rating.hashCode;
+      rating.hashCode ^
+      favorite.hashCode;
   }
 }

@@ -20,6 +20,7 @@ class MyColors {
   static const Color bgColor2 = Color(0xFF0EBE7F);
   static const Color bgColor1 = Color(0xFF61CEFF);
   static const Color bodyTextColor = Color(0xFF677294);
+  static const Color surfaceColor = Color(0xffF7F7F7);
 
   //dark theme Colors
   static const Color darkThemeColor = Color(0xFF000000);

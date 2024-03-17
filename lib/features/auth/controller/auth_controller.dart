@@ -167,9 +167,18 @@ class AuthController extends StateNotifier<bool> {
   Future<void> updateDoctorInfo({
     required BuildContext context,
     required DoctorModel model,
+    String? newImagePath,
+    required String oldImage,
   }) async {
     state = true;
-    final result = await _databaseApis.updateDoctor(doctorModel: model);
+    String image = newImagePath != null
+        ? await uploadXImage(XFile(newImagePath),
+            storageFolderName: FirebaseConstants.ownerCollection)
+        : oldImage;
+
+    DoctorModel doctorModel = model.copyWith(imageUrl: image);
+    state = true;
+    final result = await _databaseApis.updateDoctor(doctorModel: doctorModel);
 
     result.fold((l) {
       state = false;

@@ -97,7 +97,6 @@ class _EditProfileScreenState extends ConsumerState<DoctorEditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(fromTime.toString() + 'dkfkdnfkjd');
     final controller = ref.watch(dprofileNotifierCtr);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
@@ -273,13 +272,14 @@ class _EditProfileScreenState extends ConsumerState<DoctorEditProfileScreen> {
                                     oldImage: oldImage!,
                                     newImagePath: newImagePath);
                                 await authCtr.updateDoctorInfo(
+                                    oldImage: oldImage!,
+                                    newImagePath: newImagePath,
                                     // ignore: use_build_context_synchronously
                                     context: context,
                                     model: DoctorModel.fromMap({
                                       ...widget.doctorModel.toMap(),
                                       "name": fullNameController.text,
                                       "email": emailController.text,
-                                      "imageUrl": oldImage,
                                       "speciality": specialityController.text,
                                       "avaialbleDays": availableDays,
                                       "from": from != null

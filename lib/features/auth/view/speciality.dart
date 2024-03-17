@@ -134,8 +134,11 @@ class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
               to: toTime,
               id: userModel.id,
               createdAt: DateTime.now(),
-              rating: []),
-          context: context);
+              favorite: [],
+              doctorId: FirebaseAuth.instance.currentUser!.uid,
+              rating: 5),
+          context: context,
+          oldImage: '');
     }
   }
 }

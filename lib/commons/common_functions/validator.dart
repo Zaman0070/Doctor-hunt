@@ -34,7 +34,7 @@ String? dSpecialValidator(String? value) {
   if (value!.isEmpty) {
     return 'Enter your speciality';
   }
-  if (value.length > 15) {
+  if (value.length > 25) {
     return 'Exceeded 15 characters';
   }
   return null;

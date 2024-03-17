@@ -26,6 +26,10 @@ class AppAssets {
   static const String intro1 = '$imagesPath/intro1.png';
   static const String intro2 = '$imagesPath/intro2.png';
   static const String intro3 = '$imagesPath/intro3.png';
+  static const String con = '$imagesPath/con.png';
+  static const String news = '$imagesPath/news.png';
+  static const String pre = '$imagesPath/pre.png';
+  static const String rec = '$imagesPath/rec.png';
 
   //background images
   static const String bgImage = '$imagesPath/bg.png';
@@ -66,6 +70,7 @@ class AppAssets {
   static const String exitSvgIcon = '$svgIconsPath/exit.svg';
   static const String shopSvgIcon = '$svgIconsPath/shop.svg';
   static const String favSvgIcon = '$svgIconsPath/fav.svg';
+  static const String farArrowSvgIcon = '$svgIconsPath/farArrow.svg';
 
   //png icons
   static const String backArrowIcon = '$iconPath/backArrow.png';
