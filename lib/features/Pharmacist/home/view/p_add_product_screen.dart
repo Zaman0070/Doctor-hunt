@@ -206,7 +206,7 @@ class _PAddProductScreenState extends ConsumerState<PAddProductScreen> {
             productName: fullNameController.text,
             productPrice: priceController.text,
             productDescription: descriptionController.text,
-            rating: '0',
+            rating: 5,
             createdAt: DateTime.now(),
             likes: [],
             uid: FirebaseAuth.instance.currentUser!.uid,

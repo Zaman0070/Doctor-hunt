@@ -89,11 +89,10 @@ class _PatientHomeScreenState extends ConsumerState<UserPharmacyScreen> {
                               return UProductCard(
                                 model: products[index],
                                 onPressed: () {
-                                  Navigator.pushNamed(context,
-                                      AppRoutes.pharmacyAddProductScreen,
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.userOrderScreen,
                                       arguments: {
-                                        'type': 'edit',
-                                        'model': products[index],
+                                        "productModel": products[index]
                                       });
                                 },
                               );

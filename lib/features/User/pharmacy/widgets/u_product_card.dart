@@ -1,18 +1,20 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
+import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/cached_retangular_network_image.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/commons/common_widgets/rating_bar.dart';
+import 'package:doctor_app/features/User/pharmacy/controller/u_pharmacy_controller.dart';
 import 'package:doctor_app/models/product/products_model.dart';
 import 'package:flutter/cupertino.dart';
 
-class UProductCard extends StatelessWidget {
+class UProductCard extends ConsumerWidget {
   const UProductCard({super.key, required this.model, required this.onPressed});
   final ProductModel model;
   final VoidCallback onPressed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6.r),
@@ -32,10 +34,22 @@ class UProductCard extends StatelessWidget {
                 right: 10,
                 top: 10,
                 child: InkWell(
-                  onTap: () {},
-                  child: const Icon(
-                    CupertinoIcons.heart_fill,
-                    color: MyColors.appColor1,
+                  onTap: () {
+                    ref
+                        .read(userPharmacyControllerProvider.notifier)
+                        .likeDislikeProduct(
+                            docId: model.productId!,
+                            userId: FirebaseAuth.instance.currentUser!.uid);
+                  },
+                  child: Icon(
+                    model.likes!
+                            .contains(FirebaseAuth.instance.currentUser!.uid)
+                        ? CupertinoIcons.heart_fill
+                        : CupertinoIcons.heart,
+                    color: model.likes!
+                            .contains(FirebaseAuth.instance.currentUser!.uid)
+                        ? MyColors.red
+                        : MyColors.lightGreyColor,
                   ),
                 ),
               ),

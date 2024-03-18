@@ -13,6 +13,7 @@ class AppAssets {
   static const String arrowBack = '$imagesPath/arrow-round-back.png';
   static const String arrowRoundBack = '$imagesPath/arrow-round-back.png';
   static const String arrowDownIcon = '$iconPath/arrow_down_icon.png';
+  static const String locationsIcon = '$imagesPath/locations.png';
 
   //png images
   static const String appointmentLightImage =
@@ -71,6 +72,7 @@ class AppAssets {
   static const String shopSvgIcon = '$svgIconsPath/shop.svg';
   static const String favSvgIcon = '$svgIconsPath/fav.svg';
   static const String farArrowSvgIcon = '$svgIconsPath/farArrow.svg';
+  static const String ageCalSvgIcon = '$svgIconsPath/ageCal.svg';
 
   //png icons
   static const String backArrowIcon = '$iconPath/backArrow.png';

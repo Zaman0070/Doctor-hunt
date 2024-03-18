@@ -3,7 +3,7 @@ class FirebaseConstants {
   static String pharmacyCollection = 'pharmacy-info';
   static String doctorCollection = 'doctor-info';
   static String productCollection = 'product-collection';
-  static String dailyJournalCollection = 'daily_journal_entry';
+  static String orderCollection = 'order-collection';
   static String registorId = 'register_id';
   static String journalEntryAnsCollection = 'journal-entry-answer-collection';
   static String ownerCollection = 'owner-collection';

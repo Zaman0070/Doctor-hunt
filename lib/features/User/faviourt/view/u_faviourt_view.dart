@@ -5,6 +5,7 @@ import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/cached_circular_network_image.dart';
 import 'package:doctor_app/commons/common_widgets/rating_bar.dart';
 import 'package:doctor_app/features/User/home/controller/home_controller.dart';
+import 'package:doctor_app/features/User/main_menu/controller/u_main_menu_controller.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,20 +21,23 @@ class UserFaviourtScreen extends StatelessWidget {
           children: [
             AppBar(
               backgroundColor: Colors.transparent,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Image.asset(
-                  AppAssets.backArrowIcon,
-                  width: 30.w,
-                  height: 30.h,
-                ),
-              ),
+              leading: Consumer(builder: (context, ref, child) {
+                return IconButton(
+                  onPressed: () {
+                    final ctr = ref.read(usermainMenuProvider);
+                    ctr.setIndex(0);
+                  },
+                  icon: Image.asset(
+                    AppAssets.backArrowIcon,
+                    width: 30.w,
+                    height: 30.h,
+                  ),
+                );
+              }),
               title: Text(
                 'Favourite Doctors',
                 style: getMediumStyle(
-                    color: MyColors.appColor1, fontSize: MyFonts.size18),
+                    color: MyColors.black, fontSize: MyFonts.size18),
               ),
             ),
             Expanded(

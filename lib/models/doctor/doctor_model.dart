@@ -84,20 +84,22 @@ class DoctorModel {
       email: map['email'] as String,
       imageUrl: map['imageUrl'] as String,
       speciality: map['speciality'] as String,
-      avaialbleDays: List<dynamic>.from((map['avaialbleDays'] as List<dynamic>)),
+      avaialbleDays:
+          List<dynamic>.from((map['avaialbleDays'] as List<dynamic>)),
       from: DateTime.fromMillisecondsSinceEpoch(map['from'] as int),
       to: DateTime.fromMillisecondsSinceEpoch(map['to'] as int),
       id: map['id'] as String,
       doctorId: map['doctorId'] as String,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      rating: map['rating'] as double,
+      rating: (map['rating'] as num).toDouble(),
       favorite: List<dynamic>.from((map['favorite'] as List<dynamic>)),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory DoctorModel.fromJson(String source) => DoctorModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory DoctorModel.fromJson(String source) =>
+      DoctorModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -107,35 +109,34 @@ class DoctorModel {
   @override
   bool operator ==(covariant DoctorModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.name == name &&
-      other.email == email &&
-      other.imageUrl == imageUrl &&
-      other.speciality == speciality &&
-      listEquals(other.avaialbleDays, avaialbleDays) &&
-      other.from == from &&
-      other.to == to &&
-      other.id == id &&
-      other.doctorId == doctorId &&
-      other.createdAt == createdAt &&
-      other.rating == rating &&
-      listEquals(other.favorite, favorite);
+
+    return other.name == name &&
+        other.email == email &&
+        other.imageUrl == imageUrl &&
+        other.speciality == speciality &&
+        listEquals(other.avaialbleDays, avaialbleDays) &&
+        other.from == from &&
+        other.to == to &&
+        other.id == id &&
+        other.doctorId == doctorId &&
+        other.createdAt == createdAt &&
+        other.rating == rating &&
+        listEquals(other.favorite, favorite);
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-      email.hashCode ^
-      imageUrl.hashCode ^
-      speciality.hashCode ^
-      avaialbleDays.hashCode ^
-      from.hashCode ^
-      to.hashCode ^
-      id.hashCode ^
-      doctorId.hashCode ^
-      createdAt.hashCode ^
-      rating.hashCode ^
-      favorite.hashCode;
+        email.hashCode ^
+        imageUrl.hashCode ^
+        speciality.hashCode ^
+        avaialbleDays.hashCode ^
+        from.hashCode ^
+        to.hashCode ^
+        id.hashCode ^
+        doctorId.hashCode ^
+        createdAt.hashCode ^
+        rating.hashCode ^
+        favorite.hashCode;
   }
 }

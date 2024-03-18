@@ -25,6 +25,8 @@ class CustomTextField extends StatelessWidget {
   final bool showLabel;
   final bool showReq;
   final bool filled;
+  final bool enabled;
+  final VoidCallback? onTap;
 
   const CustomTextField({
     Key? key,
@@ -50,107 +52,116 @@ class CustomTextField extends StatelessWidget {
     this.showReq = true,
     this.leadigingIconPath,
     this.filled = false,
+    this.enabled = true,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: verticalMargin ?? 10.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
-        border: Border.all(
-          color: borderColor ?? context.containerColor,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Padding(
-          //   padding: EdgeInsets.only(left: 20.0.w, bottom: 5.h),
-          //   child: Row(
-          //     children: [
-          //       Text(
-          //         label,
-          //         style: getSemiBoldStyle(
-          //             fontSize: MyFonts.size13, color: context.whiteColor),
-          //       ),
-          //       Text(
-          //         label == '' ? '' : showReq?'*':'',
-          //         style: getSemiBoldStyle(
-          //             fontSize: MyFonts.size18,
-          //             color: Theme.of(context).colorScheme.error),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          TextFormField(
-            validator: validatorFn,
-            obscureText: obscure,
-            controller: controller,
-            keyboardType: inputType,
-            maxLines: maxLines ?? 1,
-            style: getRegularStyle(
-                fontSize: MyFonts.size12,
-                color: borderColor != null
-                    ? context.bodyTextColor
-                    : context.whiteColor),
-            decoration: InputDecoration(
-              filled: filled,
-              fillColor: MyColors.white,
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: 20.w, vertical: verticalPadding ?? 0.0),
-              errorStyle: getRegularStyle(
-                  fontSize: MyFonts.size10,
-                  color: Theme.of(context).colorScheme.error),
-              suffixIcon: tailingIconPath != null
-                  ? Padding(
-                      padding: EdgeInsets.all(13.0.h),
-                      child: SvgPicture.asset(
-                        tailingIconPath!,
-                      ),
-                    )
-                  : tailingIcon,
-              prefixIcon: leadigingIconPath != null
-                  ? Padding(
-                      padding: EdgeInsets.all(13.0.h),
-                      child: SvgPicture.asset(
-                        leadigingIconPath!,
-                      ),
-                    )
-                  : leadingIcon,
-              hintText: hintText,
-              hintStyle: getRegularStyle(
-                  fontSize: MyFonts.size12, color: context.bodyTextColor),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
-                borderSide:
-                    const BorderSide(color: Colors.transparent, width: 0.0),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
-                borderSide:
-                    const BorderSide(color: Colors.transparent, width: 0.0),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
-                borderSide:
-                    const BorderSide(color: Colors.transparent, width: 0.0),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
-                borderSide:
-                    const BorderSide(color: Colors.transparent, width: 0.0),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
-                borderSide:
-                    const BorderSide(color: Colors.transparent, width: 0.0),
-              ),
-            ),
-            onFieldSubmitted: onFieldSubmitted,
-            onChanged: onChanged,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: verticalMargin ?? 10.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+          border: Border.all(
+            color: borderColor ?? context.containerColor,
           ),
-        ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Padding(
+            //   padding: EdgeInsets.only(left: 20.0.w, bottom: 5.h),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         label,
+            //         style: getSemiBoldStyle(
+            //             fontSize: MyFonts.size13, color: context.whiteColor),
+            //       ),
+            //       Text(
+            //         label == '' ? '' : showReq?'*':'',
+            //         style: getSemiBoldStyle(
+            //             fontSize: MyFonts.size18,
+            //             color: Theme.of(context).colorScheme.error),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            TextFormField(
+              enabled: enabled,
+              validator: validatorFn,
+              obscureText: obscure,
+              controller: controller,
+              keyboardType: inputType,
+              maxLines: maxLines ?? 1,
+              style: getRegularStyle(
+                  fontSize: MyFonts.size12,
+                  color: borderColor != null
+                      ? context.bodyTextColor
+                      : context.whiteColor),
+              decoration: InputDecoration(
+                filled: filled,
+                fillColor: MyColors.white,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20.w, vertical: verticalPadding ?? 0.0),
+                errorStyle: getRegularStyle(
+                    fontSize: MyFonts.size10,
+                    color: Theme.of(context).colorScheme.error),
+                suffixIcon: tailingIconPath != null
+                    ? Padding(
+                        padding: EdgeInsets.all(13.0.h),
+                        child: SvgPicture.asset(
+                          tailingIconPath!,
+                        ),
+                      )
+                    : tailingIcon,
+                prefixIcon: leadigingIconPath != null
+                    ? Padding(
+                        padding: EdgeInsets.all(13.0.h),
+                        child: SvgPicture.asset(
+                          leadigingIconPath!,
+                          colorFilter: ColorFilter.mode(
+                              context.bodyTextColor.withOpacity(0.5),
+                              BlendMode.srcIn),
+                        ))
+                    : leadingIcon,
+                hintText: hintText,
+                hintStyle: getRegularStyle(
+                    fontSize: MyFonts.size12,
+                    color: context.bodyTextColor.withOpacity(0.6)),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.0),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.0),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.0),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
+                  borderSide:
+                      const BorderSide(color: Colors.transparent, width: 0.0),
+                ),
+              ),
+              onFieldSubmitted: onFieldSubmitted,
+              onChanged: onChanged,
+            ),
+          ],
+        ),
       ),
     );
   }
