@@ -1,12 +1,17 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
+import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
+import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
 import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
 import 'package:doctor_app/features/User/pharmacy/view/u_enable_location_screen.dart';
 import 'package:doctor_app/features/User/pharmacy/view/u_order_screen.dart';
+import 'package:doctor_app/features/User/profile/view/u_add_review_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_change_password_profile_screen.dart';
+import 'package:doctor_app/features/User/profile/view/u_edit_profile_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_profile_screen.dart';
+import 'package:doctor_app/features/User/profile/view/u_your_orders_screen.dart';
 import 'package:doctor_app/features/account_type/view/account_type_screen.dart';
 import 'package:doctor_app/features/auth/view/availabilty_screen.dart';
 import 'package:doctor_app/features/auth/view/forget_screen.dart';
@@ -43,6 +48,8 @@ class AppRoutes {
 
   // User profile Section
   static const String userEditProfileScreen = '/userEditProfileScreen';
+  static const String userYourOrderScreen = '/userYourOrderScreen';
+  static const String userAddReviewScreen = '/userAddReviewScreen';
   static const String userProfileScreen = '/userProfileScreen';
   static const String userOrderScreen = '/userOrderScreen';
   static const String userEnableLocationScreen = '/userEnableLocationScreen';
@@ -56,6 +63,9 @@ class AppRoutes {
   // pharmacy Section
   static const String pharmacyMainMenuScreen = '/pharmacyMainMenuScreen';
   static const String pharmacyAddProductScreen = '/pharmacyAddProductScreen';
+  static const String pharmacyOrderDetailScreen = '/pharmacyOrderDetailScreen';
+  static const String pharmacyProductDetailScreen =
+      '/pharmacyProductDetailScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -70,6 +80,20 @@ class AppRoutes {
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(SignInScreen(
           accountType: arguments['accountType'],
+        ));
+      case userEditProfileScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UserEditProfileScreen(
+          userModel: arguments['userModel'],
+        ));
+        case userYourOrderScreen:
+        return _buildRoute(const YourOrderScreen());
+      case userAddReviewScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UserAddReviewScreen(
+          productId: arguments['productId'],
         ));
       case signUpScreen:
         return _buildRoute(const SignUpScreen());
@@ -129,6 +153,18 @@ class AppRoutes {
         return _buildRoute(PAddProductScreen(
           model: arguments['model'],
           type: arguments['type'],
+        ));
+      case pharmacyOrderDetailScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(PharmaistOrderDetailScreen(
+          orderModel: arguments['orderModel'],
+        ));
+      case pharmacyProductDetailScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(PharmaistProductDetailScreen(
+          productId: arguments['productId'],
         ));
       case messageScreen:
         Map<String, dynamic> arguments =

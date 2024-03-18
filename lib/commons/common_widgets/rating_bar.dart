@@ -8,11 +8,13 @@ class CommonRatingBar extends StatelessWidget {
       required this.rating,
       this.size = 14,
       this.padding = 4,
-      required this.ignoreGestures});
+      required this.ignoreGestures,
+      this.onChange});
   final double rating;
   final double size;
   final double padding;
   final bool ignoreGestures;
+  final Function(double)? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +27,13 @@ class CommonRatingBar extends StatelessWidget {
       direction: Axis.horizontal,
       allowHalfRating: true,
       itemCount: 5,
-      itemPadding:  EdgeInsets.symmetric(horizontal: padding),
+      itemPadding: EdgeInsets.symmetric(horizontal: padding),
       itemBuilder: (context, _) => const Icon(
         Icons.star,
         color: Colors.amber,
         size: 14,
       ),
-      onRatingUpdate: (rating) {},
+      onRatingUpdate: onChange ?? (double value) {},
     );
   }
 }

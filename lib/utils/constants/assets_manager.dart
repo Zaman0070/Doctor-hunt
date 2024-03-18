@@ -73,6 +73,7 @@ class AppAssets {
   static const String favSvgIcon = '$svgIconsPath/fav.svg';
   static const String farArrowSvgIcon = '$svgIconsPath/farArrow.svg';
   static const String ageCalSvgIcon = '$svgIconsPath/ageCal.svg';
+  static const String orderSvgIcon = '$svgIconsPath/order.svg';
 
   //png icons
   static const String backArrowIcon = '$iconPath/backArrow.png';

@@ -104,6 +104,14 @@ class UserProfileScreen extends ConsumerWidget {
                             }),
                         padding20,
                         ProfileCard(
+                            icon: AppAssets.orderSvgIcon,
+                            title: 'Your Orders',
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.userYourOrderScreen);
+                            }),
+                        padding20,
+                        ProfileCard(
                             icon: AppAssets.newsSvgIcon,
                             title: 'News',
                             onTap: () {}),

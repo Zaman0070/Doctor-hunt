@@ -9,7 +9,7 @@ class MyColors {
   static const Color red = Color(0xFFFF0000);
   static const Color green = Color(0xFF10CD00);
   static const Color yellow = Color(0xFFFFCE4D);
-  static const Color bluishTextColor = Color(0xFF838999);
+  static const Color bluishTextColor = Color(0xFF8F8F8F);
   static const Color darkGreyTagColor = Color(0xFF1E1E1E);
   static const Color redTagColor = Color(0xFFFF000F);
   static const Color textFieldFillColor = Color(0xFF1D1D1D);

@@ -48,7 +48,7 @@ class PHomeScreen extends StatelessWidget {
                 ),
                 padding12,
                 Consumer(builder: (context, ref, child) {
-                  final products = ref.watch(watchProductByIdProvider(
+                  final products = ref.watch(watchAllProductByIdProvider(
                       FirebaseAuth.instance.currentUser!.uid));
                   return products.when(data: (products) {
                     return Expanded(

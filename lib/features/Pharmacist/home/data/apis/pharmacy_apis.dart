@@ -13,6 +13,7 @@ abstract class IPharmacyApis {
   FutureEitherVoid insertProduct({required ProductModel model});
   Stream<List<ProductModel>> watchProductById({required String userId});
   FutureEitherVoid updateProduct({required ProductModel model});
+
 }
 
 class PharmacyApis implements IPharmacyApis {
@@ -58,4 +59,7 @@ class PharmacyApis implements IPharmacyApis {
       return Left(Failure(e.toString(), StackTrace.current));
     }
   }
+
+  // watch order by uid
+ 
 }

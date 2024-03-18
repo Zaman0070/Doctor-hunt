@@ -86,7 +86,7 @@ class _UserEnableLocationScreenState
       Placemark place = placemarks[0];
       setState(() {
         _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.locality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+            '${place.street}, ${place.subLocality}, ${place.locality}, ${place.subAdministrativeArea}, ${place.country}';
       });
     }).catchError((e) {
       debugPrint(e);
@@ -184,12 +184,14 @@ class _UserEnableLocationScreenState
     await ref.watch(userPharmacyControllerProvider.notifier).insertOrder(
           model: OrderModel(
             productName: widget.productModel.productName,
-            productId: widget.productModel.uid,
+            productUuid: widget.productModel.uid,
+            productId: widget.productModel.productId,
             productPrice: widget.productModel.productPrice,
             productDescription: widget.productModel.productDescription,
             productImage: widget.productModel.productImage,
             rating: widget.productModel.rating,
             createdAt: DateTime.now(),
+            deliveredDate: DateTime.now(),
             uid: FirebaseAuth.instance.currentUser!.uid,
             userName: widget.patientName,
             userPhone: widget.patientPhone,

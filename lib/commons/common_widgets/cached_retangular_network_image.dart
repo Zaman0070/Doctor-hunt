@@ -11,6 +11,7 @@ class CachedRectangularNetworkImageWidget extends StatelessWidget {
     required this.height,
     this.fit,
     this.name = 'UnKnown',
+    this.borderColor = Colors.transparent,
   });
 
   final String image;
@@ -18,6 +19,7 @@ class CachedRectangularNetworkImageWidget extends StatelessWidget {
   final int height;
   final BoxFit? fit;
   final String name;
+  final Color borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CachedRectangularNetworkImageWidget extends StatelessWidget {
               imageUrl: image,
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
+                  border: Border.all(color: borderColor, width: 0.6),
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(9.r),
                   image: DecorationImage(

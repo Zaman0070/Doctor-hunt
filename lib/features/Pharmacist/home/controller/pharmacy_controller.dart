@@ -15,7 +15,7 @@ final pharmacyControllerProvider =
   );
 });
 
-final watchProductByIdProvider = StreamProvider.autoDispose
+final watchAllProductByIdProvider = StreamProvider.autoDispose
     .family<List<ProductModel>, String>((ref, userId) {
   return ref.watch(pharmacyApisProvider).watchProductById(userId: userId);
 });

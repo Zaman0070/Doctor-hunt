@@ -10,7 +10,9 @@ class OrderModel {
   final String? productDescription;
   final String? orderId;
   final String? productId;
+  final String? productUuid;
   final DateTime? createdAt;
+  final DateTime? deliveredDate;
   final String? uid;
   final String? userName;
   final String? userAddress;
@@ -27,7 +29,9 @@ class OrderModel {
     this.productDescription,
     this.orderId,
     this.productId,
+    this.productUuid,
     this.createdAt,
+    this.deliveredDate,
     this.uid,
     this.userName,
     this.userAddress,
@@ -46,7 +50,9 @@ class OrderModel {
     String? productDescription,
     String? orderId,
     String? productId,
+    String? productUuid,
     DateTime? createdAt,
+    DateTime? deliveredDate,
     String? uid,
     String? userName,
     String? userAddress,
@@ -64,7 +70,9 @@ class OrderModel {
       productDescription: productDescription ?? this.productDescription,
       orderId: orderId ?? this.orderId,
       productId: productId ?? this.productId,
+      productUuid: productUuid ?? this.productUuid,
       createdAt: createdAt ?? this.createdAt,
+      deliveredDate: deliveredDate ?? this.deliveredDate,
       uid: uid ?? this.uid,
       userName: userName ?? this.userName,
       userAddress: userAddress ?? this.userAddress,
@@ -85,7 +93,9 @@ class OrderModel {
       'productDescription': productDescription,
       'orderId': orderId,
       'productId': productId,
+      'productUuid': productUuid,
       'createdAt': createdAt?.millisecondsSinceEpoch,
+      'deliveredDate': deliveredDate?.millisecondsSinceEpoch,
       'uid': uid,
       'userName': userName,
       'userAddress': userAddress,
@@ -99,74 +109,93 @@ class OrderModel {
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      productName: map['productName'] != null ? map['productName'] as String : null,
-      productPrice: map['productPrice'] != null ? map['productPrice'] as String : null,
-      productImage: map['productImage'] != null ? map['productImage'] as String : null,
-      rating: map['rating'] != null ? map['rating'] as double : null,
-      productDescription: map['productDescription'] != null ? map['productDescription'] as String : null,
+      productName:
+          map['productName'] != null ? map['productName'] as String : null,
+      productPrice:
+          map['productPrice'] != null ? map['productPrice'] as String : null,
+      productImage:
+          map['productImage'] != null ? map['productImage'] as String : null,
+      rating: map['rating'] != null ? (map['rating'] as num).toDouble() : null,
+      productDescription: map['productDescription'] != null
+          ? map['productDescription'] as String
+          : null,
       orderId: map['orderId'] != null ? map['orderId'] as String : null,
       productId: map['productId'] != null ? map['productId'] as String : null,
-      createdAt: map['createdAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int) : null,
+      productUuid:
+          map['productUuid'] != null ? map['productUuid'] as String : null,
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+          : null,
+      deliveredDate: map['deliveredDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['deliveredDate'] as int)
+          : null,
       uid: map['uid'] != null ? map['uid'] as String : null,
       userName: map['userName'] != null ? map['userName'] as String : null,
-      userAddress: map['userAddress'] != null ? map['userAddress'] as String : null,
+      userAddress:
+          map['userAddress'] != null ? map['userAddress'] as String : null,
       userPhone: map['userPhone'] != null ? map['userPhone'] as String : null,
       userAge: map['userAge'] != null ? map['userAge'] as String : null,
-      userGender: map['userGender'] != null ? map['userGender'] as String : null,
+      userGender:
+          map['userGender'] != null ? map['userGender'] as String : null,
       userEmail: map['userEmail'] != null ? map['userEmail'] as String : null,
-      orderStatus: map['orderStatus'] != null ? map['orderStatus'] as String : null,
+      orderStatus:
+          map['orderStatus'] != null ? map['orderStatus'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory OrderModel.fromJson(String source) => OrderModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory OrderModel.fromJson(String source) =>
+      OrderModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'OrderModel(productName: $productName, productPrice: $productPrice, productImage: $productImage, rating: $rating, productDescription: $productDescription, orderId: $orderId, productId: $productId, createdAt: $createdAt, uid: $uid, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, userAge: $userAge, userGender: $userGender, userEmail: $userEmail, orderStatus: $orderStatus)';
+    return 'OrderModel(productName: $productName, productPrice: $productPrice, productImage: $productImage, rating: $rating, productDescription: $productDescription, orderId: $orderId, productId: $productId, productUuid: $productUuid, createdAt: $createdAt, deliveredDate: $deliveredDate, uid: $uid, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, userAge: $userAge, userGender: $userGender, userEmail: $userEmail, orderStatus: $orderStatus)';
   }
 
   @override
   bool operator ==(covariant OrderModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.productName == productName &&
-      other.productPrice == productPrice &&
-      other.productImage == productImage &&
-      other.rating == rating &&
-      other.productDescription == productDescription &&
-      other.orderId == orderId &&
-      other.productId == productId &&
-      other.createdAt == createdAt &&
-      other.uid == uid &&
-      other.userName == userName &&
-      other.userAddress == userAddress &&
-      other.userPhone == userPhone &&
-      other.userAge == userAge &&
-      other.userGender == userGender &&
-      other.userEmail == userEmail &&
-      other.orderStatus == orderStatus;
+
+    return other.productName == productName &&
+        other.productPrice == productPrice &&
+        other.productImage == productImage &&
+        other.rating == rating &&
+        other.productDescription == productDescription &&
+        other.orderId == orderId &&
+        other.productId == productId &&
+        other.productUuid == productUuid &&
+        other.createdAt == createdAt &&
+        other.deliveredDate == deliveredDate &&
+        other.uid == uid &&
+        other.userName == userName &&
+        other.userAddress == userAddress &&
+        other.userPhone == userPhone &&
+        other.userAge == userAge &&
+        other.userGender == userGender &&
+        other.userEmail == userEmail &&
+        other.orderStatus == orderStatus;
   }
 
   @override
   int get hashCode {
     return productName.hashCode ^
-      productPrice.hashCode ^
-      productImage.hashCode ^
-      rating.hashCode ^
-      productDescription.hashCode ^
-      orderId.hashCode ^
-      productId.hashCode ^
-      createdAt.hashCode ^
-      uid.hashCode ^
-      userName.hashCode ^
-      userAddress.hashCode ^
-      userPhone.hashCode ^
-      userAge.hashCode ^
-      userGender.hashCode ^
-      userEmail.hashCode ^
-      orderStatus.hashCode;
+        productPrice.hashCode ^
+        productImage.hashCode ^
+        rating.hashCode ^
+        productDescription.hashCode ^
+        orderId.hashCode ^
+        productId.hashCode ^
+        productUuid.hashCode ^
+        createdAt.hashCode ^
+        deliveredDate.hashCode ^
+        uid.hashCode ^
+        userName.hashCode ^
+        userAddress.hashCode ^
+        userPhone.hashCode ^
+        userAge.hashCode ^
+        userGender.hashCode ^
+        userEmail.hashCode ^
+        orderStatus.hashCode;
   }
 }

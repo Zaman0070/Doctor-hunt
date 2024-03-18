@@ -13,18 +13,19 @@ import 'package:doctor_app/utils/constants/assets_manager.dart';
 
 import '../../../auth/controller/auth_controller.dart';
 
-class EditProfileScreen extends ConsumerStatefulWidget {
+class UserEditProfileScreen extends ConsumerStatefulWidget {
   final UserModel userModel;
-  const EditProfileScreen({
+  const UserEditProfileScreen({
     Key? key,
     required this.userModel,
   }) : super(key: key);
 
   @override
-  ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
+  ConsumerState<UserEditProfileScreen> createState() =>
+      _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
+class _EditProfileScreenState extends ConsumerState<UserEditProfileScreen> {
   final fullNameController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final emailController = TextEditingController();
@@ -53,120 +54,124 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
-        backgroundColor: context.scaffoldBackgroundColor,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Image.asset(
-              AppAssets.backArrowIcon,
-              width: 30.w,
-              height: 30.h,
-            ),
-          ),
-          title: Text(
-            'Edit Profile',
-            style: getMediumStyle(
-                color: MyColors.appColor1, fontSize: MyFonts.size18),
-          ),
-        ),
         body: MasterScafold(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.paddingHorizontal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  padding40,
-                  EditProfileImageWidget(
-                    userImage: widget.userModel.profileImage,
-                    imgPath: (imgPath) {
-                      setState(() {
-                        newImagePath = imgPath;
-                      });
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
-                  ),
-                  padding30,
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          borderRadius: 12.r,
-                          controller: fullNameController,
-                          hintText: 'Mark Jeson',
-                          label: 'Full Name',
-                          validatorFn: uNameValidator,
-                          borderColor: MyColors.lightContainerColor,
-                        ),
-                        CustomTextField(
-                          borderRadius: 12.r,
-                          controller: emailController,
-                          hintText: 'info@example.com',
-                          label: 'Email Address',
-                          validatorFn: emailValidator,
-                          tailingIconPath: AppAssets.emailSvgIcon,
-                          borderColor: MyColors.lightContainerColor,
-                        ),
-                      ],
+                    icon: Image.asset(
+                      AppAssets.backArrowIcon,
+                      width: 30.w,
+                      height: 30.h,
                     ),
                   ),
-                  padding40,
-                  Consumer(
-                    builder:
-                        (BuildContext context, WidgetRef ref, Widget? child) {
-                      return CustomButton(
-                        isLoading: ref.watch(authControllerProvider),
-                        onPressed: () async {
-                          final authCtr =
-                              ref.read(authControllerProvider.notifier);
-                          final authNotiCtr =
-                              ref.read(authNotifierCtr.notifier);
-                          bool hasLast = hasLastName(fullNameController.text);
-
-                          String phoneNo =
-                              "${codeController.text}-${phoneNumberController.text}";
-                          if (phoneNumberController.text.trim() == "") {
-                            phoneNo = '';
-                          }
-
-                          UserModel userModel = UserModel.fromMap({
-                            ...widget.userModel.toMap(),
-                            'firstName': hasLast
-                                ? fullNameController.text.split(' ')[0]
-                                : fullNameController.text,
-                            'lastName': hasLast
-                                ? fullNameController.text.split(' ')[1]
-                                : '',
-                            'email': emailController.text,
-                            'phoneNumber': phoneNo,
-                            'profileImage': oldImage!,
-                          });
-                          await authCtr.updateCurrentUserInfo(
-                              context: context,
-                              userModel: userModel,
-                              oldImage: oldImage!,
-                              newImagePath: newImagePath);
-                          authCtr
-                              .getCurrentUserInfoStreamData()
-                              .listen((event) {
-                            authNotiCtr.setUserModelData(event);
+                  title: Text(
+                    'Edit Profile',
+                    style: getMediumStyle(
+                        color: MyColors.black, fontSize: MyFonts.size18),
+                  ),
+                ),
+                padding40,
+                Padding(
+                  padding: EdgeInsets.all(AppConstants.padding),
+                  child: Column(
+                    children: [
+                      EditProfileImageWidget(
+                        userImage: widget.userModel.profileImage,
+                        imgPath: (imgPath) {
+                          setState(() {
+                            newImagePath = imgPath;
                           });
                         },
-                        buttonText: 'Update Profile',
-                        buttonWidth: 130.w,
-                        fontSize: MyFonts.size14,
-                        backColor: MyColors.appColor1,
-                      );
-                    },
+                      ),
+                      padding30,
+                      Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              borderRadius: 12.r,
+                              controller: fullNameController,
+                              hintText: 'Mark Jeson',
+                              label: 'Full Name',
+                              validatorFn: uNameValidator,
+                              borderColor: MyColors.lightContainerColor,
+                            ),
+                            CustomTextField(
+                              borderRadius: 12.r,
+                              controller: emailController,
+                              hintText: 'info@example.com',
+                              label: 'Email Address',
+                              validatorFn: emailValidator,
+                              tailingIconPath: AppAssets.emailSvgIcon,
+                              borderColor: MyColors.lightContainerColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                      padding40,
+                      Consumer(
+                        builder: (BuildContext context, WidgetRef ref,
+                            Widget? child) {
+                          return CustomButton(
+                            isLoading: ref.watch(authControllerProvider),
+                            onPressed: () async {
+                              final authCtr =
+                                  ref.read(authControllerProvider.notifier);
+                              final authNotiCtr =
+                                  ref.read(authNotifierCtr.notifier);
+                              bool hasLast =
+                                  hasLastName(fullNameController.text);
+
+                              String phoneNo =
+                                  "${codeController.text}-${phoneNumberController.text}";
+                              if (phoneNumberController.text.trim() == "") {
+                                phoneNo = '';
+                              }
+
+                              UserModel userModel = UserModel.fromMap({
+                                ...widget.userModel.toMap(),
+                                'firstName': hasLast
+                                    ? fullNameController.text.split(' ')[0]
+                                    : fullNameController.text,
+                                'lastName': hasLast
+                                    ? fullNameController.text.split(' ')[1]
+                                    : '',
+                                'email': emailController.text,
+                                'phoneNumber': phoneNo,
+                                'profileImage': oldImage!,
+                              });
+                              await authCtr.updateCurrentUserInfo(
+                                  context: context,
+                                  userModel: userModel,
+                                  oldImage: oldImage!,
+                                  newImagePath: newImagePath);
+                              authCtr
+                                  .getCurrentUserInfoStreamData()
+                                  .listen((event) {
+                                authNotiCtr.setUserModelData(event);
+                              });
+                            },
+                            buttonText: 'Update Profile',
+                            buttonWidth: 130.w,
+                            fontSize: MyFonts.size14,
+                            backColor: MyColors.appColor1,
+                          );
+                        },
+                      ),
+                      padding100,
+                    ],
                   ),
-                  padding100,
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

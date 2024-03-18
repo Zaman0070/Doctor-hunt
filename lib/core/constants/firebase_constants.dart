@@ -4,6 +4,7 @@ class FirebaseConstants {
   static String doctorCollection = 'doctor-info';
   static String productCollection = 'product-collection';
   static String orderCollection = 'order-collection';
+  static String reviewCollection = 'review-collection';
   static String registorId = 'register_id';
   static String journalEntryAnsCollection = 'journal-entry-answer-collection';
   static String ownerCollection = 'owner-collection';

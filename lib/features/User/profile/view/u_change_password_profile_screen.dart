@@ -44,37 +44,36 @@ class _UserChangePasswordProfileScreenState
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
-        backgroundColor: context.scaffoldBackgroundColor,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Image.asset(
-              AppAssets.backArrowIcon,
-              width: 30.w,
-              height: 30.h,
-            ),
-          ),
-          title: Text(
-            'Change Password',
-            style: getMediumStyle(
-                color: MyColors.appColor1, fontSize: MyFonts.size18),
-          ),
-        ),
         body: MasterScafold(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppConstants.paddingHorizontal),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  padding20,
-                  Form(
-                    key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Image.asset(
+                      AppAssets.backArrowIcon,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                  ),
+                  title: Text(
+                    'Change Password',
+                    style: getMediumStyle(
+                        color: MyColors.black, fontSize: MyFonts.size18),
+                  ),
+                ),
+                padding20,
+                Form(
+                  key: formKey,
+                  child: Padding(
+                    padding: EdgeInsets.all(AppConstants.padding),
                     child: Column(
                       children: [
                         CustomTextField(
@@ -178,39 +177,39 @@ class _UserChangePasswordProfileScreenState
                       ],
                     ),
                   ),
-                  padding40,
-                  Consumer(
-                    builder:
-                        (BuildContext context, WidgetRef ref, Widget? child) {
-                      return CustomButton(
-                        backColor: MyColors.appColor1,
-                        isLoading: ref.watch(authControllerProvider),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            if (newPasswordController.text ==
-                                confirmNewPasswordController.text) {
-                              await ref
-                                  .read(authControllerProvider.notifier)
-                                  .changeUserPassword(
-                                      currentPass: passwordController.text,
-                                      newPass: newPasswordController.text,
-                                      context: context);
-                            } else {
-                              showToast(msg: 'Pssword dont match!');
-                            }
+                ),
+                padding40,
+                Consumer(
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    return CustomButton(
+                      backColor: MyColors.appColor1,
+                      isLoading: ref.watch(authControllerProvider),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          if (newPasswordController.text ==
+                              confirmNewPasswordController.text) {
+                            await ref
+                                .read(authControllerProvider.notifier)
+                                .changeUserPassword(
+                                    currentPass: passwordController.text,
+                                    newPass: newPasswordController.text,
+                                    context: context);
                           } else {
-                            showToast(msg: 'All Fields are required!');
+                            showToast(msg: 'Pssword dont match!');
                           }
-                        },
-                        buttonText: 'Update Profile',
-                        buttonWidth: 130.w,
-                        fontSize: MyFonts.size12,
-                      );
-                    },
-                  ),
-                  padding100,
-                ],
-              ),
+                        } else {
+                          showToast(msg: 'All Fields are required!');
+                        }
+                      },
+                      buttonText: 'Update Profile',
+                      buttonWidth: 130.w,
+                      fontSize: MyFonts.size12,
+                    );
+                  },
+                ),
+                padding100,
+              ],
             ),
           ),
         ),

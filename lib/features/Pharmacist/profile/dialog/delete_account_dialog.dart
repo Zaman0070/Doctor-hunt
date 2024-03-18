@@ -5,7 +5,6 @@ import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/commons/common_widgets/custom_text_fields.dart';
 import 'package:doctor_app/features/Pharmacist/profile/controller/profile_controller.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
-import 'package:doctor_app/features/Doctor/profile/controller/profile_controller.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

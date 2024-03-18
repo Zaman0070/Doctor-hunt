@@ -71,7 +71,7 @@ class _PatientHomeScreenState extends ConsumerState<UserPharmacyScreen> {
                     ),
                     padding18,
                     Consumer(builder: (context, ref, child) {
-                      final products = ref.watch(watchProductByIdProvider(
+                      final products = ref.watch(watchAllProductByIdProvider(
                           FirebaseAuth.instance.currentUser!.uid));
                       return products.when(data: (products) {
                         return GridView.builder(
