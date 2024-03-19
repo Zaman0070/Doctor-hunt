@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/core/constants/firebase_constants.dart';
 import 'package:doctor_app/models/doctor/doctor_model.dart';
+import 'package:doctor_app/models/med_record/med_record_model.dart';
 import 'package:doctor_app/models/product/products_model.dart';
 import '../../../../../commons/common_providers/global_providers.dart';
 
@@ -17,6 +18,9 @@ abstract class IUserHomeApis {
   Stream<List<DoctorModel>> faveDoctors({required String userId});
   Stream<List<DoctorModel>> findAllDoctorStream({String? searchQuery});
   Stream<List<ProductModel>> findAllMedStream({String? searchQuery});
+  Stream<bool> checkExistConverstion({required String doctorId});
+  FutureEitherVoid insertMedRecord({required MedRecordModel model});
+  Stream<List<MedRecordModel>> watchAllMedRecord({required String uid});
 }
 
 class UserHomeApis implements IUserHomeApis {
@@ -99,6 +103,7 @@ class UserHomeApis implements IUserHomeApis {
         .toList());
   }
 
+  @override
   Stream<bool> checkExistConverstion({required String doctorId}) {
     return _firestore
         .collection(FirebaseConstants.userCollection)
@@ -107,5 +112,35 @@ class UserHomeApis implements IUserHomeApis {
         .doc(doctorId)
         .snapshots()
         .map((querySnapshot) => querySnapshot.exists);
+  }
+
+  // insert medical record
+  @override
+  FutureEitherVoid insertMedRecord({required MedRecordModel model}) async {
+    try {
+      final response = await _firestore
+          .collection(FirebaseConstants.recordCollection)
+          .add(model.toMap());
+      String recordId = response.id;
+      await response.update({'id': recordId});
+      // ignore: void_checks
+      return Right(response);
+    } catch (e) {
+      return Left(Failure(e.toString(), StackTrace.current));
+    }
+  }
+
+  @override
+  Stream<List<MedRecordModel>> watchAllMedRecord({
+    required String uid,
+  }) {
+    Query collection = _firestore
+        .collection(FirebaseConstants.recordCollection)
+        .where('uid', isEqualTo: uid)
+        .orderBy('createdAt', descending: true);
+    return collection.snapshots().map((querySnapshot) => querySnapshot.docs
+        .map(
+            (doc) => MedRecordModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList());
   }
 }

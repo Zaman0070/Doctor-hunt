@@ -1,9 +1,12 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_add_record_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_doctor_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_medical_record_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_select_time_doctor_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_tag_doctor_screen.dart';
 import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
@@ -56,6 +59,8 @@ class AppRoutes {
   static const String userAddReviewScreen = '/userAddReviewScreen';
   static const String userProfileScreen = '/userProfileScreen';
   static const String userOrderScreen = '/userOrderScreen';
+  static const String userAddRecordScreen = '/userAddRecordScreen';
+  static const String userTageScreen = '/userTagScreen';
   static const String userSelectTimeDoctorScreen =
       '/userSelectTimeDoctorScreen';
   static const String userEnableLocationScreen = '/userEnableLocationScreen';
@@ -65,6 +70,7 @@ class AppRoutes {
   // User Notification Section
   static const String userNotificationScreen = '/userNotificationScreen';
   static const String userFindDoctorScreen = '/userFindDoctorScreen';
+  static const String userRecordScreen = '/userRecordScreen';
 
   // pharmacy Section
   static const String pharmacyMainMenuScreen = '/pharmacyMainMenuScreen';
@@ -94,6 +100,8 @@ class AppRoutes {
         return _buildRoute(UserEditProfileScreen(
           userModel: arguments['userModel'],
         ));
+      case userRecordScreen:
+        return _buildRoute(const UserMedicalRecordScreen());
       case userYourOrderScreen:
         return _buildRoute(const YourOrderScreen());
       case userAddReviewScreen:
@@ -124,6 +132,8 @@ class AppRoutes {
           to: arguments['to'],
           availableDays: arguments['availableDays'],
         ));
+      case userTageScreen:
+        return _buildRoute(const TagDoctorPage());
       case doctorEditProfileScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
@@ -141,6 +151,8 @@ class AppRoutes {
         return _buildRoute(UserOrderScreen(
           productModel: arguments['productModel'],
         ));
+      case userAddRecordScreen:
+        return _buildRoute(const UserAddRecordScreen());
       case userDoctorDetailScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
@@ -166,7 +178,7 @@ class AppRoutes {
         ));
       case pharmacyMainMenuScreen:
         return _buildRoute(const PharmacistMainMenuScreen());
-        case pharmacyFindMedScreen:
+      case pharmacyFindMedScreen:
         return _buildRoute(const PharmistFindMedScreen());
       case pharmacyAddProductScreen:
         Map<String, dynamic> arguments =

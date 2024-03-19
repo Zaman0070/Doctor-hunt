@@ -43,7 +43,10 @@ class OfferingWidget extends StatelessWidget {
                   card(
                       imgUrl: AppAssets.rec,
                       title: 'Record store',
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.userRecordScreen);
+                      }),
                   padding12,
                   card(imgUrl: AppAssets.con, title: 'News', onPressed: () {}),
                 ],
@@ -60,27 +63,30 @@ class OfferingWidget extends StatelessWidget {
     required String title,
     required VoidCallback onPressed,
   }) {
-    return Container(
-      height: 122.h,
-      width: 103.w,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-          color: MyColors.surfaceColor),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Image.asset(
-            imgUrl,
-            height: 86.h,
-            width: 103.w,
-          ),
-          Text(
-            title,
-            style: getRegularStyle(
-                color: MyColors.black, fontSize: MyFonts.size12),
-          ),
-          padding6,
-        ],
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        height: 122.h,
+        width: 103.w,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: MyColors.surfaceColor),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(
+              imgUrl,
+              height: 86.h,
+              width: 103.w,
+            ),
+            Text(
+              title,
+              style: getRegularStyle(
+                  color: MyColors.black, fontSize: MyFonts.size12),
+            ),
+            padding6,
+          ],
+        ),
       ),
     );
   }

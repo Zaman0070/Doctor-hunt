@@ -31,6 +31,7 @@ class AppAssets {
   static const String news = '$imagesPath/news.png';
   static const String pre = '$imagesPath/pre.png';
   static const String rec = '$imagesPath/rec.png';
+  static const String addRec = '$imagesPath/addRec.png';
 
   //background images
   static const String bgImage = '$imagesPath/bg.png';
@@ -74,6 +75,8 @@ class AppAssets {
   static const String farArrowSvgIcon = '$svgIconsPath/farArrow.svg';
   static const String ageCalSvgIcon = '$svgIconsPath/ageCal.svg';
   static const String orderSvgIcon = '$svgIconsPath/order.svg';
+  static const String edit00SvgIcon = '$svgIconsPath/edit00.svg';
+  static const String taggsSvgIcon = '$svgIconsPath/taggs.svg';
 
   //png icons
   static const String backArrowIcon = '$iconPath/backArrow.png';
@@ -105,4 +108,8 @@ class AppAssets {
   static const String text = '$iconPath/text.png';
   static const String cancel = '$iconPath/cancel.png';
   static const String searchtf = '$iconPath/searchtf.png';
+  static const String report = '$iconPath/report.png';
+  static const String pres = '$iconPath/pres.png';
+  static const String camera = '$iconPath/camera00.png';
+  static const String gallery = '$iconPath/gallery.png';
 }
