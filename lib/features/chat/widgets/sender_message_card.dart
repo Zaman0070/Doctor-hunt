@@ -95,7 +95,7 @@ class SenderMessageCard extends StatelessWidget {
                   child: Text(
                     date,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 10,
                       color: Colors.grey[600],
                     ),
                   ),

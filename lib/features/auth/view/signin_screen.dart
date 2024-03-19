@@ -4,6 +4,7 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/commons/common_widgets/custom_text_fields.dart';
+import 'package:doctor_app/commons/common_widgets/show_toast.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/services/shar_pref_servies.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
@@ -36,10 +37,29 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     super.dispose();
   }
 
+  bool isDoctorEmail(String email) {
+    String lowercaseEmail = email.toLowerCase();
+    return lowercaseEmail.endsWith('@doctor.com');
+  }
+
+  bool isPharmistEmail(String email) {
+    String lowercaseEmail = email.toLowerCase();
+    return lowercaseEmail.endsWith('@pharmacist.com');
+  }
+
   login() async {
     // Navigator.pushNamedAndRemoveUntil(
     //     context, AppRoutes.mainMenuScreen, (route) => false);
     if (formKey.currentState!.validate()) {
+      if (widget.accountType == 'Doctor') {
+        if (!isDoctorEmail(emailController.text)) {
+          return showSnackBar(context, 'Invalid Doctor Email');
+        }
+      } else if (widget.accountType == 'Pharmacist') {
+        if (!isPharmistEmail(emailController.text)) {
+          return showSnackBar(context, 'Invalid Pharmacist Email');
+        }
+      }
       await ref.read(authControllerProvider.notifier).loginWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text,
@@ -104,6 +124,12 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                   label: '',
                                   // validatorFn: emailValidator,
                                   borderRadius: 12.r,
+                                  validatorFn: (val) {
+                                    if (val!.isEmpty) {
+                                      return 'Enter your ID';
+                                    }
+                                    return null;
+                                  },
                                 ),
                           CustomTextField(
                             borderColor: MyColors.lightContainerColor,
@@ -156,42 +182,50 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         onPressed: login,
                         buttonText: 'login'),
                     padding18,
-                    Align(
-                      alignment: Alignment.center,
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, AppRoutes.forgetPasswordScreen);
-                          },
-                          child: Text(
-                            'Forget Password',
-                            style: getSemiBoldUnderlineStyle(
-                                color: MyColors.blue, fontSize: MyFonts.size13),
-                          )),
-                    ),
-                    padding100,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't Have Account  ",
-                          style: getRegularStyle(
-                              color: MyColors.appColor1,
-                              fontSize: MyFonts.size13),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, AppRoutes.signUpScreen);
-                          },
-                          child: Text(
-                            'Signup Now',
-                            style: getSemiBoldUnderlineStyle(
-                                color: MyColors.blue, fontSize: MyFonts.size10),
+                    widget.accountType == "Doctor" ||
+                            widget.accountType == 'Pharmacist'
+                        ? Container()
+                        : Align(
+                            alignment: Alignment.center,
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.forgetPasswordScreen);
+                                },
+                                child: Text(
+                                  'Forget Password',
+                                  style: getSemiBoldUnderlineStyle(
+                                      color: MyColors.blue,
+                                      fontSize: MyFonts.size13),
+                                )),
                           ),
-                        ),
-                      ],
-                    ),
+                    padding100,
+                    widget.accountType == "Doctor" ||
+                            widget.accountType == 'Pharmacist'
+                        ? Container()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don't Have Account  ",
+                                style: getRegularStyle(
+                                    color: MyColors.appColor1,
+                                    fontSize: MyFonts.size13),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.signUpScreen);
+                                },
+                                child: Text(
+                                  'Signup Now',
+                                  style: getSemiBoldUnderlineStyle(
+                                      color: MyColors.blue,
+                                      fontSize: MyFonts.size10),
+                                ),
+                              ),
+                            ],
+                          ),
                   ],
                 ),
               ),

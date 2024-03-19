@@ -92,7 +92,7 @@ class _AccountTypeScreenState extends State<AccountTypeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomButton(
                   onPressed: () {
-                    Navigator.popAndPushNamed(context, AppRoutes.signInScreen,
+                    Navigator.pushNamed(context, AppRoutes.signInScreen,
                         arguments: {
                           'accountType': index == 0
                               ? 'Patient'

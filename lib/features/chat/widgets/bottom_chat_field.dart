@@ -1,8 +1,6 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
-import 'package:doctor_app/core/provider/message_replay_provider.dart';
 import 'package:doctor_app/features/chat/controller/chat_Controller.dart';
-import 'package:doctor_app/features/chat/widgets/message_replay_preview.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,6 +30,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   @override
   void initState() {
+    sendTextMessage();
     super.initState();
   }
 
@@ -81,8 +80,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   @override
   Widget build(BuildContext context) {
-    final messageReply = ref.watch(messageReplyProvider);
-    final isShowMessageReply = messageReply != null;
     return Container(
       color: MyColors.white,
       child: Padding(
@@ -90,9 +87,9 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             horizontal: AppConstants.padding, vertical: 12),
         child: Column(
           children: [
-            isShowMessageReply
-                ? MessageReplayPreview(recieverName: widget.recieverName)
-                : const SizedBox.shrink(),
+            // isShowMessageReply
+            //     ? MessageReplayPreview(recieverName: widget.recieverName)
+            //     : const SizedBox.shrink(),
             Row(
               children: [
                 Expanded(

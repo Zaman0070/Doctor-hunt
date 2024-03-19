@@ -1,4 +1,5 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
+import 'package:doctor_app/commons/common_widgets/term_condition_screen.dart';
 import 'package:doctor_app/commons/common_widgets/view_image_screen.dart';
 import 'package:doctor_app/features/Doctor/patient_record/view/d_record_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
@@ -88,12 +89,16 @@ class AppRoutes {
   static const String pharmacyProductDetailScreen =
       '/pharmacyProductDetailScreen';
 
+  static const String termConditionScreen = '/termConditionScreen';
+
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splashScreen:
         return _buildRoute(const SplashScreen());
       case introductionScreen:
         return _buildRoute(const IntroductionScreen());
+      case termConditionScreen:
+        return _buildRoute(const TermConditionScreen());
       case accountTypeScreen:
         return _buildRoute(const AccountTypeScreen());
       case signInScreen:

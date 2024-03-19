@@ -82,6 +82,10 @@ class _MyAppState extends ConsumerState<MyApp> {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
           builder: (BuildContext context, Widget? child) {
             final MediaQueryData data = MediaQuery.of(context);
             //Text is generally big on IOS ro that why we set text scale factor for IOS to 0.9

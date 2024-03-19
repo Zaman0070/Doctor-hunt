@@ -124,7 +124,10 @@ class DoctorProfileScreen extends ConsumerWidget {
                               ProfileCard(
                                   icon: AppAssets.privacySvgIcon,
                                   title: 'Terms & Conditions',
-                                  onTap: () {}),
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, AppRoutes.termConditionScreen);
+                                  }),
                               padding20,
                               ProfileCard(
                                   icon: AppAssets.lockSvgIcon,

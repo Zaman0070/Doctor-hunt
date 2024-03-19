@@ -9,6 +9,7 @@ import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dar
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../commons/common_imports/common_libs.dart';
 import '../../../utils/constants/assets_manager.dart';
@@ -179,10 +180,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                             width: 10.w,
                           ),
                           Text(
-                            'I agree with the Terms of Service & Privacy Policy',
+                            'I agree with the ',
                             style: getRegularStyle(
                                 color: MyColors.bodyTextColor,
                                 fontSize: MyFonts.size12),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.termConditionScreen);
+                            },
+                            child: Text(
+                              'terms of service & privacy policy',
+                              style: getSemiBoldUnderlineStyle(
+                                  color: MyColors.bodyTextColor,
+                                  fontSize: MyFonts.size12),
+                            ),
                           )
                         ],
                       ),

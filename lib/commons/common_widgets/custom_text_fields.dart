@@ -129,8 +129,7 @@ class CustomTextField extends StatelessWidget {
                     : leadingIcon,
                 hintText: hintText,
                 hintStyle: getRegularStyle(
-                    fontSize: MyFonts.size12,
-                    color: context.bodyTextColor.withOpacity(0.6)),
+                    fontSize: MyFonts.size12, color: context.bodyTextColor),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius ?? 100.r),
                   borderSide:

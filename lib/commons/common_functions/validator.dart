@@ -24,8 +24,8 @@ String? uNameValidator(String? value) {
   if (value!.isEmpty) {
     return 'Enter your user name';
   }
-  if (value.length > 15) {
-    return 'Exceeded 15 characters';
+  if (value.length > 25) {
+    return 'Exceeded 25 characters';
   }
   return null;
 }

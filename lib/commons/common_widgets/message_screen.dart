@@ -10,7 +10,6 @@ import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MobileChatScreen extends ConsumerWidget {
-  static const String routeName = '/mobile-chat-screen';
   final String name;
   final String uid;
   final bool isGroupChat;

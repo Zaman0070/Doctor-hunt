@@ -62,6 +62,7 @@ class ChatRepository {
         .collection(FirebaseConstants.userCollection)
         .doc(auth.currentUser!.uid)
         .collection('chats')
+        .orderBy('timeSent', descending: true)
         .snapshots()
         .asyncMap((event) async {
       List<ChatContact> contacts = [];
