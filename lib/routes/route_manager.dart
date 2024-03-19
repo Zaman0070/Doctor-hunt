@@ -1,11 +1,14 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_doctor_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_select_time_doctor_screen.dart';
 import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
 import 'package:doctor_app/features/Pharmacist/home/view/p_add_product_screen.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/views/pharmacist_main_menu_screen.dart';
 import 'package:doctor_app/features/User/pharmacy/view/u_enable_location_screen.dart';
+import 'package:doctor_app/features/User/pharmacy/view/u_find_medicien_screen.dart';
 import 'package:doctor_app/features/User/pharmacy/view/u_order_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_add_review_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_change_password_profile_screen.dart';
@@ -41,6 +44,7 @@ class AppRoutes {
   static const String specialityScreen = '/specialityScreen';
   static const String doctoMainMenuScreen = '/doctoMainMenuScreen';
   static const String messageScreen = '/messageScreen';
+  static const String userDoctorDetailScreen = '/userDoctorDetailScreen';
   static const String doctorEditProfileScreen = '/doctorEditProfileScreen';
   static const String doctorProfileScreen = '/doctorProfileScreen';
   static const String doctorChangePasswordProfileScreen =
@@ -52,6 +56,8 @@ class AppRoutes {
   static const String userAddReviewScreen = '/userAddReviewScreen';
   static const String userProfileScreen = '/userProfileScreen';
   static const String userOrderScreen = '/userOrderScreen';
+  static const String userSelectTimeDoctorScreen =
+      '/userSelectTimeDoctorScreen';
   static const String userEnableLocationScreen = '/userEnableLocationScreen';
   static const String userChangePasswordProfileScreen =
       '/userchangePasswordProfileScreen';
@@ -63,6 +69,7 @@ class AppRoutes {
   // pharmacy Section
   static const String pharmacyMainMenuScreen = '/pharmacyMainMenuScreen';
   static const String pharmacyAddProductScreen = '/pharmacyAddProductScreen';
+  static const String pharmacyFindMedScreen = '/pharmacyFindMedScreen';
   static const String pharmacyOrderDetailScreen = '/pharmacyOrderDetailScreen';
   static const String pharmacyProductDetailScreen =
       '/pharmacyProductDetailScreen';
@@ -87,7 +94,7 @@ class AppRoutes {
         return _buildRoute(UserEditProfileScreen(
           userModel: arguments['userModel'],
         ));
-        case userYourOrderScreen:
+      case userYourOrderScreen:
         return _buildRoute(const YourOrderScreen());
       case userAddReviewScreen:
         Map<String, dynamic> arguments =
@@ -134,6 +141,18 @@ class AppRoutes {
         return _buildRoute(UserOrderScreen(
           productModel: arguments['productModel'],
         ));
+      case userDoctorDetailScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UserDoctorDetailScreen(
+          model: arguments['model'],
+        ));
+      case userSelectTimeDoctorScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UserSelectTimeDoctorScreen(
+          model: arguments['model'],
+        ));
       case userEnableLocationScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
@@ -147,6 +166,8 @@ class AppRoutes {
         ));
       case pharmacyMainMenuScreen:
         return _buildRoute(const PharmacistMainMenuScreen());
+        case pharmacyFindMedScreen:
+        return _buildRoute(const PharmistFindMedScreen());
       case pharmacyAddProductScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;

@@ -40,6 +40,26 @@ String? dSpecialValidator(String? value) {
   return null;
 }
 
+String? dTotalExpValidator(String? value) {
+  if (value!.isEmpty) {
+    return 'Enter your total experience';
+  }
+  if (value.length > 25) {
+    return 'Exceeded 15 characters';
+  }
+  return null;
+}
+
+String? dDetailValidator(String? value) {
+  if (value!.isEmpty) {
+    return 'Enter your total experience';
+  }
+  if (value.length > 1000) {
+    return 'Exceeded 1000 characters';
+  }
+  return null;
+}
+
 String? countryValidator(String? value) {
   if (value!.isEmpty) {
     return 'Enter your country';

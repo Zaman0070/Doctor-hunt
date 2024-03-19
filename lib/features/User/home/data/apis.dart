@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/core/constants/firebase_constants.dart';
 import 'package:doctor_app/models/doctor/doctor_model.dart';
+import 'package:doctor_app/models/product/products_model.dart';
 import '../../../../../commons/common_providers/global_providers.dart';
 
 final userHomeApis = Provider<UserHomeApis>((ref) {
@@ -15,6 +16,7 @@ abstract class IUserHomeApis {
       {required String docId, required String userId});
   Stream<List<DoctorModel>> faveDoctors({required String userId});
   Stream<List<DoctorModel>> findAllDoctorStream({String? searchQuery});
+  Stream<List<ProductModel>> findAllMedStream({String? searchQuery});
 }
 
 class UserHomeApis implements IUserHomeApis {
@@ -80,5 +82,30 @@ class UserHomeApis implements IUserHomeApis {
     return collection.snapshots().map((querySnapshot) => querySnapshot.docs
         .map((doc) => DoctorModel.fromMap(doc.data() as Map<String, dynamic>))
         .toList());
+  }
+
+  @override
+  Stream<List<ProductModel>> findAllMedStream({String? searchQuery}) {
+    Query collection =
+        _firestore.collection(FirebaseConstants.productCollection);
+
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      collection = collection
+          .where('productName', isGreaterThanOrEqualTo: searchQuery)
+          .where('productName', isLessThanOrEqualTo: '$searchQuery\uf7ff');
+    }
+    return collection.snapshots().map((querySnapshot) => querySnapshot.docs
+        .map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList());
+  }
+
+  Stream<bool> checkExistConverstion({required String doctorId}) {
+    return _firestore
+        .collection(FirebaseConstants.userCollection)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('chats')
+        .doc(doctorId)
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.exists);
   }
 }

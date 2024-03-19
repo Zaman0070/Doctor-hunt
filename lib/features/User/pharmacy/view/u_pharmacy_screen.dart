@@ -27,7 +27,7 @@ class _PatientHomeScreenState extends ConsumerState<UserPharmacyScreen> {
           UCustomAppBar(
             title: 'Find Your Medicine',
             onPress: () {
-              Navigator.pushNamed(context, AppRoutes.userFindDoctorScreen);
+              Navigator.pushNamed(context, AppRoutes.pharmacyFindMedScreen);
             },
             onMenuPress: () {
               Navigator.pushNamed(context, AppRoutes.userProfileScreen);
@@ -50,7 +50,10 @@ class _PatientHomeScreenState extends ConsumerState<UserPharmacyScreen> {
                               color: MyColors.black, fontSize: MyFonts.size18),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, AppRoutes.pharmacyFindMedScreen);
+                          },
                           child: Row(
                             children: [
                               Text(

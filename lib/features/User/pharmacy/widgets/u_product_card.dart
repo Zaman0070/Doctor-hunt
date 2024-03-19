@@ -84,13 +84,15 @@ class UProductCard extends ConsumerWidget {
                 Row(
                   children: [
                     Text(
-                      '4.5',
+                      model.rating!.toString(),
                       style: getSemiBoldStyle(
                           color: MyColors.black, fontSize: MyFonts.size10),
                     ),
                     padding4,
-                    const CommonRatingBar(
-                        rating: 4, ignoreGestures: true, padding: 2.5),
+                    CommonRatingBar(
+                        rating: model.rating!,
+                        ignoreGestures: true,
+                        padding: 2.5),
                   ],
                 ),
                 CustomButton(

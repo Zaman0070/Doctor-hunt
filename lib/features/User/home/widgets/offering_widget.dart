@@ -1,5 +1,6 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
+import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 
@@ -29,7 +30,10 @@ class OfferingWidget extends StatelessWidget {
                   card(
                       imgUrl: AppAssets.con,
                       title: 'Consultation',
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.userFindDoctorScreen);
+                      }),
                   padding12,
                   card(
                       imgUrl: AppAssets.pre,

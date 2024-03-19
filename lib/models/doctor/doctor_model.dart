@@ -16,6 +16,8 @@ class DoctorModel {
   final DateTime createdAt;
   final double rating;
   final List<dynamic> favorite;
+  final String totalExperience;
+  final String details;
   DoctorModel({
     required this.name,
     required this.email,
@@ -29,6 +31,8 @@ class DoctorModel {
     required this.createdAt,
     required this.rating,
     required this.favorite,
+    required this.totalExperience,
+    required this.details,
   });
 
   DoctorModel copyWith({
@@ -44,6 +48,8 @@ class DoctorModel {
     DateTime? createdAt,
     double? rating,
     List<dynamic>? favorite,
+    String? totalExperience,
+    String? details,
   }) {
     return DoctorModel(
       name: name ?? this.name,
@@ -58,6 +64,8 @@ class DoctorModel {
       createdAt: createdAt ?? this.createdAt,
       rating: rating ?? this.rating,
       favorite: favorite ?? this.favorite,
+      totalExperience: totalExperience ?? this.totalExperience,
+      details: details ?? this.details,
     );
   }
 
@@ -75,6 +83,8 @@ class DoctorModel {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'rating': rating,
       'favorite': favorite,
+      'totalExperience': totalExperience,
+      'details': details,
     };
   }
 
@@ -93,6 +103,8 @@ class DoctorModel {
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       rating: (map['rating'] as num).toDouble(),
       favorite: List<dynamic>.from((map['favorite'] as List<dynamic>)),
+      totalExperience: map['totalExperience'] as String,
+      details: map['details'] as String,
     );
   }
 
@@ -103,7 +115,7 @@ class DoctorModel {
 
   @override
   String toString() {
-    return 'DoctorModel(name: $name, email: $email, imageUrl: $imageUrl, speciality: $speciality, avaialbleDays: $avaialbleDays, from: $from, to: $to, id: $id, doctorId: $doctorId, createdAt: $createdAt, rating: $rating, favorite: $favorite)';
+    return 'DoctorModel(name: $name, email: $email, imageUrl: $imageUrl, speciality: $speciality, avaialbleDays: $avaialbleDays, from: $from, to: $to, id: $id, doctorId: $doctorId, createdAt: $createdAt, rating: $rating, favorite: $favorite, totalExperience: $totalExperience, details: $details)';
   }
 
   @override
@@ -121,7 +133,9 @@ class DoctorModel {
         other.doctorId == doctorId &&
         other.createdAt == createdAt &&
         other.rating == rating &&
-        listEquals(other.favorite, favorite);
+        listEquals(other.favorite, favorite) &&
+        other.totalExperience == totalExperience &&
+        other.details == details;
   }
 
   @override
@@ -137,6 +151,8 @@ class DoctorModel {
         doctorId.hashCode ^
         createdAt.hashCode ^
         rating.hashCode ^
-        favorite.hashCode;
+        favorite.hashCode ^
+        totalExperience.hashCode ^
+        details.hashCode;
   }
 }

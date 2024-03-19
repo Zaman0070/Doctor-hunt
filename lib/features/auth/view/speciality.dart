@@ -29,11 +29,15 @@ class SpecialityScreen extends ConsumerStatefulWidget {
 
 class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
   late final TextEditingController controller;
+  late final TextEditingController totalExperienceController;
+  late final TextEditingController detailController;
   final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     controller = TextEditingController();
+    totalExperienceController = TextEditingController();
+    detailController = TextEditingController();
     initialization();
 
     super.initState();
@@ -42,6 +46,8 @@ class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
   @override
   void dispose() {
     controller.dispose();
+    totalExperienceController.dispose();
+    detailController.dispose();
     super.dispose();
   }
 
@@ -75,41 +81,61 @@ class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
           UserModel? userModel = ref.watch(authNotifierCtr).userModel;
           return userModel != null
               ? MasterScafold(
+                  child: SingleChildScrollView(
                   child: Padding(
-                  padding: EdgeInsets.all(AppConstants.padding),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        padding40,
-                        Text(
-                          'Speciality',
-                          style: getMediumStyle(
-                              color: MyColors.black, fontSize: MyFonts.size24),
-                        ),
-                        padding40,
-                        CustomTextField(
-                            borderColor: MyColors.lightContainerColor,
-                            borderRadius: 12.r,
-                            controller: controller,
-                            hintText: 'Name Speciality',
-                            validatorFn: dSpecialValidator,
-                            label: ''),
-                        const Spacer(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 40.h),
-                          child: CustomButton(
-                            buttonWidth: 295.w,
-                            onPressed: () {
-                              done(userModel: userModel);
-                            },
-                            buttonText: 'Done',
-                            isLoading: ref.watch(authControllerProvider),
-                            borderRadius: 12.h,
-                            backColor: MyColors.appColor1,
+                    padding: EdgeInsets.all(AppConstants.padding),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          padding40,
+                          Text(
+                            'Speciality',
+                            style: getMediumStyle(
+                                color: MyColors.black,
+                                fontSize: MyFonts.size24),
                           ),
-                        )
-                      ],
+                          padding40,
+                          CustomTextField(
+                              borderColor: MyColors.lightContainerColor,
+                              borderRadius: 12.r,
+                              controller: controller,
+                              hintText: 'Name Speciality',
+                              validatorFn: dSpecialValidator,
+                              label: ''),
+                          CustomTextField(
+                              borderColor: MyColors.lightContainerColor,
+                              borderRadius: 12.r,
+                              controller: totalExperienceController,
+                              hintText: 'Total Experience in years',
+                              validatorFn: dTotalExpValidator,
+                              label: ''),
+                          CustomTextField(
+                              maxLines: 6,
+                              verticalPadding: 10,
+                              borderColor: MyColors.lightContainerColor,
+                              borderRadius: 12.r,
+                              controller: detailController,
+                              hintText: 'Write about your self',
+                              validatorFn: dDetailValidator,
+                              label: ''),
+                          padding100,
+                          padding100,
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 40.h),
+                            child: CustomButton(
+                              buttonWidth: 295.w,
+                              onPressed: () {
+                                done(userModel: userModel);
+                              },
+                              buttonText: 'Done',
+                              isLoading: ref.watch(authControllerProvider),
+                              borderRadius: 12.h,
+                              backColor: MyColors.appColor1,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ))
@@ -125,6 +151,7 @@ class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
     if (formKey.currentState!.validate()) {
       await ref.read(authControllerProvider.notifier).updateDoctorInfo(
           model: DoctorModel(
+              details: detailController.text,
               name: userModel.name,
               email: userModel.email,
               imageUrl: userModel.profileImage,
@@ -134,6 +161,7 @@ class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
               to: toTime,
               id: userModel.id,
               createdAt: DateTime.now(),
+              totalExperience: totalExperienceController.text,
               favorite: [],
               doctorId: FirebaseAuth.instance.currentUser!.uid,
               rating: 5),

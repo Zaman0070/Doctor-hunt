@@ -3,19 +3,19 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/custom_text_fields.dart';
 import 'package:doctor_app/features/User/home/controller/home_controller.dart';
-import 'package:doctor_app/features/User/home/widgets/u_find_card.dart';
+import 'package:doctor_app/features/User/pharmacy/widgets/u_find_med_card.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 
-class UserFindDoctorScreen extends ConsumerStatefulWidget {
-  const UserFindDoctorScreen({super.key});
+class PharmistFindMedScreen extends ConsumerStatefulWidget {
+  const PharmistFindMedScreen({super.key});
 
   @override
-  ConsumerState<UserFindDoctorScreen> createState() =>
+  ConsumerState<PharmistFindMedScreen> createState() =>
       _UserFindDoctorScreenState();
 }
 
-class _UserFindDoctorScreenState extends ConsumerState<UserFindDoctorScreen> {
+class _UserFindDoctorScreenState extends ConsumerState<PharmistFindMedScreen> {
   final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _UserFindDoctorScreenState extends ConsumerState<UserFindDoctorScreen> {
               ),
             ),
             title: Text(
-              'Find Doctors',
+              'Find Medicine',
               style: getMediumStyle(
                   color: MyColors.black, fontSize: MyFonts.size18),
             ),
@@ -48,12 +48,12 @@ class _UserFindDoctorScreenState extends ConsumerState<UserFindDoctorScreen> {
                 filled: true,
                 controller: searchController,
                 onChanged: (query) {
-                  ref.read(findAllDoctorStreamProvider(searchController.text));
+                  ref.read(findAllMedStreamProvider(searchController.text));
                   setState(() {
                     searchController.text = query;
                   });
                 },
-                hintText: 'Search for users',
+                hintText: 'Search for medicine',
                 label: '',
                 borderRadius: 6.r,
                 leadingIcon: Padding(
@@ -72,7 +72,7 @@ class _UserFindDoctorScreenState extends ConsumerState<UserFindDoctorScreen> {
                           onTap: () {
                             searchController.clear();
                             setState(() {
-                              ref.read(watchAllFavDoctorStreamProvider(''));
+                              ref.read(findAllMedStreamProvider(''));
                             });
                           },
                           child: Image.asset(
@@ -90,15 +90,15 @@ class _UserFindDoctorScreenState extends ConsumerState<UserFindDoctorScreen> {
               padding: EdgeInsets.all(AppConstants.padding),
               child: Consumer(builder: (context, ref, child) {
                 final userStream = ref
-                    .watch(findAllDoctorStreamProvider(searchController.text));
+                    .watch(findAllMedStreamProvider(searchController.text));
                 return userStream.when(
-                  data: (doctor) {
+                  data: (mde) {
                     return ListView.builder(
                       padding: EdgeInsets.only(bottom: 100.h),
-                      itemCount: doctor.length,
+                      itemCount: mde.length,
                       itemBuilder: (context, index) {
-                        final data = doctor[index];
-                        return UFindDoctorCard(model: data);
+                        final data = mde[index];
+                        return UFindMedCard(model: data);
                       },
                     );
                   },

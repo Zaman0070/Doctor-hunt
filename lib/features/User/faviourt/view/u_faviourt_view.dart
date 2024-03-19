@@ -6,6 +6,7 @@ import 'package:doctor_app/commons/common_widgets/cached_circular_network_image.
 import 'package:doctor_app/commons/common_widgets/rating_bar.dart';
 import 'package:doctor_app/features/User/home/controller/home_controller.dart';
 import 'package:doctor_app/features/User/main_menu/controller/u_main_menu_controller.dart';
+import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,70 +63,80 @@ class UserFaviourtScreen extends StatelessWidget {
                                   mainAxisExtent: 180.h),
                           itemBuilder: (context, index) {
                             final data = doctor[index];
-                            return Stack(
-                              children: [
-                                Container(
-                                  width: 160.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6.r),
-                                      color: MyColors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: MyColors.lightGreyColor
-                                              .withOpacity(0.3),
-                                          blurRadius: 5,
-                                          offset: const Offset(0, 3),
+                            return InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.userDoctorDetailScreen,
+                                    arguments: {
+                                      'model': data,
+                                    });
+                              },
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 160.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(6.r),
+                                        color: MyColors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: MyColors.lightGreyColor
+                                                .withOpacity(0.3),
+                                            blurRadius: 5,
+                                            offset: const Offset(0, 3),
+                                          )
+                                        ]),
+                                    child: Column(
+                                      children: [
+                                        padding16,
+                                        CachedCircularNetworkImageWidget(
+                                          image: data.imageUrl,
+                                          name: data.name,
+                                          size: 80,
+                                        ),
+                                        padding8,
+                                        Text(data.name,
+                                            style: getMediumStyle(
+                                                color: MyColors.black,
+                                                fontSize: MyFonts.size18)),
+                                        padding4,
+                                        Text(data.speciality,
+                                            style: getLightStyle(
+                                                color: MyColors.bodyTextColor,
+                                                fontSize: MyFonts.size12)),
+                                        padding4,
+                                        CommonRatingBar(
+                                          ignoreGestures: true,
+                                          rating: data.rating,
                                         )
-                                      ]),
-                                  child: Column(
-                                    children: [
-                                      padding16,
-                                      CachedCircularNetworkImageWidget(
-                                        image: data.imageUrl,
-                                        name: data.name,
-                                        size: 80,
-                                      ),
-                                      padding8,
-                                      Text(data.name,
-                                          style: getMediumStyle(
-                                              color: MyColors.black,
-                                              fontSize: MyFonts.size18)),
-                                      padding4,
-                                      Text(data.speciality,
-                                          style: getLightStyle(
-                                              color: MyColors.bodyTextColor,
-                                              fontSize: MyFonts.size12)),
-                                      padding4,
-                                      CommonRatingBar(
-                                        ignoreGestures: true,
-                                        rating: data.rating,
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Positioned(
-                                  right: 4,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        ref
-                                            .watch(
-                                                homeControllerProvider.notifier)
-                                            .likeDislikeDoctor(
-                                                userId: FirebaseAuth
-                                                    .instance.currentUser!.uid,
-                                                docId: data.doctorId);
-                                      },
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: data.favorite.contains(
-                                                FirebaseAuth
-                                                    .instance.currentUser!.uid)
-                                            ? MyColors.red
-                                            : MyColors.white.withOpacity(0.6),
-                                        size: 24.r,
-                                      )),
-                                )
-                              ],
+                                  Positioned(
+                                    right: 4,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          ref
+                                              .watch(homeControllerProvider
+                                                  .notifier)
+                                              .likeDislikeDoctor(
+                                                  userId: FirebaseAuth.instance
+                                                      .currentUser!.uid,
+                                                  docId: data.doctorId);
+                                        },
+                                        icon: Icon(
+                                          Icons.favorite,
+                                          color: data.favorite.contains(
+                                                  FirebaseAuth.instance
+                                                      .currentUser!.uid)
+                                              ? MyColors.red
+                                              : MyColors.white.withOpacity(0.6),
+                                          size: 24.r,
+                                        )),
+                                  )
+                                ],
+                              ),
                             );
                           });
                     },
