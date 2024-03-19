@@ -255,4 +255,14 @@ class DatabaseApis extends IDatabaseApis {
           ),
         );
   }
+
+  // isCheckPharmacyExist
+  Future<bool> isCheckPharmacyExist(String uid) async {
+    final DocumentSnapshot document = await _firestore
+        .collection(FirebaseConstants.pharmacyCollection)
+        .doc(uid)
+        .get();
+    return document.exists;
+  }
+
 }

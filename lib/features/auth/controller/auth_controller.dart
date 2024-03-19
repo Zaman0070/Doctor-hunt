@@ -245,7 +245,8 @@ class AuthController extends StateNotifier<bool> {
       state = false;
       UserModel userModel = await getCurrentUserInfo();
       await fcmTokenUpload(userModel: userModel);
-      accountType == "Pharmacist"
+      bool isExist = await _databaseApis.isCheckPharmacyExist(userModel.uid);
+      accountType == "Pharmacist" && !isExist
           ? await _databaseApis.updatePharmacyInfo(
               pharmacyInfoModel: PharmacyInfoModel(
                   pharmacyName: '${userModel.name} Pharmacy',

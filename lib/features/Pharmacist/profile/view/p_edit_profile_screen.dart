@@ -331,8 +331,6 @@ class _EditProfileScreenState extends ConsumerState<PharmacyEditProfileScreen> {
                                       '${codeController.text}-${phoneNumberController.text}',
                                   'pharmacyOpenTime': ctr.timeStr,
                                   'pharmacyCloseTime': ctr.timeEnd,
-                                  'pharmacyCreatedAt':
-                                      DateTime.now().toString(),
                                   'pharmacyId':
                                       FirebaseAuth.instance.currentUser!.uid,
                                 });

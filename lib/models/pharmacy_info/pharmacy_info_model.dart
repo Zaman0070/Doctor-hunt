@@ -8,7 +8,7 @@ class PharmacyInfoModel {
   String pharmacyId;
   String pharmacyOpenTime;
   String pharmacyCloseTime;
-  DateTime pharmacyCreatedAt;
+  DateTime? pharmacyCreatedAt;
   PharmacyInfoModel({
     required this.pharmacyName,
     required this.pharmacyAddress,
@@ -16,7 +16,7 @@ class PharmacyInfoModel {
     required this.pharmacyId,
     required this.pharmacyOpenTime,
     required this.pharmacyCloseTime,
-    required this.pharmacyCreatedAt,
+    this.pharmacyCreatedAt,
   });
 
   PharmacyInfoModel copyWith({
@@ -47,7 +47,7 @@ class PharmacyInfoModel {
       'pharmacyId': pharmacyId,
       'pharmacyOpenTime': pharmacyOpenTime,
       'pharmacyCloseTime': pharmacyCloseTime,
-      'pharmacyCreatedAt': pharmacyCreatedAt.millisecondsSinceEpoch,
+      'pharmacyCreatedAt': pharmacyCreatedAt?.millisecondsSinceEpoch,
     };
   }
 
@@ -59,7 +59,7 @@ class PharmacyInfoModel {
       pharmacyId: map['pharmacyId'] as String,
       pharmacyOpenTime: map['pharmacyOpenTime'] as String,
       pharmacyCloseTime: map['pharmacyCloseTime'] as String,
-      pharmacyCreatedAt: DateTime.fromMillisecondsSinceEpoch(map['pharmacyCreatedAt'] as int),
+      pharmacyCreatedAt: map['pharmacyCreatedAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['pharmacyCreatedAt'] as int) : null,
     );
   }
 
