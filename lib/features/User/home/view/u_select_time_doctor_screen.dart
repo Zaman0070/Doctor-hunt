@@ -63,7 +63,7 @@ class _UserFindDoctorScreenState
     if (now.isBefore(fromTime)) {
       return "Today available At ${DateFormat('hh:mm a').format(widget.model.from)}";
     } else if (now.isAfter(toTime)) {
-      return "Next availability on ${DateFormat('ddd, yy MMM  hh:mm a').format(widget.model.from)}";
+      return "Next availability\non ${DateFormat('ddd, yy MMM  hh:mm a').format(widget.model.from)}";
     } else {
       return "Available";
     }
@@ -125,6 +125,7 @@ class _UserFindDoctorScreenState
                       borderRadius: 6.r,
                       backColor: MyColors.appColor1,
                       onPressed: () {},
+                      fontSize: MyFonts.size14,
                       buttonText: calculateAvailabilityStatus()),
                 ),
                 padding12,
@@ -154,6 +155,23 @@ class _UserFindDoctorScreenState
                       },
                       textColor: MyColors.appColor1,
                       buttonText: 'Contact Clinic'),
+                ),
+                Center(
+                  child: CustomButton(
+                      buttonHeight: 54.h,
+                      buttonWidth: 306.w,
+                      borderRadius: 6.r,
+                      borderColor: MyColors.appColor1,
+                      backColor: MyColors.white,
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.userAddDoctorReviewScreen,
+                            arguments: {
+                              "doctorModel": widget.model,
+                            });
+                      },
+                      textColor: MyColors.appColor1,
+                      buttonText: 'Add Review'),
                 ),
               ],
             ),

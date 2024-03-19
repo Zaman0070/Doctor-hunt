@@ -21,6 +21,9 @@ abstract class IUserHomeApis {
   Stream<bool> checkExistConverstion({required String doctorId});
   FutureEitherVoid insertMedRecord({required MedRecordModel model});
   Stream<List<MedRecordModel>> watchAllMedRecord({required String uid});
+  Future<double> findRatingDoctor({required String doctorId});
+  Future<Either<Failure, void>> addDoctorReview(
+      {required double rating, required String doctorId});
 }
 
 class UserHomeApis implements IUserHomeApis {
@@ -142,5 +145,39 @@ class UserHomeApis implements IUserHomeApis {
         .map(
             (doc) => MedRecordModel.fromMap(doc.data() as Map<String, dynamic>))
         .toList());
+  }
+
+  @override
+  Future<double> findRatingDoctor({required String doctorId}) async {
+    try {
+      final response = await _firestore
+          .collection(FirebaseConstants.doctorCollection)
+          .doc(doctorId)
+          .get();
+      final data = response.data() as Map<String, dynamic>;
+      if (data.isEmpty) {
+        return 0.0;
+      }
+      final rating = data['rating'];
+      return rating;
+    } catch (e) {
+      return 0.0;
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addDoctorReview({
+    required double rating,
+    required String doctorId,
+  }) async {
+    try {
+      await _firestore
+          .collection(FirebaseConstants.doctorCollection)
+          .doc(doctorId)
+          .update({'rating': rating});
+      return const Right(null);
+    } catch (e, stackTrace) {
+      return Left(Failure(e.toString(), stackTrace));
+    }
   }
 }

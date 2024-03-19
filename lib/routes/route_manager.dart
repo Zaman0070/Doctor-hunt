@@ -1,6 +1,7 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_add_doctor_review_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_add_record_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_doctor_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
@@ -61,6 +62,7 @@ class AppRoutes {
   static const String userOrderScreen = '/userOrderScreen';
   static const String userAddRecordScreen = '/userAddRecordScreen';
   static const String userTageScreen = '/userTagScreen';
+  static const String userAddDoctorReviewScreen = '/userAddDoctorReviewScreen';
   static const String userSelectTimeDoctorScreen =
       '/userSelectTimeDoctorScreen';
   static const String userEnableLocationScreen = '/userEnableLocationScreen';
@@ -134,6 +136,13 @@ class AppRoutes {
         ));
       case userTageScreen:
         return _buildRoute(const TagDoctorPage());
+      case userAddDoctorReviewScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UserAddDoctorReviewScreen(
+          doctorModel: arguments['doctorModel'],
+        ));
+
       case doctorEditProfileScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;

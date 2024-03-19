@@ -39,7 +39,7 @@ class _UFindDoctorCardState extends ConsumerState<UFindDoctorCard> {
     if (now.isBefore(fromTime)) {
       return "Today available At ${DateFormat('hh:mm a').format(widget.model.from)}";
     } else if (now.isAfter(toTime)) {
-      return "Next availability on  ${DateFormat('ddd, yy MMM  hh:mm a').format(widget.model.from)}";
+      return "Next availability\non  ${DateFormat('ddd, yy MMM  hh:mm a').format(widget.model.from)}";
     } else {
       return "Available";
     }
@@ -52,7 +52,7 @@ class _UFindDoctorCardState extends ConsumerState<UFindDoctorCard> {
       child: Stack(
         children: [
           Container(
-            height: 170.h,
+            height: 175.h,
             width: 335.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),
@@ -100,14 +100,14 @@ class _UFindDoctorCardState extends ConsumerState<UFindDoctorCard> {
                       ),
                     ],
                   ),
-                  padding12,
+                  padding6,
                   Text(
                     'Next Available',
                     style: getMediumStyle(
                         color: MyColors.appColor1, fontSize: MyFonts.size13),
                   ),
                   // i want if check time is avaiable the show avail
-                  padding4,
+                  padding2,
                   Text(
                     calculateAvailabilityStatus().toString(),
                     style: getLightStyle(

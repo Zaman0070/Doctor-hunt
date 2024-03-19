@@ -51,6 +51,7 @@ class CustomButton extends StatelessWidget {
               child: isLoading
                   ? LoadingWidget(color: context.buttonColor)
                   : Text(
+                      textAlign: TextAlign.center,
                       buttonText,
                       style: getMediumStyle(
                           color: textColor ?? context.buttonColor,

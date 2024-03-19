@@ -6,6 +6,8 @@ import 'package:doctor_app/features/User/home/data/apis.dart';
 import 'package:doctor_app/models/doctor/doctor_model.dart';
 import 'package:doctor_app/models/med_record/med_record_model.dart';
 import 'package:doctor_app/models/product/products_model.dart';
+import 'package:doctor_app/routes/route_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -51,7 +53,6 @@ final watchAllMedRecordStreamProvider =
 });
 
 /// insert recrd and autodispose
-
 
 class HomeController extends StateNotifier<bool> {
   final UserHomeApis _homeApis;
@@ -104,6 +105,27 @@ class HomeController extends StateNotifier<bool> {
     }, (r) {
       showSnackBar(context, 'Record Added Successfully!');
       Navigator.pop(context);
+    });
+  }
+
+  Future<double> findRatingDoctor({required String doctorId}) async {
+    final result = await _homeApis.findRatingDoctor(doctorId: doctorId);
+    return result;
+  }
+
+  Future<void> addDoctorReview(
+      {required double rating,
+      required String doctorId,
+      required BuildContext context}) async {
+    state = true;
+    final result =
+        await _homeApis.addDoctorReview(rating: rating, doctorId: doctorId);
+    result.fold((l) {
+      showSnackBar(context, l.message);
+    }, (r) {
+      showSnackBar(context, 'Review Added Successfully!');
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.mainMenuScreen, (route) => false);
     });
   }
 }
