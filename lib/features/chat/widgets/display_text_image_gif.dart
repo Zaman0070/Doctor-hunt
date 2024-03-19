@@ -1,7 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:doctor_app/core/enums/message_enum.dart';
-import 'package:doctor_app/features/chat/widgets/vider_player_item.dart';
 import 'package:flutter/material.dart';
 
 class DisplayTextImageGIF extends StatelessWidget {
@@ -44,10 +42,6 @@ class DisplayTextImageGIF extends StatelessWidget {
                   icon:  Icon(isPlaying?Icons.pause_circle:Icons.play_circle),
                 );
               })
-            : type == MessageEnum.video
-                ? VideoPlayerItem(videoUrl: message)
-                : type == MessageEnum.gif
-                    ? CachedNetworkImage(imageUrl: message)
-                    : CachedNetworkImage(imageUrl: message);
+            : Container();
   }
 }

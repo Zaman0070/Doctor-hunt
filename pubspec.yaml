@@ -64,7 +64,6 @@ dependencies:
   awesome_bottom_bar: ^1.2.4
   country_code_picker: ^3.0.0
   audioplayers: ^5.2.1
-  cached_video_player: ^2.0.4
   swipe_to: ^1.0.6
   emoji_picker_flutter: ^2.1.0
   path_provider: ^2.1.2
