@@ -16,14 +16,14 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   final PageController _pageController = PageController();
 
   final List<String> pageContentString = [
-    'Find Trusted Doctors',
-    'Choose Best Doctors',
-    'Easy Appointments',
+    'Welcome to Doc Pharma',
+    'About Diabetes',
+    'Explore features',
   ];
   final List<String> pageContentDes = [
-    'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
-    'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
-    'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of it over 2000 years old.',
+    'Consult with doctors, order prescriptions, and stay updated on healthcare news. Plus, anticipate diabetes Type 1 with our prediction feature.',
+    'Introducing our groundbreaking diabetes Type 1 prediction feature: revolutionizing how you manage your health.',
+    "Discover a world of convenience with our app's doctor consultation, online pharmacy, and news updates. Stay proactive with our advanced prediction feature, revolutionizing how you manage your health.",
   ];
   final List<String> pageContentSvg = [
     AppAssets.intro1,
@@ -125,7 +125,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           height: 447.h,
           width: 460.w,
         ),
-        padding56,
+        padding40,
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.w),
           child: Text(

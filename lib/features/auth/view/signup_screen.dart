@@ -9,8 +9,6 @@ import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dar
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import '../../../commons/common_imports/common_libs.dart';
 import '../../../utils/constants/assets_manager.dart';
 import '../controller/auth_controller.dart';

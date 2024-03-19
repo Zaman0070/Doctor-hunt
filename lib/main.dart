@@ -88,7 +88,6 @@ class _MyAppState extends ConsumerState<MyApp> {
           ),
           builder: (BuildContext context, Widget? child) {
             final MediaQueryData data = MediaQuery.of(context);
-            //Text is generally big on IOS ro that why we set text scale factor for IOS to 0.9
             return MediaQuery(
               data: data.copyWith(
                   // ignore: deprecated_member_use
@@ -100,7 +99,7 @@ class _MyAppState extends ConsumerState<MyApp> {
             );
           },
           debugShowCheckedModeBanner: false,
-          title: 'Doctor Hunt',
+          title: 'Dia Predict',
           onGenerateRoute: AppRoutes.onGenerateRoute,
           home: ref.watch(userStateStreamProvider).when(
               data: (user) {

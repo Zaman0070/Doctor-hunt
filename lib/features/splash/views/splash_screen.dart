@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
             color: MyColors.appColor1,
           ),
           padding16,
-          Text('Doctor Hunt',
+          Text('Dia Predict',
               style: getBoldStyle(
                   color: MyColors.black, fontSize: MyFonts.size24)),
         ],
