@@ -44,7 +44,7 @@ class PHomeScreen extends StatelessWidget {
                 Text(
                   'Products List',
                   style: getMediumStyle(
-                      color: MyColors.appColor1, fontSize: MyFonts.size16),
+                      color: MyColors.black, fontSize: MyFonts.size18),
                 ),
                 padding12,
                 Consumer(builder: (context, ref, child) {

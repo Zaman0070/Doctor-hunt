@@ -245,6 +245,17 @@ class AuthController extends StateNotifier<bool> {
       state = false;
       UserModel userModel = await getCurrentUserInfo();
       await fcmTokenUpload(userModel: userModel);
+      accountType == "Pharmacist"
+          ? await _databaseApis.updatePharmacyInfo(
+              pharmacyInfoModel: PharmacyInfoModel(
+                  pharmacyName: '${userModel.name} Pharmacy',
+                  pharmacyAddress: 'Pakistan',
+                  pharmacyPhone: '+923000000000',
+                  pharmacyId: userModel.uid,
+                  pharmacyOpenTime: '9:00 AM',
+                  pharmacyCloseTime: '8:00 PM',
+                  pharmacyCreatedAt: DateTime.now()))
+          : null;
       if (mounted) {
         accountType == 'Doctor'
             ? Navigator.pushNamedAndRemoveUntil(

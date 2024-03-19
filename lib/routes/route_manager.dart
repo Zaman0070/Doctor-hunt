@@ -4,6 +4,7 @@ import 'package:doctor_app/commons/common_widgets/view_image_screen.dart';
 import 'package:doctor_app/features/Doctor/patient_record/view/d_record_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_screen.dart';
+import 'package:doctor_app/features/Pharmacist/profile/view/p_edit_profile_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_add_doctor_review_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_add_record_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_doctor_detail_screen.dart';
@@ -86,6 +87,7 @@ class AppRoutes {
   static const String pharmacyAddProductScreen = '/pharmacyAddProductScreen';
   static const String pharmacyFindMedScreen = '/pharmacyFindMedScreen';
   static const String pharmacyOrderDetailScreen = '/pharmacyOrderDetailScreen';
+  static const String pharmacyEditProfileScreen = '/pharmacyEditProfileScreen';
   static const String pharmacyProductDetailScreen =
       '/pharmacyProductDetailScreen';
 
@@ -231,6 +233,13 @@ class AppRoutes {
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(PharmaistOrderDetailScreen(
           orderModel: arguments['orderModel'],
+        ));
+        case pharmacyEditProfileScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(PharmacyEditProfileScreen(
+          userModel: arguments['userModel'],
+          pharmacyInfoModel: arguments['pharmacyInfoModel'],
         ));
       case pharmacyProductDetailScreen:
         Map<String, dynamic> arguments =

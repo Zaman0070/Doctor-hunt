@@ -8,7 +8,7 @@ class PharmacyInfoModel {
   String pharmacyId;
   String pharmacyOpenTime;
   String pharmacyCloseTime;
-  String pharmacyCreatedAt;
+  DateTime pharmacyCreatedAt;
   PharmacyInfoModel({
     required this.pharmacyName,
     required this.pharmacyAddress,
@@ -26,7 +26,7 @@ class PharmacyInfoModel {
     String? pharmacyId,
     String? pharmacyOpenTime,
     String? pharmacyCloseTime,
-    String? pharmacyCreatedAt,
+    DateTime? pharmacyCreatedAt,
   }) {
     return PharmacyInfoModel(
       pharmacyName: pharmacyName ?? this.pharmacyName,
@@ -47,7 +47,7 @@ class PharmacyInfoModel {
       'pharmacyId': pharmacyId,
       'pharmacyOpenTime': pharmacyOpenTime,
       'pharmacyCloseTime': pharmacyCloseTime,
-      'pharmacyCreatedAt': pharmacyCreatedAt,
+      'pharmacyCreatedAt': pharmacyCreatedAt.millisecondsSinceEpoch,
     };
   }
 
@@ -59,7 +59,7 @@ class PharmacyInfoModel {
       pharmacyId: map['pharmacyId'] as String,
       pharmacyOpenTime: map['pharmacyOpenTime'] as String,
       pharmacyCloseTime: map['pharmacyCloseTime'] as String,
-      pharmacyCreatedAt: map['pharmacyCreatedAt'] as String,
+      pharmacyCreatedAt: DateTime.fromMillisecondsSinceEpoch(map['pharmacyCreatedAt'] as int),
     );
   }
 
