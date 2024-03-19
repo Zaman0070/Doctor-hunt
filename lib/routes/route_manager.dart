@@ -1,4 +1,6 @@
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
+import 'package:doctor_app/commons/common_widgets/view_image_screen.dart';
+import 'package:doctor_app/features/Doctor/patient_record/view/d_record_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_order_detail_screen.dart';
 import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_add_doctor_review_screen.dart';
@@ -6,6 +8,7 @@ import 'package:doctor_app/features/User/home/view/u_add_record_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_doctor_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_medical_record_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_record_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_select_time_doctor_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_tag_doctor_screen.dart';
 import 'package:doctor_app/features/User/main_menu/views/u_main_menu_screen.dart';
@@ -51,6 +54,8 @@ class AppRoutes {
   static const String userDoctorDetailScreen = '/userDoctorDetailScreen';
   static const String doctorEditProfileScreen = '/doctorEditProfileScreen';
   static const String doctorProfileScreen = '/doctorProfileScreen';
+  static const String doctorRecordDetailScreen = '/doctorRecordDetailScreen';
+  static const String viewImageScreen = '/viewImageScreen';
   static const String doctorChangePasswordProfileScreen =
       '/doctorchangePasswordProfileScreen';
 
@@ -59,6 +64,7 @@ class AppRoutes {
   static const String userYourOrderScreen = '/userYourOrderScreen';
   static const String userAddReviewScreen = '/userAddReviewScreen';
   static const String userProfileScreen = '/userProfileScreen';
+  static const String userRecorDetailScreen = '/userRecorDetailScreen';
   static const String userOrderScreen = '/userOrderScreen';
   static const String userAddRecordScreen = '/userAddRecordScreen';
   static const String userTageScreen = '/userTagScreen';
@@ -126,6 +132,13 @@ class AppRoutes {
         return _buildRoute(const DoctorMainMenuScreen());
       case userChangePasswordProfileScreen:
         return _buildRoute(const UserChangePasswordProfileScreen());
+      case viewImageScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(ViewImageScreen(
+          imgUrl: arguments['imgUrl'],
+        ));
+
       case specialityScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
@@ -150,10 +163,22 @@ class AppRoutes {
           userModel: arguments['userModel'],
           doctorModel: arguments['doctorModel'],
         ));
+      case doctorRecordDetailScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(DoctorRecordDetailScreen(
+          model: arguments['model'],
+        ));
       case doctorChangePasswordProfileScreen:
         return _buildRoute(const DoctorChangePasswordProfileScreen());
       case userProfileScreen:
         return _buildRoute(const UserProfileScreen());
+      case userRecorDetailScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UserRecordDetailScreen(
+          model: arguments['model'],
+        ));
       case userOrderScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;

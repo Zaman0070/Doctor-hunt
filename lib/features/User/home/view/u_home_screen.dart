@@ -94,7 +94,13 @@ class _PatientHomeScreenState extends ConsumerState<UserHomeScreen> {
                           itemCount: record.length,
                           itemBuilder: (context, index) {
                             final data = record[index];
-                            return URecordCard(model: data);
+                            return InkWell(
+                                onTap: () => Navigator.pushNamed(context,
+                                        AppRoutes.userRecorDetailScreen,
+                                        arguments: {
+                                          'model': data,
+                                        }),
+                                child: URecordCard(model: data));
                           },
                         );
                       },

@@ -9,7 +9,6 @@ import 'package:doctor_app/features/User/home/widgets/u_record_card.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
-import 'package:flutter/material.dart';
 
 class UserMedicalRecordScreen extends ConsumerStatefulWidget {
   const UserMedicalRecordScreen({super.key});
@@ -100,7 +99,13 @@ class _UserFindDoctorScreenState
                                 itemCount: record.length,
                                 itemBuilder: (context, index) {
                                   final data = record[index];
-                                  return URecordCard(model: data);
+                                  return InkWell(
+                                      onTap: () => Navigator.pushNamed(context,
+                                              AppRoutes.userRecorDetailScreen,
+                                              arguments: {
+                                                'model': data,
+                                              }),
+                                      child: URecordCard(model: data));
                                 },
                               ),
                               Positioned(
