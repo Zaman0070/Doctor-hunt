@@ -96,14 +96,20 @@ class UserFaviourtScreen extends StatelessWidget {
                                           size: 80,
                                         ),
                                         padding8,
-                                        Text(data.name,
-                                            style: getMediumStyle(
-                                                color: MyColors.black,
-                                                fontSize: MyFonts.size18)),
+                                        Container(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 150.w),
+                                          child: Text(data.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getMediumStyle(
+                                                  color: MyColors.black,
+                                                  fontSize: MyFonts.size15)),
+                                        ),
                                         padding4,
                                         Text(data.speciality,
                                             style: getLightStyle(
-                                                color: MyColors.bodyTextColor,
+                                                color: MyColors.appColor1,
                                                 fontSize: MyFonts.size12)),
                                         padding4,
                                         CommonRatingBar(
