@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/show_toast.dart';
 import 'package:doctor_app/features/User/pharmacy/data/apis.dart';
 import 'package:doctor_app/models/order/order_model.dart';
+import 'package:doctor_app/models/product/products_model.dart';
 import 'package:doctor_app/models/review/review_model.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,11 @@ final yourOrderStreamProvider =
     StreamProvider.autoDispose<List<OrderModel>>((ref) {
   return ref.watch(userPharmacyControllerProvider.notifier).watchOrderByUid();
 });
+
+final watchAllProducts =  StreamProvider.autoDispose<List<ProductModel>>((ref) {
+  return ref.watch(userPharmacyControllerProvider.notifier).watchAllProducts();
+});
+
 
 class UserPharmacyController extends StateNotifier<bool> {
   final UserPharmacyApis _pharmacyApis;
@@ -72,5 +78,9 @@ class UserPharmacyController extends StateNotifier<bool> {
   Future<double> findRating({required String productId}) async {
     final result = await _pharmacyApis.findRating(productId: productId);
     return result;
+  }
+
+  Stream<List<ProductModel>> watchAllProducts() {
+    return _pharmacyApis.watchAllProducts();
   }
 }

@@ -384,4 +384,35 @@ class ChatRepository {
       showSnackBar(context, e.toString());
     }
   }
+
+  /// delete message
+  
+  void deleteMessage(
+    BuildContext context,
+    String recieverUserId,
+    String messageId,
+  ) async {
+    try {
+      //user => sender Id => receiver id -> messages -> message id -> store message
+      firestore
+          .collection(FirebaseConstants.userCollection)
+          .doc(auth.currentUser!.uid)
+          .collection('chats')
+          .doc(recieverUserId)
+          .collection('messages')
+          .doc(messageId)
+          .delete();
+      //user =>receiver id -> sender Id =>  messages -> message id -> store message
+      firestore
+          .collection(FirebaseConstants.userCollection)
+          .doc(recieverUserId)
+          .collection('chats')
+          .doc(auth.currentUser!.uid)
+          .collection('messages')
+          .doc(messageId)
+          .delete();
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }

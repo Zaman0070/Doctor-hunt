@@ -246,6 +246,8 @@ class AuthController extends StateNotifier<bool> {
       UserModel userModel = await getCurrentUserInfo();
       await fcmTokenUpload(userModel: userModel);
       bool isExist = await _databaseApis.isCheckPharmacyExist(userModel.uid);
+      bool isExistDoctor =
+          await _databaseApis.isCheckDoctorExist(userModel.uid);
       accountType == "Pharmacist" && !isExist
           ? await _databaseApis.updatePharmacyInfo(
               pharmacyInfoModel: PharmacyInfoModel(
@@ -259,11 +261,17 @@ class AuthController extends StateNotifier<bool> {
           : null;
       if (mounted) {
         accountType == 'Doctor'
-            ? Navigator.pushNamedAndRemoveUntil(
-                // ignore: use_build_context_synchronously
-                context,
-                AppRoutes.availabiltyScreen,
-                (route) => false)
+            ? isExistDoctor
+                ? Navigator.pushNamedAndRemoveUntil(
+                    // ignore: use_build_context_synchronously
+                    context,
+                    AppRoutes.doctoMainMenuScreen,
+                    (route) => false)
+                : Navigator.pushNamedAndRemoveUntil(
+                    // ignore: use_build_context_synchronously
+                    context,
+                    AppRoutes.availabiltyScreen,
+                    (route) => false)
             : accountType == 'Patient'
                 ? Navigator.pushNamedAndRemoveUntil(
                     // ignore: use_build_context_synchronously

@@ -99,7 +99,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     SizedBox(
                       height: 15.h,
                     ),
-                    Text('Welcome! The Doctor Hunt App',
+                    Text('Welcome! The Dia Predict App',
                         textAlign: TextAlign.center,
                         style: getRegularStyle(
                             color: MyColors.bodyTextColor,

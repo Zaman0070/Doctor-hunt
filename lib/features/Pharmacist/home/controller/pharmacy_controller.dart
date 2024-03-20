@@ -17,7 +17,7 @@ final pharmacyControllerProvider =
 
 final watchAllProductByIdProvider = StreamProvider.autoDispose
     .family<List<ProductModel>, String>((ref, userId) {
-  return ref.watch(pharmacyApisProvider).watchProductById(userId: userId);
+  return ref.watch(pharmacyControllerProvider.notifier).watchProductById(userId: userId);
 });
 
 class PharmacyController extends StateNotifier<bool> {

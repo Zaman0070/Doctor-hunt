@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_widgets/loader.dart';
 import 'package:doctor_app/core/enums/message_enum.dart';
 import 'package:doctor_app/core/provider/message_replay_provider.dart';
 import 'package:doctor_app/features/chat/controller/chat_Controller.dart';
+import 'package:doctor_app/features/chat/widgets/delete_dialog.dart';
 import 'package:doctor_app/features/chat/widgets/my_message_card.dart';
 import 'package:doctor_app/features/chat/widgets/sender_message_card.dart';
 import 'package:doctor_app/models/message/chat_model.dart';
@@ -78,6 +79,36 @@ class _ChatListState extends ConsumerState<ChatList> {
               if (messageData.senderId ==
                   FirebaseAuth.instance.currentUser!.uid) {
                 return MyMessageCard(
+                  delete: () {
+                    showGeneralDialog(
+                      barrierLabel: "Label",
+                      barrierDismissible: true,
+                      barrierColor: Colors.black.withOpacity(0.6),
+                      transitionDuration: const Duration(milliseconds: 700),
+                      context: context,
+                      pageBuilder: (context, anim1, anim2) {
+                        return Consumer(
+                          builder: (context, ref, child) {
+                            return Align(
+                                alignment: Alignment.center,
+                                child: DeleteDialog(
+                                  id: messageData.messageId,
+                                  recieverId: messageData.receiverId,
+                                ));
+                          },
+                        );
+                      },
+                      transitionBuilder: (context, anim1, anim2, child) {
+                        return SlideTransition(
+                          position: Tween(
+                                  begin: const Offset(1, 0),
+                                  end: const Offset(0, 0))
+                              .animate(anim1),
+                          child: child,
+                        );
+                      },
+                    );
+                  },
                   message: messageData.text,
                   date: timeSent,
                   type: messageData.type,

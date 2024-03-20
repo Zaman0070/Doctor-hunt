@@ -33,8 +33,8 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: now,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        firstDate: DateTime(1970, 8),
+        lastDate: DateTime.now());
     if (picked != null && picked != now) {
       setState(() {
         dateOfBirthController.text = DateFormat('EE-MM-dd').format(picked);
@@ -111,7 +111,7 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
                               ),
                               CustomTextField(
                                 controller: nameController,
-                                hintText: 'Abdullah Mamun',
+                                hintText: 'Enter Patient’s Name',
                                 label: '',
                                 borderRadius: 12.r,
                                 validatorFn: uNameValidator,

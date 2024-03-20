@@ -150,7 +150,7 @@ class _EditProfileScreenState extends ConsumerState<DoctorEditProfileScreen> {
                               CustomTextField(
                                 borderRadius: 12.r,
                                 controller: fullNameController,
-                                hintText: 'Mark Jeson',
+                                hintText: 'Enter Full Name',
                                 label: 'Full Name',
                                 validatorFn: uNameValidator,
                                 borderColor: MyColors.lightContainerColor,
@@ -167,7 +167,7 @@ class _EditProfileScreenState extends ConsumerState<DoctorEditProfileScreen> {
                               CustomTextField(
                                 borderRadius: 12.r,
                                 controller: specialityController,
-                                hintText: 'Cardiologist',
+                                hintText: 'Enter Speciality',
                                 label: 'Speciality',
                                 tailingIconPath: AppAssets.emailSvgIcon,
                                 borderColor: MyColors.lightContainerColor,

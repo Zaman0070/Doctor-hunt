@@ -265,4 +265,12 @@ class DatabaseApis extends IDatabaseApis {
     return document.exists;
   }
 
+    Future<bool> isCheckDoctorExist(String uid) async {
+    final DocumentSnapshot document = await _firestore
+        .collection(FirebaseConstants.doctorCollection)
+        .doc(uid)
+        .get();
+    return document.exists;
+  }
+
 }

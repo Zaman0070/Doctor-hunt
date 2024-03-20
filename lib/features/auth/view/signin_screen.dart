@@ -95,13 +95,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             context, AppRoutes.phoneVerificationScreen);
                       },
                       child: Text(
-                        'Welcome! back',
+                        'Login to your account',
                         style: getSemiBoldStyle(
                             color: MyColors.black, fontSize: MyFonts.size24),
                       ),
                     ),
                     padding12,
-                    Text('Welcome! The Doctor Hunt App',
+                    Text('Welcome! The Dia Predict App',
                         style: getRegularStyle(
                             color: MyColors.bodyTextColor,
                             fontSize: MyFonts.size14)),

@@ -4,6 +4,7 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/cached_retangular_network_image.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
+import 'package:doctor_app/features/Doctor/profile/dialog/d_logout_dialog.dart';
 import 'package:doctor_app/features/Pharmacist/main_menu/controller/p_main_menu_controller.dart';
 import 'package:doctor_app/features/Pharmacist/profile/widgets/detail_card.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
@@ -13,7 +14,6 @@ import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class PProfileScreen extends ConsumerWidget {
   const PProfileScreen({Key? key}) : super(key: key);
@@ -137,6 +137,47 @@ class PProfileScreen extends ConsumerWidget {
                                       });
                                 },
                                 buttonText: 'Edit',
+                                buttonHeight: 35.h,
+                                buttonWidth: 164.w,
+                              ),
+                            ),
+                            padding12,
+                            Center(
+                              child: CustomButton(
+                                borderRadius: 6.r,
+                                backColor: MyColors.white,
+                                borderColor: MyColors.appColor1,
+                                textColor: MyColors.appColor1,
+                                onPressed: () {
+                                  showGeneralDialog(
+                                    barrierLabel: "Label",
+                                    barrierDismissible: true,
+                                    barrierColor: Colors.black.withOpacity(0.6),
+                                    transitionDuration:
+                                        const Duration(milliseconds: 700),
+                                    context: context,
+                                    pageBuilder: (context, anim1, anim2) {
+                                      return Consumer(
+                                        builder: (context, ref, child) {
+                                          return const Align(
+                                              alignment: Alignment.center,
+                                              child: DLogoutDialog());
+                                        },
+                                      );
+                                    },
+                                    transitionBuilder:
+                                        (context, anim1, anim2, child) {
+                                      return SlideTransition(
+                                        position: Tween(
+                                                begin: const Offset(1, 0),
+                                                end: const Offset(0, 0))
+                                            .animate(anim1),
+                                        child: child,
+                                      );
+                                    },
+                                  );
+                                },
+                                buttonText: 'Logout',
                                 buttonHeight: 35.h,
                                 buttonWidth: 164.w,
                               ),

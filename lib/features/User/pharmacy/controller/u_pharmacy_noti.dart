@@ -7,7 +7,10 @@ final uPharmacyNotifierCtr =
 class UPharmacyNotiController extends ChangeNotifier {
   String gender = 'Male';
 
-  List<String> genderList = const ['Male', 'Female', 'Others'];
+  List<String> genderList = const [
+    'Male',
+    'Female',
+  ];
 
   setGender(String value) {
     gender = value;

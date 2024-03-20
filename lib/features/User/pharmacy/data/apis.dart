@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/core/constants/firebase_constants.dart';
 import 'package:doctor_app/models/order/order_model.dart';
+import 'package:doctor_app/models/product/products_model.dart';
 import 'package:doctor_app/models/review/review_model.dart';
 import '../../../../../commons/common_providers/global_providers.dart';
 
@@ -16,8 +17,11 @@ abstract class IUserPharmacyApis {
   FutureEitherVoid insertOrder({required OrderModel model});
   Stream<List<OrderModel>> watchOrderByUid();
   Future<Either<Failure, void>> addReview(
-      {required ReviewModel model, required String productId, required double rating});
+      {required ReviewModel model,
+      required String productId,
+      required double rating});
   Future<double> findRating({required String productId});
+  Stream<List<ProductModel>> watchAllProducts();
 }
 
 class UserPharmacyApis implements IUserPharmacyApis {
@@ -119,5 +123,15 @@ class UserPharmacyApis implements IUserPharmacyApis {
       print(e.toString() + 'fkjffjbfjfb');
       return 0.0;
     }
+  }
+
+  @override
+  Stream<List<ProductModel>> watchAllProducts() {
+    Query collection = _firestore
+        .collection(FirebaseConstants.productCollection)
+        .orderBy('createdAt', descending: true);
+    return collection.snapshots().map((querySnapshot) => querySnapshot.docs
+        .map((doc) => ProductModel.fromMap(doc.data() as Map<String, dynamic>))
+        .toList());
   }
 }

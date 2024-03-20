@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:doctor_app/commons/common_functions/upload_image_to_firebase.dart';
 import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/show_toast.dart';
-import 'package:doctor_app/features/User/home/controller/home_controller.dart';
+import 'package:doctor_app/core/constants/firebase_constants.dart';
 import 'package:doctor_app/features/User/home/controller/home_notify.dart';
+import 'package:doctor_app/features/User/home/controller/u_add_medical_rec_controller.dart';
 import 'package:doctor_app/features/User/home/widgets/u_add_record_detail.dart';
 import 'package:doctor_app/features/User/home/widgets/u_bottom_image_selection.dart';
 import 'package:doctor_app/features/User/home/widgets/u_upload_bottom_sheet.dart';
@@ -126,7 +128,7 @@ class _UserAddRecordScreenState extends ConsumerState<UserAddRecordScreen> {
                     : () {
                         insertRecord(userModel);
                       },
-                isLoad: ref.read(homeControllerProvider),
+                isLoad: ref.read(uAddMedicalRecControllerProvider),
               ),
             ],
           );
@@ -134,6 +136,8 @@ class _UserAddRecordScreenState extends ConsumerState<UserAddRecordScreen> {
       ),
     );
   }
+
+  List<String> imageUrls = [];
 
   _getImage(ImageSource source) async {
     var pickedFile = await picker.pickImage(
@@ -144,6 +148,12 @@ class _UserAddRecordScreenState extends ConsumerState<UserAddRecordScreen> {
     if (pickedFile != null) {
       setState(() {
         imageFile.add(File(pickedFile.path));
+      });
+      List<String> image = await uploadImages(
+          imageFile.map((e) => XFile(e.path)).toList(),
+          storageFolderName: FirebaseConstants.ownerCollection);
+      setState(() {
+        imageUrls.addAll(image);
       });
     }
   }
@@ -170,7 +180,7 @@ class _UserAddRecordScreenState extends ConsumerState<UserAddRecordScreen> {
     List<String> images = imageFile.map((e) => e.path).toList();
     if (ref.read(userHomeNotifier).tags != 'Choose Doctor' ||
         imageFile.isNotEmpty) {
-      await ref.read(homeControllerProvider.notifier).insertMedRecord(
+      await ref.read(uAddMedicalRecControllerProvider.notifier).insertMedRecord(
           model: MedRecordModel(
               userName: model.name,
               recCreatedOn: onCreate,
@@ -178,10 +188,12 @@ class _UserAddRecordScreenState extends ConsumerState<UserAddRecordScreen> {
               doctorUid: ref.read(userHomeNotifier).doctorUid,
               doctorName: ref.read(userHomeNotifier).tags,
               uid: model.uid,
+              recImageUrl: imageUrls,
               createdAt: DateTime.now()),
           context: context,
           images: images);
       ref.watch(userHomeNotifier).clear();
+      imageUrls.clear();
     } else {
       showSnackBar(
         context,

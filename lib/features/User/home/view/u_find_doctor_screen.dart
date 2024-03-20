@@ -53,7 +53,7 @@ class _UserFindDoctorScreenState extends ConsumerState<UserFindDoctorScreen> {
                     searchController.text = query;
                   });
                 },
-                hintText: 'Search for users',
+                hintText: 'Search for doctors',
                 label: '',
                 borderRadius: 6.r,
                 leadingIcon: Padding(

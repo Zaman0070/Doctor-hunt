@@ -111,4 +111,13 @@ class ChatController {
   ) {
     chatRepository.setChatMessageSeen(context, recieverUserId, messageId);
   }
+
+  /// delete message
+  void deleteMessage(
+    BuildContext context,
+    String recieverUserId,
+    String messageId,
+  ) {
+    chatRepository.deleteMessage(context, recieverUserId, messageId);
+  }
 }

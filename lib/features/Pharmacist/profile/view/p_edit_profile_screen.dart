@@ -132,7 +132,7 @@ class _EditProfileScreenState extends ConsumerState<PharmacyEditProfileScreen> {
                               CustomTextField(
                                 borderRadius: 12.r,
                                 controller: fullNameController,
-                                hintText: 'Mark Jeson',
+                                hintText: 'Enter full name',
                                 label: 'Full Name',
                                 validatorFn: uNameValidator,
                                 borderColor: MyColors.lightContainerColor,
@@ -287,7 +287,7 @@ class _EditProfileScreenState extends ConsumerState<PharmacyEditProfileScreen> {
                               CustomTextField(
                                 borderRadius: 12.r,
                                 controller: addressController,
-                                hintText: 'Address',
+                                hintText: 'Enter Address',
                                 label: '',
                                 validatorFn: emailValidator,
                                 tailingIconPath: AppAssets.emailSvgIcon,

@@ -11,8 +11,6 @@ import 'package:doctor_app/features/User/home/widgets/u_record_card.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 class UserHomeScreen extends ConsumerStatefulWidget {

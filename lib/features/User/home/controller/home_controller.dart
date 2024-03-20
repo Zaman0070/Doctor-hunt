@@ -1,7 +1,5 @@
-import 'package:doctor_app/commons/common_functions/upload_image_to_firebase.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/show_toast.dart';
-import 'package:doctor_app/core/constants/firebase_constants.dart';
 import 'package:doctor_app/features/User/home/data/apis.dart';
 import 'package:doctor_app/models/doctor/doctor_model.dart';
 import 'package:doctor_app/models/med_record/med_record_model.dart';
@@ -9,7 +7,6 @@ import 'package:doctor_app/models/product/products_model.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 
 // import '../../../firebase_messaging/firebase_messaging_class.dart';
 
@@ -95,11 +92,7 @@ class HomeController extends StateNotifier<bool> {
       required BuildContext context,
       required List<String> images}) async {
     state = true;
-    List<XFile> xFiles = images.map((path) => XFile(path)).toList();
-    List<String> image = await uploadImages(xFiles,
-        storageFolderName: FirebaseConstants.ownerCollection);
-    MedRecordModel medRecordModel = model.copyWith(recImageUrl: image);
-    final result = await _homeApis.insertMedRecord(model: medRecordModel);
+    final result = await _homeApis.insertMedRecord(model: model);
     result.fold((l) {
       showSnackBar(context, l.message);
     }, (r) {

@@ -137,8 +137,8 @@ class _UFindDoctorCardState extends ConsumerState<UFindDoctorCard> {
             ),
           ),
           Positioned(
-            right: 20,
-            top: 20,
+            right: 10,
+            top: 00,
             child: IconButton(
                 onPressed: () {
                   ref.watch(homeControllerProvider.notifier).likeDislikeDoctor(

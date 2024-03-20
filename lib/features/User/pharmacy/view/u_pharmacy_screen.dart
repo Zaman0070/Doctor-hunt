@@ -4,7 +4,7 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/loader.dart';
 import 'package:doctor_app/commons/common_widgets/u_custom_appbar.dart';
-import 'package:doctor_app/features/Pharmacist/home/controller/pharmacy_controller.dart';
+import 'package:doctor_app/features/User/pharmacy/controller/u_pharmacy_controller.dart';
 import 'package:doctor_app/features/User/pharmacy/widgets/u_product_card.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
@@ -74,8 +74,7 @@ class _PatientHomeScreenState extends ConsumerState<UserPharmacyScreen> {
                     ),
                     padding18,
                     Consumer(builder: (context, ref, child) {
-                      final products = ref.watch(watchAllProductByIdProvider(
-                          FirebaseAuth.instance.currentUser!.uid));
+                      final products = ref.watch(watchAllProducts);
                       return products.when(data: (products) {
                         return GridView.builder(
                             padding: const EdgeInsets.only(bottom: 100),

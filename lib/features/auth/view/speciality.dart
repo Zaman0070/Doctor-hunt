@@ -164,7 +164,7 @@ class _SpecialityScreenState extends ConsumerState<SpecialityScreen> {
               totalExperience: totalExperienceController.text,
               favorite: [],
               doctorId: FirebaseAuth.instance.currentUser!.uid,
-              rating: 5),
+              rating: 0),
           context: context,
           oldImage: '');
     }

@@ -42,12 +42,14 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
 
   void sendTextMessage() async {
-    ref.read(chatControllerProvider).sendTextMessage(
-          context,
-          _messageController.text.trim(),
-          widget.receiverUserId,
-          widget.isGroupChat,
-        );
+    _messageController.text.isNotEmpty
+        ? ref.read(chatControllerProvider).sendTextMessage(
+              context,
+              _messageController.text.trim(),
+              widget.receiverUserId,
+              widget.isGroupChat,
+            )
+        : null;
     setState(() {
       _messageController.text = '';
     });

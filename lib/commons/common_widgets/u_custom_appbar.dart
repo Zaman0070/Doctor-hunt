@@ -8,7 +8,11 @@ class UCustomAppBar extends ConsumerWidget {
   final VoidCallback? onPress;
   final VoidCallback onMenuPress;
   final String title;
-  const UCustomAppBar({super.key, this.onPress, required this.onMenuPress, required this.title});
+  const UCustomAppBar(
+      {super.key,
+      this.onPress,
+      required this.onMenuPress,
+      required this.title});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(userStateStreamProvider).when(
@@ -111,11 +115,6 @@ class UCustomAppBar extends ConsumerWidget {
                                         fontSize: MyFonts.size15),
                                   )
                                 ],
-                              ),
-                              Image.asset(
-                                AppAssets.cancel,
-                                height: 11.h,
-                                width: 11.w,
                               ),
                             ],
                           ),

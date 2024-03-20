@@ -21,9 +21,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
     'Explore features',
   ];
   final List<String> pageContentDes = [
-    'Consult with doctors, order prescriptions, and stay updated on healthcare news. Plus, anticipate diabetes Type 1 with our prediction feature.',
-    'Introducing our groundbreaking diabetes Type 1 prediction feature: revolutionizing how you manage your health.',
-    "Discover a world of convenience with our app's doctor consultation, online pharmacy, and news updates. Stay proactive with our advanced prediction feature, revolutionizing how you manage your health.",
+    'Access doctors, prescriptions, and healthcare updates. Predict Type 1 diabetes.',
+    'Revolutionize health management with our Type 1 diabetes prediction feature.',
+    "consult doctors, access pharmacy, stay updated; stay proactive with our advanced prediction feature.",
   ];
   final List<String> pageContentSvg = [
     AppAssets.intro1,
