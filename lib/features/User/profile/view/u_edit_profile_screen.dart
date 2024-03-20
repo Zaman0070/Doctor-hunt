@@ -100,7 +100,7 @@ class _EditProfileScreenState extends ConsumerState<UserEditProfileScreen> {
                             CustomTextField(
                               borderRadius: 12.r,
                               controller: fullNameController,
-                              hintText: 'Mark Jeson',
+                              hintText: 'Enter Full Name',
                               label: 'Full Name',
                               validatorFn: uNameValidator,
                               borderColor: MyColors.lightContainerColor,

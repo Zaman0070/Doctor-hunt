@@ -32,6 +32,10 @@ class AppAssets {
   static const String pre = '$imagesPath/pre.png';
   static const String rec = '$imagesPath/rec.png';
   static const String addRec = '$imagesPath/addRec.png';
+  static const String news1 = '$imagesPath/news1.png';
+  static const String news2 = '$imagesPath/news2.png';
+  static const String news3 = '$imagesPath/news3.jpeg';
+  static const String news4 = '$imagesPath/news4.jpeg';
 
   //background images
   static const String bgImage = '$imagesPath/bg.png';

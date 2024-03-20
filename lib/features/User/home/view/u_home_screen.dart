@@ -7,6 +7,7 @@ import 'package:doctor_app/commons/common_widgets/u_custom_appbar.dart';
 import 'package:doctor_app/features/User/home/controller/home_controller.dart';
 import 'package:doctor_app/features/User/home/widgets/offering_widget.dart';
 import 'package:doctor_app/features/User/home/widgets/popular_doctor.dart';
+import 'package:doctor_app/features/User/home/widgets/u_home_banner.dart';
 import 'package:doctor_app/features/User/home/widgets/u_record_card.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
@@ -43,6 +44,7 @@ class _PatientHomeScreenState extends ConsumerState<UserHomeScreen> {
                 children: [
                   padding12,
                   const OfferingWidget(),
+                  const UHomeBannerSection(),
                   const PopularDoctorWidget(),
                   Padding(
                     padding: EdgeInsets.all(AppConstants.padding),

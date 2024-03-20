@@ -85,7 +85,7 @@ class DeleteDialog extends ConsumerWidget {
                         Navigator.pop(context);
                       },
                       textColor: MyColors.white,
-                      buttonText: 'Logout'),
+                      buttonText: 'Delete'),
                 ],
               ),
             ],
