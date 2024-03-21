@@ -11,6 +11,7 @@ import 'package:doctor_app/models/product/products_model.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,136 +65,150 @@ class _PAddProductScreenState extends ConsumerState<PAddProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.scaffoldBackgroundColor,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Image.asset(
-            AppAssets.backArrowIcon,
-            width: 30.w,
-            height: 30.h,
-          ),
-        ),
-        title: Text(
-          'Add Product',
-          style:
-              getBoldStyle(color: MyColors.appColor1, fontSize: MyFonts.size18),
-        ),
-      ),
       body: MasterScafold(
-        child: Padding(
-          padding: EdgeInsets.all(AppConstants.padding),
-          child: SingleChildScrollView(
-            child: Form(
-              key: key,
-              child: Column(
-                children: [
-                  Container(
-                    height: 150.h,
-                    width: 335.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.r),
-                      border: Border.all(color: MyColors.appColor1, width: 1.5),
-                    ),
-                    child: InkWell(
-                      onTap: getPhoto,
-                      child: imageFile != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(14.r),
-                              child: Image.file(
-                                imageFile!,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : widget.type == 'edit'
-                              ? CachedRectangularNetworkImageWidget(
-                                  image: widget.model!.productImage!,
-                                  width: 150,
-                                  height: 335)
-                              : Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      AppAssets.imgSvgIcon,
-                                      height: 28.h,
-                                      width: 28.w,
-                                    ),
-                                    Text(
-                                      'Select Image',
-                                      style: getMediumStyle(
-                                          color: MyColors.lightContainerColor,
-                                          fontSize: MyFonts.size16),
-                                    ),
-                                  ],
-                                ),
-                    ),
-                  ),
-                  padding12,
-                  CustomTextField(
-                    borderRadius: 12.r,
-                    controller: fullNameController,
-                    hintText: 'Product Name',
-                    label: 'Full Name',
-                    borderColor: MyColors.lightContainerColor,
-                    validatorFn: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter product name';
-                      }
-                      return null;
-                    },
-                  ),
-                  padding6,
-                  CustomTextField(
-                    borderRadius: 12.r,
-                    controller: priceController,
-                    hintText: 'Rs. Price',
-                    label: 'Price',
-                    borderColor: MyColors.lightContainerColor,
-                    validatorFn: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter price';
-                      }
-                      return null;
-                    },
-                  ),
-                  padding12,
-                  Container(
-                    height: 150.h,
-                    width: 1.sw,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.r),
-                      border: Border.all(color: MyColors.lightContainerColor),
-                    ),
-                    child: TextFormField(
-                      style: getLightStyle(
-                          color: MyColors.black, fontSize: MyFonts.size13),
-                      controller: descriptionController,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                        hintText: 'Write Description',
-                        hintStyle: getLightStyle(
-                            color: MyColors.black, fontSize: MyFonts.size12),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10.h),
-                      ),
-                    ),
-                  ),
-                  padding56,
-                  CustomButton(
-                    isLoading: ref.watch(pharmacyControllerProvider),
-                    onPressed: widget.type == 'edit' ? updateProduct : insert,
-                    backColor: MyColors.appColor1,
-                    borderColor: MyColors.appColor1,
-                    buttonText: 'Save & Continue',
-                    borderRadius: 12.r,
-                    buttonWidth: 295.w,
-                  ),
-                ],
+        child: Column(
+          children: [
+            AppBar(
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Image.asset(
+                  AppAssets.backArrowIcon,
+                  width: 30.w,
+                  height: 30.h,
+                ),
+              ),
+              title: Text(
+                widget.type == 'edit' ? 'Edit Product' : 'Add Product',
+                style: getBoldStyle(
+                    color: MyColors.black, fontSize: MyFonts.size18),
               ),
             ),
-          ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(AppConstants.padding),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: key,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 150.h,
+                          width: 335.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.r),
+                            border: Border.all(
+                                color: MyColors.appColor1, width: 1.5),
+                          ),
+                          child: InkWell(
+                            onTap: getPhoto,
+                            child: imageFile != null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(14.r),
+                                    child: Image.file(
+                                      imageFile!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : widget.type == 'edit'
+                                    ? CachedRectangularNetworkImageWidget(
+                                        image: widget.model!.productImage!,
+                                        width: 150,
+                                        height: 335)
+                                    : Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SvgPicture.asset(
+                                            AppAssets.imgSvgIcon,
+                                            height: 28.h,
+                                            width: 28.w,
+                                          ),
+                                          Text(
+                                            'Select Image',
+                                            style: getMediumStyle(
+                                                color: MyColors
+                                                    .lightContainerColor,
+                                                fontSize: MyFonts.size16),
+                                          ),
+                                        ],
+                                      ),
+                          ),
+                        ),
+                        padding12,
+                        CustomTextField(
+                          borderRadius: 12.r,
+                          controller: fullNameController,
+                          hintText: 'Product Name',
+                          label: 'Full Name',
+                          borderColor: MyColors.lightContainerColor,
+                          validatorFn: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter product name';
+                            }
+                            return null;
+                          },
+                        ),
+                        padding6,
+                        CustomTextField(
+                          borderRadius: 12.r,
+                          controller: priceController,
+                          hintText: 'Rs. Price',
+                          label: 'Price',
+                          borderColor: MyColors.lightContainerColor,
+                          validatorFn: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter price';
+                            }
+                            return null;
+                          },
+                        ),
+                        padding12,
+                        Container(
+                          height: 150.h,
+                          width: 1.sw,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.r),
+                            border:
+                                Border.all(color: MyColors.lightContainerColor),
+                          ),
+                          child: TextFormField(
+                            style: getLightStyle(
+                                color: MyColors.black,
+                                fontSize: MyFonts.size13),
+                            controller: descriptionController,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              hintText: 'Write Description',
+                              hintStyle: getLightStyle(
+                                  color: MyColors.black,
+                                  fontSize: MyFonts.size12),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 10.h),
+                            ),
+                          ),
+                        ),
+                        padding56,
+                        CustomButton(
+                          isLoading: ref.watch(pharmacyControllerProvider),
+                          onPressed:
+                              widget.type == 'edit' ? updateProduct : insert,
+                          backColor: MyColors.appColor1,
+                          borderColor: MyColors.appColor1,
+                          buttonText: 'Save & Continue',
+                          borderRadius: 12.r,
+                          buttonWidth: 295.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

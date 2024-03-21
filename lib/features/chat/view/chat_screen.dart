@@ -54,59 +54,74 @@ class ChatScreen extends ConsumerWidget {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Loader();
                     }
-                    return ListView.builder(
-                      padding: EdgeInsets.only(top: 20.h, bottom: 60.h),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        var chatContactData = snapshot.data![index];
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: ListTile(
-                                splashColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.messageScreen,
-                                      arguments: {
-                                        'name': chatContactData.name,
-                                        'uid': chatContactData.contactId,
-                                        'isGroupChat': false,
-                                      });
-                                },
-                                title: Text(chatContactData.name,
-                                    style: getSemiBoldStyle(
-                                        color: MyColors.black,
-                                        fontSize: MyFonts.size18)),
-                                subtitle: Text(chatContactData.lastMessage,
-                                    style: getRegularStyle(
-                                        color: MyColors.lightGreyColor)),
-                                leading: CachedRectangularNetworkImageWidget(
-                                  height: 48,
-                                  width: 48,
-                                  image: chatContactData.profilePic,
-                                  name: chatContactData.name,
-                                ),
-                                trailing: Text(
-                                  DateFormat("h:m a")
-                                      .format(chatContactData.timeSent),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 13,
+                    return snapshot.data!.isEmpty
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 100),
+                              child: Text(
+                                  textAlign: TextAlign.center,
+                                  'No chats yet! Start a chat With a\nDoctor Consultation',
+                                  style: getMediumStyle(
+                                      color: MyColors.bodyTextColor,
+                                      fontSize: MyFonts.size14)),
+                            ),
+                          )
+                        : ListView.builder(
+                            padding: EdgeInsets.only(top: 20.h, bottom: 60.h),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              var chatContactData = snapshot.data![index];
+                              return Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: ListTile(
+                                      splashColor: Colors.transparent,
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, AppRoutes.messageScreen,
+                                            arguments: {
+                                              'name': chatContactData.name,
+                                              'uid': chatContactData.contactId,
+                                              'isGroupChat': false,
+                                            });
+                                      },
+                                      title: Text(chatContactData.name,
+                                          style: getSemiBoldStyle(
+                                              color: MyColors.black,
+                                              fontSize: MyFonts.size18)),
+                                      subtitle: Text(
+                                          chatContactData.lastMessage,
+                                          style: getRegularStyle(
+                                              color: MyColors.lightGreyColor)),
+                                      leading:
+                                          CachedRectangularNetworkImageWidget(
+                                        height: 48,
+                                        width: 48,
+                                        image: chatContactData.profilePic,
+                                        name: chatContactData.name,
+                                      ),
+                                      trailing: Text(
+                                        DateFormat("h:m a")
+                                            .format(chatContactData.timeSent),
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              child:
-                                  const Divider(color: MyColors.lightGreyColor),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.w),
+                                    child: const Divider(
+                                        color: MyColors.lightGreyColor),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                   }),
             ),
           ],

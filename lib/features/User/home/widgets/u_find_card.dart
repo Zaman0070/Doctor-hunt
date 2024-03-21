@@ -19,6 +19,8 @@ class UFindDoctorCard extends ConsumerStatefulWidget {
 }
 
 class _UFindDoctorCardState extends ConsumerState<UFindDoctorCard> {
+  String todayISAvaiable = DateFormat("EEEE").format(DateTime.now());
+
   String calculateAvailabilityStatus() {
     DateTime now = DateTime.now();
     DateTime fromTime = DateTime(
@@ -28,21 +30,37 @@ class _UFindDoctorCardState extends ConsumerState<UFindDoctorCard> {
         widget.model.from.hour,
         widget.model.from.minute,
         widget.model.from.second);
-    DateTime toTime = DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        widget.model.to.hour,
-        widget.model.to.minute,
-        widget.model.to.second);
 
-    if (now.isBefore(fromTime)) {
-      return "Today available At ${DateFormat('hh:mm a').format(widget.model.from)}";
-    } else if (now.isAfter(toTime)) {
-      return "Next availability\non  ${DateFormat('ddd, yy MMM  hh:mm a').format(widget.model.from)}";
-    } else {
-      return "Available";
+    if (widget.model.avaialbleDays.contains(todayISAvaiable)) {
+      if (now.isBefore(fromTime)) {
+        return "Today available At ${DateFormat('hh:mm a').format(widget.model.from)}";
+      } else {
+        return "Available";
+      }
     }
+    if (!widget.model.avaialbleDays.contains(todayISAvaiable)) {
+      List<DateTime> nextAvailable = [];
+      for (var i = 0; i < 7; i++) {
+        DateTime nextDay = DateTime.now().add(Duration(days: i));
+        if (widget.model.avaialbleDays
+            .contains(DateFormat("EEEE").format(nextDay))) {
+          setState(() {
+            nextAvailable.add(nextDay);
+          });
+        }
+      }
+
+      DateTime fromTime = DateTime(
+          nextAvailable[0].year,
+          nextAvailable[0].month,
+          nextAvailable[0].day,
+          widget.model.from.hour,
+          widget.model.from.minute,
+          widget.model.from.second);
+
+      return "Next availability\non ${DateFormat('dd, MMM  hh:mm a').format(fromTime)}";
+    }
+    return "Not Available";
   }
 
   @override

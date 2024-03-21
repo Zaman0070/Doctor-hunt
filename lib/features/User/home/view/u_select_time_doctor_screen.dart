@@ -63,7 +63,26 @@ class _UserFindDoctorScreenState
       }
     }
     if (!widget.model.avaialbleDays.contains(todayISAvaiable)) {
-      return "Next availability\non ${DateFormat('dd, yy MMM  hh:mm a').format(widget.model.from)}";
+      List<DateTime> nextAvailable = [];
+      for (var i = 0; i < 7; i++) {
+        DateTime nextDay = DateTime.now().add(Duration(days: i));
+        if (widget.model.avaialbleDays
+            .contains(DateFormat("EEEE").format(nextDay))) {
+          setState(() {
+            nextAvailable.add(nextDay);
+          });
+        }
+      }
+
+      DateTime fromTime = DateTime(
+          nextAvailable[0].year,
+          nextAvailable[0].month,
+          nextAvailable[0].day,
+          widget.model.from.hour,
+          widget.model.from.minute,
+          widget.model.from.second);
+
+      return "Next availability\non ${DateFormat('dd, MMM  hh:mm a').format(fromTime)}";
     }
     return "Not Available";
   }

@@ -13,6 +13,7 @@ abstract class IPharmacyApis {
   FutureEitherVoid insertProduct({required ProductModel model});
   Stream<List<ProductModel>> watchProductById({required String userId});
   FutureEitherVoid updateProduct({required ProductModel model});
+  FutureEitherVoid deleteProduct({required String productId});
 
 }
 
@@ -54,6 +55,20 @@ class PharmacyApis implements IPharmacyApis {
           .collection(FirebaseConstants.productCollection)
           .doc(model.productId)
           .update(model.toMap());
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(e.toString(), StackTrace.current));
+    }
+  }
+
+  /// delete product 
+  @override
+  FutureEitherVoid deleteProduct({required String productId}) async {
+    try {
+      await _firestore
+          .collection(FirebaseConstants.productCollection)
+          .doc(productId)
+          .delete();
       return const Right(null);
     } catch (e) {
       return Left(Failure(e.toString(), StackTrace.current));

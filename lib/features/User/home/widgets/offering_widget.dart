@@ -3,6 +3,7 @@ import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OfferingWidget extends StatelessWidget {
   const OfferingWidget({super.key});
@@ -51,7 +52,12 @@ class OfferingWidget extends StatelessWidget {
                             context, AppRoutes.userRecordScreen);
                       }),
                   padding12,
-                  card(imgUrl: AppAssets.con, title: 'News', onPressed: () {}),
+                  card(
+                      imgUrl: AppAssets.con,
+                      title: 'News',
+                      onPressed: () {
+                        _launch();
+                      }),
                 ],
               ),
             ),
@@ -59,6 +65,15 @@ class OfferingWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _launch() async {
+    const url = 'https://www.news-medical.net/condition/Type-1-Diabetes';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   card({

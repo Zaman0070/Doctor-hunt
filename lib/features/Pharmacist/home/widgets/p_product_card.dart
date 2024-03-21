@@ -5,9 +5,10 @@ import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/models/product/products_model.dart';
 
 class PProductCard extends StatelessWidget {
-  const PProductCard({super.key, required this.model, required this.onPressed});
+  const PProductCard({super.key, required this.model, required this.onPressed, required this.delete});
   final ProductModel model;
   final VoidCallback onPressed;
+  final VoidCallback delete;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +51,18 @@ class PProductCard extends StatelessWidget {
             CustomButton(
               onPressed: onPressed,
               buttonText: 'Edit',
-              buttonHeight: 30.h,
+              buttonHeight: 25.h,
               borderRadius: 6.r,
               backColor: MyColors.appColor1,
-              fontSize: MyFonts.size13,
+              fontSize: MyFonts.size11,
+            ),
+            CustomButton(
+              onPressed: delete,
+              buttonText: 'Delete',
+              buttonHeight: 25.h,
+              borderRadius: 6.r,
+              backColor: MyColors.red,
+              fontSize: MyFonts.size11,
             )
           ],
         ),

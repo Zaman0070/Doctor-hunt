@@ -5,6 +5,7 @@ import 'package:doctor_app/features/Doctor/main_menu/controller/d_main_menu_cont
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DOfferingWidget extends StatelessWidget {
   const DOfferingWidget({super.key});
@@ -46,7 +47,11 @@ class DOfferingWidget extends StatelessWidget {
                         }),
                     padding12,
                     card(
-                        imgUrl: AppAssets.con, title: 'News', onPressed: () {}),
+                        imgUrl: AppAssets.con,
+                        title: 'News',
+                        onPressed: () {
+                          _launch();
+                        }),
                   ],
                 );
               }),
@@ -55,6 +60,15 @@ class DOfferingWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _launch() async {
+    const url = 'https://www.news-medical.net/condition/Type-1-Diabetes';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   card({

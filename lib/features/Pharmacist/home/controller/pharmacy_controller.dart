@@ -17,7 +17,9 @@ final pharmacyControllerProvider =
 
 final watchAllProductByIdProvider = StreamProvider.autoDispose
     .family<List<ProductModel>, String>((ref, userId) {
-  return ref.watch(pharmacyControllerProvider.notifier).watchProductById(userId: userId);
+  return ref
+      .watch(pharmacyControllerProvider.notifier)
+      .watchProductById(userId: userId);
 });
 
 class PharmacyController extends StateNotifier<bool> {
@@ -69,6 +71,22 @@ class PharmacyController extends StateNotifier<bool> {
       state = false;
       showSnackBar(context, 'Product Update Successfully!');
       Navigator.pop(context);
+    });
+  }
+
+  // delete
+  Future<void> deleteProduct({
+    required String productId,
+    required BuildContext context,
+  }) async {
+    state = true;
+    final result = await _pharmacyApis.deleteProduct(productId: productId);
+    result.fold((l) {
+      state = false;
+      showSnackBar(context, l.message);
+    }, (r) {
+      state = false;
+      showSnackBar(context, 'Product Delete Successfully!');
     });
   }
 }
