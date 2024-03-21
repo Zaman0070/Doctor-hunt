@@ -35,6 +35,7 @@ class _UserAddReviewScreenState extends ConsumerState<UserAddReviewScreen> {
         .findRating(productId: widget.productId!);
     setState(() {
       productRating = result;
+      proRating = proRating = (productRating + rating) / 2;
     });
   }
 

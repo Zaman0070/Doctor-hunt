@@ -34,6 +34,9 @@ class _UserAddReviewScreenState
         .findRatingDoctor(doctorId: widget.doctorModel.doctorId);
     setState(() {
       productRating = result;
+      proRating = proRating = (productRating + rating) / 2;
+
+      print(productRating);
     });
   }
 
