@@ -2,6 +2,7 @@ import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/features/Doctor/main_menu/controller/d_main_menu_controller.dart';
+import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 
@@ -32,7 +33,10 @@ class DOfferingWidget extends StatelessWidget {
                     card(
                         imgUrl: AppAssets.pre,
                         title: 'Prediction',
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, AppRoutes.userPredictionScreen);
+                        }),
                     padding12,
                     card(
                         imgUrl: AppAssets.rec,
