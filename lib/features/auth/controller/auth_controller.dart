@@ -118,9 +118,9 @@ class AuthController extends StateNotifier<bool> {
         showToast(msg: l.message);
       }, (r) async {
         state = false;
-        Navigator.pushNamed(context, AppRoutes.signInScreen,
-            arguments: {'accountType': 'Patient'});
-        showToast(msg: 'Account Created Successfully!');
+        Navigator.pushNamed(context, AppRoutes.verifyEmailScreen);
+        showToast(
+            msg: 'Account Created Successfully! Please verify your email');
       });
     });
   }

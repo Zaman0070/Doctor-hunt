@@ -58,6 +58,23 @@ class _MainMenuScreenState extends ConsumerState<DoctorMainMenuScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
+                  AppAssets.homeSvgIcon,
+                  colorFilter: const ColorFilter.mode(
+                      MyColors.bodyTextColor, BlendMode.srcIn),
+                ),
+                activeIcon: CircleAvatar(
+                  radius: 22.r,
+                  backgroundColor: MyColors.appColor1,
+                  child: SvgPicture.asset(
+                    AppAssets.homeSvgIcon,
+                    colorFilter:
+                        const ColorFilter.mode(MyColors.white, BlendMode.srcIn),
+                  ),
+                ),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(
                   AppAssets.chatSvgIcon,
                   colorFilter: const ColorFilter.mode(
                       MyColors.bodyTextColor, BlendMode.srcIn),

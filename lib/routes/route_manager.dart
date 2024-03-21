@@ -26,6 +26,7 @@ import 'package:doctor_app/features/User/profile/view/u_profile_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_your_orders_screen.dart';
 import 'package:doctor_app/features/account_type/view/account_type_screen.dart';
 import 'package:doctor_app/features/auth/view/availabilty_screen.dart';
+import 'package:doctor_app/features/auth/view/email_verification.dart';
 import 'package:doctor_app/features/auth/view/forget_screen.dart';
 import 'package:doctor_app/features/auth/view/reset_pass_screen.dart';
 import 'package:doctor_app/features/auth/view/signin_screen.dart';
@@ -44,6 +45,7 @@ class AppRoutes {
   static const String introductionScreen = '/introductionScreen';
   static const String signInScreen = '/signInScreen';
   static const String signUpScreen = '/signUpScreen';
+  static const String verifyEmailScreen = '/verifyEmailScreen';
   static const String forgetPasswordScreen = '/forgetPasswordScreen';
   static const String resetPasswordScreen = '/resetPasswordScreen';
   static const String phoneVerificationScreen = '/phoneVerificationScreen';
@@ -97,6 +99,8 @@ class AppRoutes {
     switch (settings.name) {
       case splashScreen:
         return _buildRoute(const SplashScreen());
+        case verifyEmailScreen:
+        return _buildRoute(const EmailVerificationScreen());
       case introductionScreen:
         return _buildRoute(const IntroductionScreen());
       case termConditionScreen:

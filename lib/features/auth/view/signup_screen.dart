@@ -7,6 +7,7 @@ import 'package:doctor_app/commons/common_widgets/custom_text_fields.dart';
 import 'package:doctor_app/commons/common_widgets/show_toast.dart';
 import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dart';
 import 'package:doctor_app/routes/route_manager.dart';
+import 'package:doctor_app/services/shar_pref_servies.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../commons/common_imports/common_libs.dart';
@@ -38,6 +39,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     super.dispose();
   }
 
+  SharePref sharePref = SharePref();
+
   signUp() async {
     if (formKey.currentState!.validate()) {
       String phoneNo = "${codeController.text}-${phoneNumberController.text}";
@@ -54,6 +57,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             context: context,
           );
     }
+    await sharePref.saveType('user', 'login');
   }
 
   @override

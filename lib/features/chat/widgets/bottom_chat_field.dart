@@ -1,6 +1,8 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
+import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dart';
 import 'package:doctor_app/features/chat/controller/chat_Controller.dart';
+import 'package:doctor_app/models/auth/user_model.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,12 +31,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   FocusNode focusNode = FocusNode();
 
   @override
-  void initState() {
-    sendTextMessage();
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _messageController.dispose();
     isRecorderInit = false;
@@ -42,14 +38,17 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
 
   void sendTextMessage() async {
-    _messageController.text.isNotEmpty
-        ? ref.read(chatControllerProvider).sendTextMessage(
-              context,
-              _messageController.text.trim(),
-              widget.receiverUserId,
-              widget.isGroupChat,
-            )
-        : null;
+    if (_messageController.text != '') {
+      UserModel userModel = ref.read(authNotifierCtr).userModel!;
+      ref.read(chatControllerProvider).sendTextMessage(
+            context,
+            _messageController.text.trim(),
+            widget.receiverUserId,
+            widget.isGroupChat,
+            userModel,
+          );
+    }
+
     setState(() {
       _messageController.text = '';
     });

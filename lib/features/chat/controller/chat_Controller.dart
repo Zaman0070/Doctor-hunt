@@ -4,6 +4,7 @@ import 'package:doctor_app/core/enums/message_enum.dart';
 import 'package:doctor_app/core/provider/message_replay_provider.dart';
 import 'package:doctor_app/features/auth/controller/auth_controller.dart';
 import 'package:doctor_app/features/chat/repository/chat_repository.dart';
+import 'package:doctor_app/models/auth/user_model.dart';
 import 'package:doctor_app/models/message/chat_contact.dart';
 import 'package:doctor_app/models/message/chat_model.dart';
 import 'package:flutter/material.dart';
@@ -25,19 +26,18 @@ class ChatController {
     String text,
     String receiverUserId,
     bool isGroupChat,
+    UserModel senderUser,
   ) {
     try {
       final messageReply = ref.read(messageReplyProvider);
-      ref.read(userDataAuthProvider).whenData(
-            (value) => chatRepository.sendTextMessage(
-              context: context,
-              text: text,
-              receiverUserId: receiverUserId,
-              senderUser: value!,
-              messageReply: messageReply,
-              isGroupChat: isGroupChat,
-            ),
-          );
+      chatRepository.sendTextMessage(
+        context: context,
+        text: text,
+        receiverUserId: receiverUserId,
+        senderUser: senderUser,
+        messageReply: messageReply,
+        isGroupChat: isGroupChat,
+      );
       ref.read(messageReplyProvider.notifier).update((state) => null);
     } catch (e) {
       print(e.toString() + 'khdfjkdhfjkd');
