@@ -220,6 +220,7 @@ class AppRoutes {
           patientEmail: arguments['patientEmail'],
           patientAge: arguments['patientAge'],
           patientGender: arguments['patientGender'],
+          imageUrls: arguments['imageUrls'],
         ));
       case pharmacyMainMenuScreen:
         return _buildRoute(const PharmacistMainMenuScreen());

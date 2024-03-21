@@ -1,17 +1,25 @@
+import 'dart:io';
+
 import 'package:doctor_app/commons/common_functions/padding.dart';
+import 'package:doctor_app/commons/common_functions/upload_image_to_firebase.dart';
 import 'package:doctor_app/commons/common_functions/validator.dart';
 import 'package:doctor_app/commons/common_imports/apis_commons.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
 import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/commons/common_widgets/custom_text_fields.dart';
+import 'package:doctor_app/commons/common_widgets/show_toast.dart';
+import 'package:doctor_app/core/constants/firebase_constants.dart';
+import 'package:doctor_app/features/User/home/widgets/u_upload_bottom_sheet.dart';
 import 'package:doctor_app/features/User/pharmacy/controller/u_pharmacy_noti.dart';
 import 'package:doctor_app/features/User/pharmacy/widgets/u_gender_widget.dart';
+import 'package:doctor_app/features/User/pharmacy/widgets/u_image_selection.dart';
 import 'package:doctor_app/models/product/products_model.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class UserOrderScreen extends ConsumerStatefulWidget {
@@ -43,6 +51,28 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  List<File> imageFile = [];
+  var picker = ImagePicker();
+  List<String> imageUrls = [];
+
+  _getImage(ImageSource source) async {
+    var pickedFile = await picker.pickImage(
+      source: source,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile.add(File(pickedFile.path));
+      });
+      List<String> image = await uploadImages(
+          imageFile.map((e) => XFile(e.path)).toList(),
+          storageFolderName: FirebaseConstants.ownerCollection);
+      setState(() {
+        imageUrls.addAll(image);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -102,6 +132,22 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              UAddOrderImageSection(
+                                image: imageFile,
+                                onTap: () {
+                                  _displayBottomSheet(
+                                    context: context,
+                                    camera: () {
+                                      _getImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                    gallery: () {
+                                      _getImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                },
+                              ),
                               padding12,
                               Text(
                                 'Patient’s Name',
@@ -196,6 +242,12 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
           CustomButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
+                  if (imageUrls.isEmpty) {
+                    showToast(
+                      msg: 'Please add a report image',
+                    );
+                    return;
+                  }
                   Navigator.pushNamed(
                       context, AppRoutes.userEnableLocationScreen,
                       arguments: {
@@ -205,6 +257,7 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
                         'patientEmail': emailController.text,
                         'patientAge': dateOfBirthController.text,
                         "patientGender": ref.watch(uPharmacyNotifierCtr).gender,
+                        "imageUrls": imageUrls
                       });
                 }
               },
@@ -218,5 +271,23 @@ class _UserOrderScreenState extends ConsumerState<UserOrderScreen> {
         ],
       )),
     );
+  }
+
+  Future _displayBottomSheet(
+      {required BuildContext context,
+      required Function() camera,
+      required Function() gallery}) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+        context: context,
+        builder: (_) => UploadBottomSheetSection(
+              file: imageFile,
+              title: 'Add a record',
+              camera: camera,
+              gallery: gallery,
+            ));
   }
 }

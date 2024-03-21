@@ -9,17 +9,19 @@ class UploadBottomSheetSection extends StatelessWidget {
   final Function() gallery;
   final String title;
   final List<File> file;
+  final double top;
   const UploadBottomSheetSection(
       {super.key,
       required this.camera,
       required this.gallery,
       required this.title,
-      required this.file});
+      required this.file,
+      this.top = 75.0});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 75.0),
+      padding: EdgeInsets.only(top: top),
       child: Container(
         height: 250.h,
         decoration: const BoxDecoration(

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 class OrderModel {
@@ -21,6 +23,7 @@ class OrderModel {
   final String? userGender;
   final String? userEmail;
   final String? orderStatus;
+  final List<dynamic>? reportImages;
   OrderModel({
     this.productName,
     this.productPrice,
@@ -40,6 +43,7 @@ class OrderModel {
     this.userGender,
     this.userEmail,
     this.orderStatus,
+    this.reportImages,
   });
 
   OrderModel copyWith({
@@ -61,6 +65,7 @@ class OrderModel {
     String? userGender,
     String? userEmail,
     String? orderStatus,
+    List<dynamic>? reportImages,
   }) {
     return OrderModel(
       productName: productName ?? this.productName,
@@ -81,6 +86,7 @@ class OrderModel {
       userGender: userGender ?? this.userGender,
       userEmail: userEmail ?? this.userEmail,
       orderStatus: orderStatus ?? this.orderStatus,
+      reportImages: reportImages ?? this.reportImages,
     );
   }
 
@@ -104,6 +110,7 @@ class OrderModel {
       'userGender': userGender,
       'userEmail': userEmail,
       'orderStatus': orderStatus,
+      'reportImages': reportImages,
     };
   }
 
@@ -140,6 +147,9 @@ class OrderModel {
       userEmail: map['userEmail'] != null ? map['userEmail'] as String : null,
       orderStatus:
           map['orderStatus'] != null ? map['orderStatus'] as String : null,
+      reportImages: map['reportImages'] != null
+          ? List<dynamic>.from((map['reportImages'] as List<dynamic>))
+          : null,
     );
   }
 
@@ -150,7 +160,7 @@ class OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(productName: $productName, productPrice: $productPrice, productImage: $productImage, rating: $rating, productDescription: $productDescription, orderId: $orderId, productId: $productId, productUuid: $productUuid, createdAt: $createdAt, deliveredDate: $deliveredDate, uid: $uid, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, userAge: $userAge, userGender: $userGender, userEmail: $userEmail, orderStatus: $orderStatus)';
+    return 'OrderModel(productName: $productName, productPrice: $productPrice, productImage: $productImage, rating: $rating, productDescription: $productDescription, orderId: $orderId, productId: $productId, productUuid: $productUuid, createdAt: $createdAt, deliveredDate: $deliveredDate, uid: $uid, userName: $userName, userAddress: $userAddress, userPhone: $userPhone, userAge: $userAge, userGender: $userGender, userEmail: $userEmail, orderStatus: $orderStatus, reportImages: $reportImages)';
   }
 
   @override
@@ -174,7 +184,8 @@ class OrderModel {
         other.userAge == userAge &&
         other.userGender == userGender &&
         other.userEmail == userEmail &&
-        other.orderStatus == orderStatus;
+        other.orderStatus == orderStatus &&
+        listEquals(other.reportImages, reportImages);
   }
 
   @override
@@ -196,6 +207,7 @@ class OrderModel {
         userAge.hashCode ^
         userGender.hashCode ^
         userEmail.hashCode ^
-        orderStatus.hashCode;
+        orderStatus.hashCode ^
+        reportImages.hashCode;
   }
 }

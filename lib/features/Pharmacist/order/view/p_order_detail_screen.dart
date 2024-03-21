@@ -1,11 +1,14 @@
 import 'package:doctor_app/commons/common_functions/padding.dart';
 import 'package:doctor_app/commons/common_imports/common_libs.dart';
 import 'package:doctor_app/commons/common_widgets/backgroun_scafold.dart';
+import 'package:doctor_app/commons/common_widgets/cached_retangular_network_image.dart';
 import 'package:doctor_app/features/Pharmacist/order/widgets/p_manage_order_widget.dart';
 import 'package:doctor_app/features/Pharmacist/order/widgets/p_order_address_card.dart';
 import 'package:doctor_app/models/order/order_model.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class PharmaistOrderDetailScreen extends StatelessWidget {
   const PharmaistOrderDetailScreen({super.key, required this.orderModel});
@@ -35,14 +38,35 @@ class PharmaistOrderDetailScreen extends StatelessWidget {
                     color: MyColors.black, fontSize: MyFonts.size18),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(AppConstants.padding),
-              child: Column(
-                children: [
-                  POrderAddressCard(orderModel: orderModel),
-                  padding12,
-                  PManageOrderCard(model: orderModel),
-                ],
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.all(AppConstants.padding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      POrderAddressCard(orderModel: orderModel),
+                      padding16,
+                      Text('Patient reports',
+                          style: getMediumStyle(
+                              color: MyColors.black, fontSize: MyFonts.size18)),
+                      padding16,
+                      for (String image in orderModel.reportImages!)
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: CachedRectangularNetworkImageWidget(
+                            image: image,
+                            width: 130,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      PManageOrderCard(model: orderModel),
+                      padding48,
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

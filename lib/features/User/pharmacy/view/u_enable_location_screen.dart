@@ -19,13 +19,15 @@ class UserEnableLocationScreen extends ConsumerStatefulWidget {
       required this.patientPhone,
       required this.patientEmail,
       required this.patientAge,
-      required this.patientGender});
+      required this.patientGender,
+      required this.imageUrls});
   final ProductModel productModel;
   final String patientName;
   final String patientPhone;
   final String patientEmail;
   final String patientAge;
   final String patientGender;
+  final List<String> imageUrls;
 
   @override
   ConsumerState<UserEnableLocationScreen> createState() =>
@@ -183,24 +185,24 @@ class _UserEnableLocationScreenState
   insertOrder() async {
     await ref.watch(userPharmacyControllerProvider.notifier).insertOrder(
           model: OrderModel(
-            productName: widget.productModel.productName,
-            productUuid: widget.productModel.uid,
-            productId: widget.productModel.productId,
-            productPrice: widget.productModel.productPrice,
-            productDescription: widget.productModel.productDescription,
-            productImage: widget.productModel.productImage,
-            rating: widget.productModel.rating,
-            createdAt: DateTime.now(),
-            deliveredDate: DateTime.now(),
-            uid: FirebaseAuth.instance.currentUser!.uid,
-            userName: widget.patientName,
-            userPhone: widget.patientPhone,
-            userEmail: widget.patientEmail,
-            userAge: widget.patientAge,
-            userGender: widget.patientGender,
-            userAddress: _currentAddress,
-            orderStatus: "Pending",
-          ),
+              productName: widget.productModel.productName,
+              productUuid: widget.productModel.uid,
+              productId: widget.productModel.productId,
+              productPrice: widget.productModel.productPrice,
+              productDescription: widget.productModel.productDescription,
+              productImage: widget.productModel.productImage,
+              rating: widget.productModel.rating,
+              createdAt: DateTime.now(),
+              deliveredDate: DateTime.now(),
+              uid: FirebaseAuth.instance.currentUser!.uid,
+              userName: widget.patientName,
+              userPhone: widget.patientPhone,
+              userEmail: widget.patientEmail,
+              userAge: widget.patientAge,
+              userGender: widget.patientGender,
+              userAddress: _currentAddress,
+              orderStatus: "Pending",
+              reportImages: widget.imageUrls),
           context: context,
         );
   }
