@@ -38,7 +38,10 @@ class OfferingWidget extends StatelessWidget {
                   card(
                       imgUrl: AppAssets.pre,
                       title: 'Prediction',
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.userPredictionScreen);
+                      }),
                   padding12,
                   card(
                       imgUrl: AppAssets.rec,

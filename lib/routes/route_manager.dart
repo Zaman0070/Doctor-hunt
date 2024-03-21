@@ -7,9 +7,11 @@ import 'package:doctor_app/features/Pharmacist/order/view/p_product_detail_scree
 import 'package:doctor_app/features/Pharmacist/profile/view/p_edit_profile_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_add_doctor_review_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_add_record_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_avaialable_days_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_doctor_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_find_doctor_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_medical_record_screen.dart';
+import 'package:doctor_app/features/User/home/view/u_prediction_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_record_detail_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_select_time_doctor_screen.dart';
 import 'package:doctor_app/features/User/home/view/u_tag_doctor_screen.dart';
@@ -65,6 +67,8 @@ class AppRoutes {
 
   // User profile Section
   static const String userEditProfileScreen = '/userEditProfileScreen';
+  static const String userPredictionScreen = '/userPredictionScreen';
+  static const String userAvailabityDayScreen = '/userAvailabityDayScreen';
   static const String userYourOrderScreen = '/userYourOrderScreen';
   static const String userAddReviewScreen = '/userAddReviewScreen';
   static const String userProfileScreen = '/userProfileScreen';
@@ -99,7 +103,7 @@ class AppRoutes {
     switch (settings.name) {
       case splashScreen:
         return _buildRoute(const SplashScreen());
-        case verifyEmailScreen:
+      case verifyEmailScreen:
         return _buildRoute(const EmailVerificationScreen());
       case introductionScreen:
         return _buildRoute(const IntroductionScreen());
@@ -113,6 +117,12 @@ class AppRoutes {
         return _buildRoute(SignInScreen(
           accountType: arguments['accountType'],
         ));
+      case userAvailabityDayScreen:
+        Map<String, dynamic> arguments =
+            settings.arguments as Map<String, dynamic>;
+        return _buildRoute(UAvaiableDayScreen(model: arguments['model']));
+        case userPredictionScreen:
+        return _buildRoute(const UPredictionScreen());
       case userEditProfileScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
@@ -239,7 +249,7 @@ class AppRoutes {
         return _buildRoute(PharmaistOrderDetailScreen(
           orderModel: arguments['orderModel'],
         ));
-        case pharmacyEditProfileScreen:
+      case pharmacyEditProfileScreen:
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(PharmacyEditProfileScreen(

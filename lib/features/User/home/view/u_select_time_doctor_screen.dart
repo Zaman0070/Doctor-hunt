@@ -43,6 +43,8 @@ class _UserFindDoctorScreenState
     });
   }
 
+  String todayISAvaiable = DateFormat("EEEE").format(DateTime.now());
+
   String calculateAvailabilityStatus() {
     DateTime now = DateTime.now();
     DateTime fromTime = DateTime(
@@ -52,21 +54,18 @@ class _UserFindDoctorScreenState
         widget.model.from.hour,
         widget.model.from.minute,
         widget.model.from.second);
-    DateTime toTime = DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        widget.model.to.hour,
-        widget.model.to.minute,
-        widget.model.to.second);
 
-    if (now.isBefore(fromTime)) {
-      return "Today available At ${DateFormat('hh:mm a').format(widget.model.from)}";
-    } else if (now.isAfter(toTime)) {
-      return "Next availability\non ${DateFormat('ddd, yy MMM  hh:mm a').format(widget.model.from)}";
-    } else {
-      return "Available";
+    if (widget.model.avaialbleDays.contains(todayISAvaiable)) {
+      if (now.isBefore(fromTime)) {
+        return "Today available At ${DateFormat('hh:mm a').format(widget.model.from)}";
+      } else {
+        return "Available";
+      }
     }
+    if (!widget.model.avaialbleDays.contains(todayISAvaiable)) {
+      return "Next availability\non ${DateFormat('dd, yy MMM  hh:mm a').format(widget.model.from)}";
+    }
+    return "Not Available";
   }
 
   final searchController = TextEditingController();
@@ -124,7 +123,13 @@ class _UserFindDoctorScreenState
                       buttonWidth: 306.w,
                       borderRadius: 6.r,
                       backColor: MyColors.appColor1,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.userAvailabityDayScreen,
+                            arguments: {
+                              'model': widget.model,
+                            });
+                      },
                       fontSize: MyFonts.size14,
                       buttonText: calculateAvailabilityStatus()),
                 ),

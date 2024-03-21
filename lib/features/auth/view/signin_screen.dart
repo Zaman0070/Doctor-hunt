@@ -135,14 +135,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             controller: emailController,
                             hintText: 'Enter Email',
                             label: 'Email Address',
-                            // validatorFn: emailValidator,
-                            validatorFn: (vale) {
-                              if (vale!.isEmpty) {
-                                return 'Enter your email';
-                              }
-
-                              return null;
-                            },
+                            validatorFn: emailValidator,
                             borderRadius: 12.r,
                           ),
                           CustomPasswordTextField(
