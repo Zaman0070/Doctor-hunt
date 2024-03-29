@@ -17,9 +17,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'firebase_options.dart';
 // ignore: depend_on_referenced_packages
-// import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -33,9 +34,9 @@ void main() async {
   FirebaseFirestore.instance.settings =
       const Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // LocalNotificationService.requestPermission(Permission.notification);
-  // LocalNotificationService.initialize();
-  // tz.initializeTimeZones();
+  LocalNotificationService.requestPermission(Permission.notification);
+  LocalNotificationService.initialize();
+  tz.initializeTimeZones();
   // await LocalNotificationService().scheduleNotificationDailyCheckList();
   // await LocalNotificationService().scheduleNotificationJernal();
   runApp(ProviderScope(child: MyApp(type: type!)));

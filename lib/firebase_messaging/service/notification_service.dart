@@ -42,11 +42,11 @@ class LocalNotificationService {
             categoryIdentifier: 'plainCategory',
           ),
           android: AndroidNotificationDetails(
-        "mychanel",
-        "my chanel",
-        importance: Importance.max,
-        priority: Priority.high,
-      ));
+            "mychanel",
+            "my chanel",
+            importance: Importance.max,
+            priority: Priority.high,
+          ));
       // print("my id is ${id.toString()}");
       await _flutterLocalNotificationsPlugin.show(
         id,
@@ -85,21 +85,17 @@ class LocalNotificationService {
       ),
       iOS: DarwinNotificationDetails());
 
-  Future scheduleNotificationDailyCheckList({
-    int id = 1,
+       Future scheduleNotificationStartss({
+    int id = 3,
     String? payLoad,
+ 
   }) async {
-    var scheduledTime = DateTime(
-      DateTime.now().year,
-      DateTime.now().month,
-      DateTime.now().day,
-      8,
-      30,
-    );
+    var scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, 23, 2);
     return _flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      'Daily Checklist',
-      'Have you completed your daily checklist?',
+      'Good Morning',
+      'Have you taken your medicine?',
       tz.TZDateTime.from(
         scheduledTime,
         tz.local,
@@ -114,21 +110,44 @@ class LocalNotificationService {
     );
   }
 
-  Future scheduleNotificationJernal({
-    int id = 0,
+  Future scheduleNotificationStart({
+    int id = 1,
     String? payLoad,
+    required int hour,
+    required int minute,
   }) async {
-    var scheduledTime = DateTime(
-      DateTime.now().year,
-      DateTime.now().month,
-      DateTime.now().day,
-      7,
-      30,
-    );
+    var scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, hour, minute);
     return _flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      'Daily Journal Entry Reminder',
-      'Your daily journal entry have ready to fill',
+      'Good Morning',
+      'Have you taken your medicine?',
+      tz.TZDateTime.from(
+        scheduledTime,
+        tz.local,
+      ),
+      platformNotificationDetails,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      // ignore: deprecated_member_use
+      androidAllowWhileIdle: true,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: payLoad,
+    );
+  }
+
+  Future scheduleNotificationEnd({
+    int id = 0,
+    String? payLoad,
+    required int hour,
+    required int minute,
+  }) async {
+    var scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, hour, minute);
+    return _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      'Good Evening',
+      'Have you taken your medicine?',
       tz.TZDateTime.from(
         scheduledTime,
         tz.local,

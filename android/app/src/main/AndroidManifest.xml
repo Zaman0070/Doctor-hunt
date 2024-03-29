@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- For apps with targetSDK=31 (Android 12) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.USE_EXACT_ALARM" />
+
     <queries>
         <!-- If your app opens https URLs -->
         <intent>
@@ -53,5 +57,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+        <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+    </intent-filter>
+    </receiver>
     </application>
 </manifest>

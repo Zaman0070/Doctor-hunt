@@ -47,7 +47,7 @@ class UserProfileScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: 280.h,
+                    height: 250.h,
                     width: 1.sw,
                     decoration: BoxDecoration(
                         color: MyColors.appColor1,
@@ -72,7 +72,7 @@ class UserProfileScreen extends ConsumerWidget {
                                 fontSize: MyFonts.size14),
                           ),
                         ),
-                        padding30,
+                        padding18,
                         CircleAvatar(
                           radius: 52.r,
                           backgroundColor: MyColors.appColor2,
@@ -117,6 +117,14 @@ class UserProfileScreen extends ConsumerWidget {
                             onTap: () {
                               Navigator.pushNamed(
                                   context, AppRoutes.commMessageScreen);
+                            }),
+                        padding20,
+                        ProfileCard(
+                            icon: AppAssets.bellSvgIcon,
+                            title: 'Remainder',
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.userRemainderScreen);
                             }),
                         padding20,
                         ProfileCard(

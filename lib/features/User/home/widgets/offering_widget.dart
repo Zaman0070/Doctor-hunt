@@ -53,7 +53,7 @@ class OfferingWidget extends StatelessWidget {
                       }),
                   padding12,
                   card(
-                      imgUrl: AppAssets.con,
+                      imgUrl: AppAssets.news,
                       title: 'News',
                       onPressed: () {
                         _launch();

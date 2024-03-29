@@ -26,6 +26,7 @@ import 'package:doctor_app/features/User/profile/view/u_add_review_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_change_password_profile_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_edit_profile_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_profile_screen.dart';
+import 'package:doctor_app/features/User/profile/view/u_remainder_screen.dart';
 import 'package:doctor_app/features/User/profile/view/u_your_orders_screen.dart';
 import 'package:doctor_app/features/account_type/view/account_type_screen.dart';
 import 'package:doctor_app/features/auth/view/availabilty_screen.dart';
@@ -78,6 +79,7 @@ class AppRoutes {
   static const String userOrderScreen = '/userOrderScreen';
   static const String userAddRecordScreen = '/userAddRecordScreen';
   static const String userTageScreen = '/userTagScreen';
+  static const String userRemainderScreen = '/userRemainderScreen';
   static const String userAddDoctorReviewScreen = '/userAddDoctorReviewScreen';
   static const String userSelectTimeDoctorScreen =
       '/userSelectTimeDoctorScreen';
@@ -170,6 +172,8 @@ class AppRoutes {
           to: arguments['to'],
           availableDays: arguments['availableDays'],
         ));
+        case userRemainderScreen:
+        return _buildRoute(const UserRemainderScreen());
       case userTageScreen:
         return _buildRoute(const TagDoctorPage());
       case userAddDoctorReviewScreen:
