@@ -139,18 +139,16 @@ class _UserRemainderScreenState extends ConsumerState<UserRemainderScreen> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              ctr.selectTimeFrom(context);
-                              setState(() {
-                                morningTime = TimeOfDay(
-                                    hour: ctr.from.hour,
-                                    minute: ctr.from.minute);
-                              });
+                              ctr
+                                  .selectTimeFrom(context)
+                                  .whenComplete(() => setState(() {
+                                        morningTime = ctr.from;
+                                      }));
+
                               await sharePre.updateMorningTime([
                                 ctr.from.hour.toString(),
                                 ctr.from.minute.toString()
                               ], 'morning');
-
-                              
                             },
                             child: Container(
                               height: 45.h,
@@ -170,16 +168,16 @@ class _UserRemainderScreenState extends ConsumerState<UserRemainderScreen> {
                           ),
                           InkWell(
                             onTap: () async {
-                              ctr.selectTimeTo(context);
-                              setState(() {
-                                eveningTime = TimeOfDay(
-                                    hour: ctr.to.hour, minute: ctr.to.minute);
-                              });
+                              ctr
+                                  .selectTimeTo(context)
+                                  .whenComplete(() => setState(() {
+                                        eveningTime = ctr.to;
+                                      }));
+
                               await sharePre.updateEveningTime([
                                 ctr.to.hour.toString(),
                                 ctr.to.minute.toString()
                               ], 'evening');
-                            
                             },
                             child: Container(
                               height: 45.h,
