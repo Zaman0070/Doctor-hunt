@@ -14,6 +14,7 @@ import 'package:doctor_app/models/auth/user_model.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DoctorProfileScreen extends ConsumerWidget {
   const DoctorProfileScreen({Key? key}) : super(key: key);
@@ -119,7 +120,9 @@ class DoctorProfileScreen extends ConsumerWidget {
                               ProfileCard(
                                   icon: AppAssets.newsSvgIcon,
                                   title: 'News',
-                                  onTap: () {}),
+                                  onTap: () {
+                                    _launch();
+                                  }),
                               padding20,
                               ProfileCard(
                                   icon: AppAssets.linkSvgIcon,
@@ -228,5 +231,14 @@ class DoctorProfileScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  _launch() async {
+    const url = 'https://www.news-medical.net/condition/Type-1-Diabetes';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
