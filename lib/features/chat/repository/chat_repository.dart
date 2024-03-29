@@ -9,8 +9,10 @@ import 'package:doctor_app/core/provider/message_replay_provider.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
 import 'package:doctor_app/models/message/chat_contact.dart';
 import 'package:doctor_app/models/message/chat_model.dart';
+import 'package:doctor_app/models/message/comm_chat_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
@@ -39,6 +41,29 @@ class ChatRepository {
       }
       return messages;
     });
+  }
+
+  Stream<List<CommunityChatModels>> getCommunityChatStream() {
+    return firestore
+        .collection(FirebaseConstants.communityCollection)
+        .orderBy('timeSent')
+        .snapshots()
+        .map((event) {
+      List<CommunityChatModels> messages = [];
+      for (var document in event.docs) {
+        messages.add(CommunityChatModels.fromMap(document.data()));
+      }
+      return messages;
+    });
+  }
+
+  void sendCommunityText({required CommunityChatModels chat}) async {
+    final response = await firestore
+        .collection(FirebaseConstants.communityCollection)
+        .add(chat.toMap());
+    String messageId = response.id;
+    await response.update({'messageId': messageId});
+    // update messageId
   }
 
   Stream<List<ChatModels>> getGroupChatStream(String groupId) {
@@ -98,7 +123,10 @@ class ChatRepository {
     //users => receiver id => chats => curr user id => set data
 
     if (isGroupChat) {
-      await firestore.collection('groups').doc(receiverUserId).update({
+      await firestore
+          .collection(FirebaseConstants.communityCollection)
+          .doc(receiverUserId)
+          .update({
         'lastMessage': text,
         'timeSent': DateTime.now().microsecondsSinceEpoch,
       });
@@ -166,7 +194,7 @@ class ChatRepository {
     if (isGroupChat) {
       //group => group Id =>  -> chat -> message id -> store message
       await firestore
-          .collection('groups')
+          .collection(FirebaseConstants.communityCollection)
           .doc(receiverUserId)
           .collection('chats')
           .doc(messageId)
@@ -196,6 +224,55 @@ class ChatRepository {
   }
 
   void sendTextMessage({
+    required BuildContext context,
+    required String text,
+    required String receiverUserId,
+    required UserModel senderUser,
+    required MessageReply? messageReply,
+    required bool isGroupChat,
+  }) async {
+    try {
+      var timeSent = DateTime.now();
+      UserModel? receiverUserData;
+      if (!isGroupChat) {
+        var userDataMap = await firestore
+            .collection(FirebaseConstants.userCollection)
+            .doc(receiverUserId)
+            .get();
+        receiverUserData = UserModel.fromMap(userDataMap.data()!);
+      }
+
+      //users => receiver id => chats => curr user id => set
+      _saveDataToContactsSubcollection(
+        senderUser,
+        receiverUserData,
+        text,
+        timeSent,
+        receiverUserId,
+        isGroupChat,
+      );
+
+      var messageId = const Uuid().v1();
+      _saveMessageToMessageSubcollection(
+        receiverUserId: receiverUserId,
+        text: text,
+        timeSent: timeSent,
+        messageId: messageId,
+        username: senderUser.name,
+        messageType: MessageEnum.text,
+        messageReply: messageReply,
+        senderUsername: senderUser.name,
+        recieverUsername: receiverUserData?.name,
+        isGroupChat: isGroupChat,
+      );
+    } catch (e) {
+      print(e.toString() + 'ndmfndfdb');
+      // ignore: use_build_context_synchronously
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void sendCommunityTextMessage({
     required BuildContext context,
     required String text,
     required String receiverUserId,
@@ -386,7 +463,7 @@ class ChatRepository {
   }
 
   /// delete message
-  
+
   void deleteMessage(
     BuildContext context,
     String recieverUserId,

@@ -127,6 +127,21 @@ class PProfileScreen extends ConsumerWidget {
                             Center(
                               child: CustomButton(
                                 borderRadius: 6.r,
+                                backColor: MyColors.white,
+                                borderColor: MyColors.appColor1,
+                                textColor: MyColors.appColor1,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.commMessageScreen);
+                                },
+                                buttonText: 'Community chat',
+                                buttonHeight: 35.h,
+                                buttonWidth: 164.w,
+                              ),
+                            ),
+                            Center(
+                              child: CustomButton(
+                                borderRadius: 6.r,
                                 backColor: MyColors.appColor1,
                                 onPressed: () {
                                   Navigator.pushNamed(context,
@@ -141,7 +156,6 @@ class PProfileScreen extends ConsumerWidget {
                                 buttonWidth: 164.w,
                               ),
                             ),
-                            padding12,
                             Center(
                               child: CustomButton(
                                 borderRadius: 6.r,

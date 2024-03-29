@@ -1,3 +1,4 @@
+import 'package:doctor_app/commons/common_widgets/community_message_screen.dart';
 import 'package:doctor_app/commons/common_widgets/message_screen.dart';
 import 'package:doctor_app/commons/common_widgets/term_condition_screen.dart';
 import 'package:doctor_app/commons/common_widgets/view_image_screen.dart';
@@ -57,6 +58,7 @@ class AppRoutes {
   static const String specialityScreen = '/specialityScreen';
   static const String doctoMainMenuScreen = '/doctoMainMenuScreen';
   static const String messageScreen = '/messageScreen';
+  static const String commMessageScreen = '/commMessageScreen';
   static const String userDoctorDetailScreen = '/userDoctorDetailScreen';
   static const String doctorEditProfileScreen = '/doctorEditProfileScreen';
   static const String doctorProfileScreen = '/doctorProfileScreen';
@@ -121,7 +123,7 @@ class AppRoutes {
         Map<String, dynamic> arguments =
             settings.arguments as Map<String, dynamic>;
         return _buildRoute(UAvaiableDayScreen(model: arguments['model']));
-        case userPredictionScreen:
+      case userPredictionScreen:
         return _buildRoute(const UPredictionScreen());
       case userEditProfileScreen:
         Map<String, dynamic> arguments =
@@ -270,6 +272,8 @@ class AppRoutes {
           name: arguments['name'],
           uid: arguments['uid'],
         ));
+      case commMessageScreen:
+        return _buildRoute(const CommunityMessageScreen());
       case userFindDoctorScreen:
         return _buildRoute(const UserFindDoctorScreen());
 

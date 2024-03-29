@@ -9,7 +9,7 @@ class FirebaseConstants {
   static String journalEntryAnsCollection = 'journal-entry-answer-collection';
   static String ownerCollection = 'owner-collection';
   static String recordCollection = 'record-collection';
-  static String commentCollection = 'comment-collection';
+  static String communityCollection = 'community-collection';
 
   static String categoryCollection = 'category-collection';
   static String productsCollection = 'products-collection';

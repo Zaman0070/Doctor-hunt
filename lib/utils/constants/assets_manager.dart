@@ -81,6 +81,7 @@ class AppAssets {
   static const String orderSvgIcon = '$svgIconsPath/order.svg';
   static const String edit00SvgIcon = '$svgIconsPath/edit00.svg';
   static const String taggsSvgIcon = '$svgIconsPath/taggs.svg';
+  static const String linkSvgIcon = '$svgIconsPath/link.svg';
 
   //png icons
   static const String backArrowIcon = '$iconPath/backArrow.png';

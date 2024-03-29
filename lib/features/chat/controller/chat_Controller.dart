@@ -7,6 +7,7 @@ import 'package:doctor_app/features/chat/repository/chat_repository.dart';
 import 'package:doctor_app/models/auth/user_model.dart';
 import 'package:doctor_app/models/message/chat_contact.dart';
 import 'package:doctor_app/models/message/chat_model.dart';
+import 'package:doctor_app/models/message/comm_chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,12 +45,21 @@ class ChatController {
     }
   }
 
+  void sendCommunityTextMessage(CommunityChatModels chat) {
+    chatRepository.sendCommunityText(chat: chat);
+    ref.read(messageReplyProvider.notifier).update((state) => null);
+  }
+
   Stream<List<ChatContact>> chatContacts() {
     return chatRepository.getChatContact();
   }
 
   Stream<List<ChatModels>> chatStream(String receiverUserId) {
     return chatRepository.getChatStream(receiverUserId);
+  }
+
+  Stream<List<CommunityChatModels>> communityChatStream() {
+    return chatRepository.getCommunityChatStream();
   }
 
   Stream<List<ChatModels>> groupChatStream(String groupId) {

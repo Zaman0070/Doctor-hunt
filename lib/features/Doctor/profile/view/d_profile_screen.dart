@@ -122,6 +122,14 @@ class DoctorProfileScreen extends ConsumerWidget {
                                   onTap: () {}),
                               padding20,
                               ProfileCard(
+                                  icon: AppAssets.linkSvgIcon,
+                                  title: 'Community Chat',
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, AppRoutes.commMessageScreen);
+                                  }),
+                              padding20,
+                              ProfileCard(
                                   icon: AppAssets.privacySvgIcon,
                                   title: 'Terms & Conditions',
                                   onTap: () {

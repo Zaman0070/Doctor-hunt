@@ -112,6 +112,14 @@ class UserProfileScreen extends ConsumerWidget {
                             }),
                         padding20,
                         ProfileCard(
+                            icon: AppAssets.linkSvgIcon,
+                            title: 'Community Chat',
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AppRoutes.commMessageScreen);
+                            }),
+                        padding20,
+                        ProfileCard(
                             icon: AppAssets.newsSvgIcon,
                             title: 'News',
                             onTap: () {}),

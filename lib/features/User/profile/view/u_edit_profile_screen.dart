@@ -128,25 +128,11 @@ class _EditProfileScreenState extends ConsumerState<UserEditProfileScreen> {
                                   ref.read(authControllerProvider.notifier);
                               final authNotiCtr =
                                   ref.read(authNotifierCtr.notifier);
-                              bool hasLast =
-                                  hasLastName(fullNameController.text);
-
-                              String phoneNo =
-                                  "${codeController.text}-${phoneNumberController.text}";
-                              if (phoneNumberController.text.trim() == "") {
-                                phoneNo = '';
-                              }
 
                               UserModel userModel = UserModel.fromMap({
                                 ...widget.userModel.toMap(),
-                                'firstName': hasLast
-                                    ? fullNameController.text.split(' ')[0]
-                                    : fullNameController.text,
-                                'lastName': hasLast
-                                    ? fullNameController.text.split(' ')[1]
-                                    : '',
+                                'name': fullNameController.text,
                                 'email': emailController.text,
-                                'phoneNumber': phoneNo,
                                 'profileImage': oldImage!,
                               });
                               await authCtr.updateCurrentUserInfo(
