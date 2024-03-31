@@ -62,6 +62,8 @@ class _UFindDoctorCardState extends ConsumerState<UFindMedCard> {
                           Container(
                             constraints: BoxConstraints(maxWidth: 170.w),
                             child: Text(widget.model.productDescription!,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
                                 style: getRegularStyle(
                                     color: MyColors.appColor1,
                                     fontSize: MyFonts.size13)),
