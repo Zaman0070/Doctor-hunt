@@ -162,7 +162,7 @@ class LocalNotificationService {
   }
 
   Future scheduleNotificationAfternoon({
-    int id = 0,
+    int id = 2,
     String? payLoad,
     required int hour,
     required int minute,
