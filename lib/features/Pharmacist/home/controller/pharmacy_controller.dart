@@ -43,7 +43,7 @@ class PharmacyController extends StateNotifier<bool> {
       showSnackBar(context, l.message);
     }, (r) {
       state = false;
-      showSnackBar(context, 'Product Creat Successfully!');
+      showSnackBar(context, 'Product Add Successfully!');
       Navigator.pop(context);
     });
   }
@@ -57,12 +57,17 @@ class PharmacyController extends StateNotifier<bool> {
   Future<void> updateProduct({
     required ProductModel model,
     required BuildContext context,
-    required String newImagePath,
+    String? newImagePath,
+    required String oldImage,
   }) async {
     state = true;
-    String image = await uploadXImage(XFile(newImagePath),
-        storageFolderName: FirebaseConstants.ownerCollection);
+   
+         String image = newImagePath != null
+        ? await uploadXImage(XFile(newImagePath),
+            storageFolderName: FirebaseConstants.ownerCollection)
+        : oldImage;
     ProductModel productModel = model.copyWith(productImage: image);
+
     final result = await _pharmacyApis.updateProduct(model: productModel);
     result.fold((l) {
       state = false;

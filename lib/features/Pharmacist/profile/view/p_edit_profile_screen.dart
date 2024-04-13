@@ -308,17 +308,10 @@ class _EditProfileScreenState extends ConsumerState<PharmacyEditProfileScreen> {
                                     ref.read(authControllerProvider.notifier);
                                 final authNotiCtr =
                                     ref.read(authNotifierCtr.notifier);
-                                bool hasLast =
-                                    hasLastName(fullNameController.text);
 
                                 UserModel userModel = UserModel.fromMap({
                                   ...widget.userModel.toMap(),
-                                  'firstName': hasLast
-                                      ? fullNameController.text.split(' ')[0]
-                                      : fullNameController.text,
-                                  'lastName': hasLast
-                                      ? fullNameController.text.split(' ')[1]
-                                      : '',
+                                  'name': fullNameController.text,
                                   'email': emailController.text,
                                   'profileImage': oldImage!,
                                 });

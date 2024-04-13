@@ -11,7 +11,6 @@ import 'package:doctor_app/models/product/products_model.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
 import 'package:doctor_app/utils/constants/assets_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -153,6 +152,7 @@ class _PAddProductScreenState extends ConsumerState<PAddProductScreen> {
                         ),
                         padding6,
                         CustomTextField(
+                          inputType: TextInputType.number,
                           borderRadius: 12.r,
                           controller: priceController,
                           hintText: 'Rs. Price',
@@ -234,15 +234,16 @@ class _PAddProductScreenState extends ConsumerState<PAddProductScreen> {
   updateProduct() {
     if (key.currentState!.validate()) {
       ref.watch(pharmacyControllerProvider.notifier).updateProduct(
-            model: ProductModel.fromMap({
-              ...widget.model!.toMap(),
-              'productName': fullNameController.text,
-              'productPrice': priceController.text,
-              'productDescription': descriptionController.text,
-            }),
-            context: context,
-            newImagePath: newImagePath!,
-          );
+          model: ProductModel.fromMap({
+            ...widget.model!.toMap(),
+            'productName': fullNameController.text,
+            'productPrice': priceController.text,
+            'productDescription': descriptionController.text,
+            "productImage": oldImage
+          }),
+          context: context,
+          newImagePath: newImagePath,
+          oldImage: oldImage!);
     }
   }
 }
