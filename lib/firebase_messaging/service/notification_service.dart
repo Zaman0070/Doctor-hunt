@@ -85,13 +85,12 @@ class LocalNotificationService {
       ),
       iOS: DarwinNotificationDetails());
 
-       Future scheduleNotificationStartss({
+  Future scheduleNotificationStartss({
     int id = 3,
     String? payLoad,
- 
   }) async {
-    var scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
-        DateTime.now().day, 23, 2);
+    var scheduledTime = DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 2);
     return _flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       'Good Morning',
@@ -147,6 +146,32 @@ class LocalNotificationService {
     return _flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       'Good Evening',
+      'Have you taken your medicine?',
+      tz.TZDateTime.from(
+        scheduledTime,
+        tz.local,
+      ),
+      platformNotificationDetails,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      // ignore: deprecated_member_use
+      androidAllowWhileIdle: true,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: payLoad,
+    );
+  }
+
+  Future scheduleNotificationAfternoon({
+    int id = 0,
+    String? payLoad,
+    required int hour,
+    required int minute,
+  }) async {
+    var scheduledTime = DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day, hour, minute);
+    return _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      'Good Afternoon',
       'Have you taken your medicine?',
       tz.TZDateTime.from(
         scheduledTime,

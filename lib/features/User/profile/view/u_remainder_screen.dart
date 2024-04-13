@@ -21,16 +21,19 @@ class UserRemainderScreen extends ConsumerStatefulWidget {
 
 class _UserRemainderScreenState extends ConsumerState<UserRemainderScreen> {
   SharePref sharePre = SharePref();
-  bool isEnable = false;
+  bool isEnable2Time = false;
+  bool isEnable3Time = false;
+  bool isMute = false;
   int mHour = 0;
   int mMinute = 0;
   int eHour = 0;
   int eMinute = 0;
   TimeOfDay? morningTime;
   TimeOfDay? eveningTime;
+  TimeOfDay? afternoonTime;
 
   checkEnable() async {
-    isEnable = await sharePre.getRemainder('isEnable');
+    isEnable2Time = await sharePre.getRemainder('isEnable');
     setState(() {});
   }
 
@@ -92,14 +95,14 @@ class _UserRemainderScreenState extends ConsumerState<UserRemainderScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Set Remainder',
+                      'Mute All Notification',
                       style: getMediumStyle(
-                          color: MyColors.black, fontSize: MyFonts.size16),
+                          color: MyColors.black, fontSize: MyFonts.size14),
                     ),
                     LoadSwitch(
                       height: 23.h,
                       width: 38.33.w,
-                      value: isEnable,
+                      value: isMute,
                       future: () async {
                         await Future.delayed(const Duration(seconds: 1));
                         return true;
@@ -115,9 +118,57 @@ class _UserRemainderScreenState extends ConsumerState<UserRemainderScreen> {
                       style: SpinStyle.material,
                       onChange: (v) async {
                         setState(() {
-                          isEnable = isEnable ? false : true;
+                          isMute = isMute ? false : true;
+                          isEnable2Time = false;
+                          isEnable3Time = false;
                         });
-                        await sharePre.isRemainder(isEnable, 'isEnable');
+                        await sharePre.isRemainder(isEnable2Time, 'isEnable');
+                        await sharePre.saveMorningTime(
+                            [0.toString(), 0.toString()], 'morning');
+                        await sharePre.saveEveningTime(
+                            [0.toString(), 0.toString()], 'evening');
+                        await sharePre.saveAfternoonTime(
+                            [0.toString(), 0.toString()], 'afternoon');
+                      },
+                      onTap: (v) {
+                        print('Tapping while value is $v');
+                      },
+                    ),
+                  ],
+                ),
+                padding16,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Set Remainder 2 Times a Day',
+                      style: getMediumStyle(
+                          color: MyColors.black, fontSize: MyFonts.size14),
+                    ),
+                    LoadSwitch(
+                      height: 23.h,
+                      width: 38.33.w,
+                      value: isEnable2Time,
+                      future: () async {
+                        await Future.delayed(const Duration(seconds: 1));
+                        return true;
+                      },
+                      spinColor: (v) => MyColors.appColor1,
+                      switchDecoration: (bool value, bool value2) =>
+                          BoxDecoration(
+                        color: value
+                            ? MyColors.appColor1
+                            : MyColors.lightContainerColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      style: SpinStyle.material,
+                      onChange: (v) async {
+                        setState(() {
+                          isEnable2Time = isEnable2Time ? false : true;
+                          isEnable3Time = false;
+                          isMute = false;
+                        });
+                        await sharePre.isRemainder(isEnable2Time, 'isEnable');
                         await sharePre.saveMorningTime([
                           ctr.from.hour.toString(),
                           ctr.from.minute.toString()
@@ -132,69 +183,160 @@ class _UserRemainderScreenState extends ConsumerState<UserRemainderScreen> {
                     ),
                   ],
                 ),
+                padding16,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Set Remainder 3 Times a Day',
+                      style: getMediumStyle(
+                          color: MyColors.black, fontSize: MyFonts.size14),
+                    ),
+                    LoadSwitch(
+                      height: 23.h,
+                      width: 38.33.w,
+                      value: isEnable3Time,
+                      future: () async {
+                        await Future.delayed(const Duration(seconds: 1));
+                        return true;
+                      },
+                      spinColor: (v) => MyColors.appColor1,
+                      switchDecoration: (bool value, bool value2) =>
+                          BoxDecoration(
+                        color: value
+                            ? MyColors.appColor1
+                            : MyColors.lightContainerColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      style: SpinStyle.material,
+                      onChange: (v) async {
+                        setState(() {
+                          isEnable3Time = isEnable3Time ? false : true;
+                          isEnable2Time = false;
+                          isMute = false;
+                        });
+                        await sharePre.isRemainder(isEnable3Time, 'isEnable');
+                        await sharePre.saveMorningTime([
+                          ctr.from.hour.toString(),
+                          ctr.from.minute.toString()
+                        ], 'morning');
+
+                        await sharePre.saveAfternoonTime([
+                          ctr.afternoon.hour.toString(),
+                          ctr.afternoon.minute.toString()
+                        ], 'afternoon');
+                        await sharePre.saveEveningTime(
+                            [ctr.to.hour.toString(), ctr.to.minute.toString()],
+                            'evening');
+                      },
+                      onTap: (v) {
+                        print('Tapping while value is $v');
+                      },
+                    ),
+                  ],
+                ),
                 padding32,
-                isEnable
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                isEnable2Time || isEnable3Time
+                    ? Column(
                         children: [
-                          InkWell(
-                            onTap: () async {
-                              ctr
-                                  .selectTimeFrom(context)
-                                  .whenComplete(() => setState(() {
-                                        morningTime = ctr.from;
-                                      }));
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  ctr
+                                      .selectTimeFrom(context)
+                                      .whenComplete(() => setState(() {
+                                            morningTime =
+                                                isEnable2Time ? ctr.from : null;
+                                          }));
 
-                              await sharePre.updateMorningTime([
-                                ctr.from.hour.toString(),
-                                ctr.from.minute.toString()
-                              ], 'morning');
-                            },
-                            child: Container(
-                              height: 45.h,
-                              width: 165.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4.r),
-                                  border: Border.all(
-                                      color: MyColors.lightGreyColor)),
-                              child: Center(
-                                  child: Text(
-                                'Morning: ${morningTime != null ? morningTime!.format(context) : ctr.from.format(context)}',
-                                style: getMediumStyle(
-                                    color: MyColors.bodyTextColor,
-                                    fontSize: MyFonts.size15),
-                              )),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              ctr
-                                  .selectTimeTo(context)
-                                  .whenComplete(() => setState(() {
-                                        eveningTime = ctr.to;
-                                      }));
+                                  await sharePre.updateMorningTime([
+                                    ctr.from.hour.toString(),
+                                    ctr.from.minute.toString()
+                                  ], 'morning');
+                                },
+                                child: Container(
+                                  height: 45.h,
+                                  width: 165.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.r),
+                                      border: Border.all(
+                                          color: MyColors.lightGreyColor)),
+                                  child: Center(
+                                      child: Text(
+                                    'Morning: ${morningTime != null ? morningTime!.format(context) : ctr.from.format(context)}',
+                                    style: getMediumStyle(
+                                        color: MyColors.bodyTextColor,
+                                        fontSize: MyFonts.size15),
+                                  )),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  ctr
+                                      .selectTimeTo(context)
+                                      .whenComplete(() => setState(() {
+                                            eveningTime =
+                                                isEnable2Time ? ctr.to : null;
+                                          }));
 
-                              await sharePre.updateEveningTime([
-                                ctr.to.hour.toString(),
-                                ctr.to.minute.toString()
-                              ], 'evening');
-                            },
-                            child: Container(
-                              height: 45.h,
-                              width: 165.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4.r),
-                                  border: Border.all(
-                                      color: MyColors.lightGreyColor)),
-                              child: Center(
-                                  child: Text(
-                                'Evening: ${eveningTime != null ? eveningTime!.format(context) : ctr.to.format(context)}',
-                                style: getMediumStyle(
-                                    color: MyColors.bodyTextColor,
-                                    fontSize: MyFonts.size15),
-                              )),
-                            ),
+                                  await sharePre.updateEveningTime([
+                                    ctr.to.hour.toString(),
+                                    ctr.to.minute.toString()
+                                  ], 'evening');
+                                },
+                                child: Container(
+                                  height: 45.h,
+                                  width: 165.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4.r),
+                                      border: Border.all(
+                                          color: MyColors.lightGreyColor)),
+                                  child: Center(
+                                      child: Text(
+                                    'Evening: ${eveningTime != null ? eveningTime!.format(context) : ctr.to.format(context)}',
+                                    style: getMediumStyle(
+                                        color: MyColors.bodyTextColor,
+                                        fontSize: MyFonts.size15),
+                                  )),
+                                ),
+                              ),
+                            ],
                           ),
+                          padding12,
+                          isEnable3Time
+                              ? InkWell(
+                                  onTap: () async {
+                                    ctr
+                                        .selectTimeTo(context)
+                                        .whenComplete(() => setState(() {
+                                              afternoonTime =
+                                                  isEnable2Time ? ctr.to : null;
+                                            }));
+
+                                    await sharePre.updateEveningTime([
+                                      ctr.afternoon.hour.toString(),
+                                      ctr.afternoon.minute.toString()
+                                    ], 'afternoon');
+                                  },
+                                  child: Container(
+                                    height: 45.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.r),
+                                        border: Border.all(
+                                            color: MyColors.lightGreyColor)),
+                                    child: Center(
+                                        child: Text(
+                                      'Afternoon: ${afternoonTime != null ? afternoonTime!.format(context) : ctr.afternoon.format(context)}',
+                                      style: getMediumStyle(
+                                          color: MyColors.bodyTextColor,
+                                          fontSize: MyFonts.size15),
+                                    )),
+                                  ),
+                                )
+                              : Container(),
                         ],
                       )
                     : Container(),

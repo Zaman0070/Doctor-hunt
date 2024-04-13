@@ -26,6 +26,11 @@ class SharePref {
     sharedPreferences.setStringList(key!, time);
   }
 
+  saveAfternoonTime(List<String> time, String? key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setStringList(key!, time);
+  }
+
   isRemainder(bool isEnable, String? key) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool(key!, isEnable);
@@ -41,6 +46,12 @@ class SharePref {
     return sharedPreferences.getStringList(key) ?? [];
   }
 
+  // get afternoon time
+  Future<List<String>> getAfternoonTime(String key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getStringList(key) ?? [];
+  }
+
   Future<List<String>> getEveningTime(String key) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getStringList(key) ?? [];
@@ -48,6 +59,11 @@ class SharePref {
 
   /// update evening time
   Future<void> updateEveningTime(List<String> time, String key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setStringList(key, time);
+  }
+
+  Future<void> updateAfternoonTime(List<String> time, String key) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setStringList(key, time);
   }

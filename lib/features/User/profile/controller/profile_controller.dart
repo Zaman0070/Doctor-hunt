@@ -15,6 +15,9 @@ class UserProdileNotiController extends ChangeNotifier {
 
   TimeOfDay from = TimeOfDay.now();
   TimeOfDay to = TimeOfDay.now();
+  TimeOfDay afternoon = TimeOfDay.now();
+
+
 
   Future<void> selectTimeFrom(BuildContext context) async {
     TimeOfDay? picked = await showTimePicker(
@@ -38,6 +41,19 @@ class UserProdileNotiController extends ChangeNotifier {
       to = picked;
       await LocalNotificationService()
           .scheduleNotificationEnd(hour: picked.hour, minute: picked.minute);
+      notifyListeners();
+    }
+  }
+
+  Future<void> selectTimeAfternoon(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null && picked != TimeOfDay.now()) {
+      afternoon = picked;
+      await LocalNotificationService()
+          .scheduleNotificationAfternoon(hour: picked.hour, minute: picked.minute);
       notifyListeners();
     }
   }
