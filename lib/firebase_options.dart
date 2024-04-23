@@ -44,12 +44,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAhGeed2g5V0FD2ieRirAesg4A6t6HQirY',
-    appId: '1:968402792650:web:75b06872acc67707878433',
+    apiKey: 'AIzaSyAheHM7AsQVafAkPd_X2FqTCpAzNPdt03s',
+    appId: '1:902001643985:android:cffb7da9969b6aa6c8d0f0',
     messagingSenderId: '968402792650',
-    projectId: 'theascensionapp-3d7ca',
-    authDomain: 'theascensionapp-3d7ca.firebaseapp.com',
-    storageBucket: 'theascensionapp-3d7ca.appspot.com',
+    projectId: 'doctor-hunt-367f7',
+    authDomain: 'doctor-hunt-367f7.firebaseapp.com',
+    storageBucket: 'doctor-hunt-367f7.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(

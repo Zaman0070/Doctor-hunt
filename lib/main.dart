@@ -26,6 +26,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+    
   );
   SharePref sharePref = SharePref();
   String? type = await sharePref.getType('login');

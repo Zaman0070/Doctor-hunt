@@ -6,7 +6,6 @@ import 'package:doctor_app/commons/common_widgets/custom_button.dart';
 import 'package:doctor_app/features/auth/controller/auth_notifier_controller.dart';
 import 'package:doctor_app/routes/route_manager.dart';
 import 'package:doctor_app/utils/constants/app_constants.dart';
-import 'package:flutter/material.dart';
 
 class AvailabiltyScreen extends ConsumerStatefulWidget {
   const AvailabiltyScreen({super.key});
